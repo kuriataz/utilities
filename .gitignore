@@ -1,0 +1,10 @@
+# IDE configuration files
+.vscode/
+build/
+
+# Artefacts
+sort
+sort.exe
+
+# Test files
+numbers.txt
