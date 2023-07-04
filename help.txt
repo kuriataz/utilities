@@ -1,0 +1,4 @@
+you need help
+use --reverse or -r to sort from the biggest to the smallest
+
+use --output [FILE_NAME] or -o [FILE_NAME] to write output to the FILE_NAME
