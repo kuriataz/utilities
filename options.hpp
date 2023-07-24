@@ -11,8 +11,8 @@
 
 struct Option_Definition
 {
-  std::string_view short_name;
-  std::string_view long_name;
+  std::string short_name;
+  std::string long_name;
   int32_t id = 0;
   bool mandatory_argument = false;
 };
@@ -20,7 +20,7 @@ struct Option_Definition
 struct Option
 {
   int32_t id = 0;
-  std::string_view value;
+  std::string value;
 
   public:
   Option(int32_t id)
@@ -42,5 +42,5 @@ struct Parse_Result
 };
 
 
-Parse_Result parse_arguments(int argc, char **argv);
+Parse_Result parse_arguments(int argc, char **argv, const Option_Definition defs[]);
 

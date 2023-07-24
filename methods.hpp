@@ -12,10 +12,10 @@
 
 void help();
 
-bool reverse(bool);
+void reverse(bool is_rev);
 
-void output(std::string, std::string, bool);
+void output(std::string &output_file_name, std::string value, bool is_output);
 
-void stable(std::string);
+void stable(std::string &sort_type);
 
-void quick(std::string);
+void quick(std::string &sort_type);

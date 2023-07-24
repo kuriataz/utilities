@@ -6,9 +6,9 @@
 #include <vector>
 #include <string_view>
 #include <optional>
-#include <options.hpp> // wiem ze zle
+#include "options.hpp" // wiem ze zle
 #include "methods.hpp"
-#include <sort_types.hpp>
+#include "sort_types.hpp"
 
 
 //TO DO:
@@ -45,6 +45,7 @@ int main(int argc, char **argv)
   bool is_output = false;
   std::string output_file_name;
   int32_t flags_counter = 0;
+  std::string sort_type;
 
   Option_Definition const option_defs[] = {
     Option_Definition{"-h", "--help", 1, false},
@@ -55,7 +56,7 @@ int main(int argc, char **argv)
   };
 
 
-  std::optional<Parse_Result> result = parse_arguments(argc, argv);
+  std::optional<Parse_Result> result = parse_arguments(argc, argv, option_defs);
 
   if(result)
   {
@@ -73,14 +74,14 @@ int main(int argc, char **argv)
           break;
         case 3:
           flags_counter++;
-          output(&output_file_name, option.value, &is_output);
+          output(output_file_name, option.value, &is_output);
         case 4:
           flags_counter++;
-          stable();
+          stable(sort_type);
           break;
         case 5:
           flags_counter++;
-          quick();
+          quick(sort_type);
           break;
       }
     }
@@ -129,7 +130,7 @@ while (*stream)
 
 std::vector<int> ints = getNumberFromString(input);
 
-bubbleSort(ints, ints.size());
+bubbleSort(ints, ints.size(), is_reverse);
 
 if (!is_output)
 {

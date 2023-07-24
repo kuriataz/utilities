@@ -1,59 +1,119 @@
 #include <iostream>
 #include <cstdio>
+#include "sort_types.hpp"
 
 
-void bubbleSort(std::vector<int> &vec, int n)
+void bubbleSort(std::vector<int> vec, int n, bool is_rev)
 {
   int i, j;
-  for (i = 0; i < n - 1; i++)
+
+  if (is_rev)
   {
-    for (j = 0; j < n - i - 1; j++)
+      for (i = 0; i < n - 1; i++)
     {
-      if (vec[j] > vec[j + 1])
-      {
-        int temp = vec[j];
-        vec[j] = vec[j + 1];
-        vec[j + 1] = temp;
-      }
+        for (j = 0; j < n - i - 1; j++)
+        {
+            if (vec[j] < vec[j + 1])
+            {
+                int temp = vec[j];
+                vec[j] = vec[j + 1];
+                vec[j + 1] = temp;
+            }
+        }
+    }
+  }
+  else
+  {
+    for (i = 0; i < n - 1; i++)
+    {
+        for (j = 0; j < n - i - 1; j++)
+        {
+        if (vec[j] > vec[j + 1])
+        {
+            int temp = vec[j];
+            vec[j] = vec[j + 1];
+            vec[j + 1] = temp;
+        }
+        }
     }
   }
 }
 
-void insertionSort(std::vector<int> &vec)
+void insertionSort(std::vector<int> &vec, bool is_rev)
 {
-    for (int i = 1; i < vec.length; i++)
+    if (is_rev)
     {
-        for (int j = i; j > 0; j--)
+        for (int i = 1; i < vec.size(); i++)
         {
-            if (vec[j] < vec[j - 1])
+            for (int j = i; j > 0; j--)
             {
-                swap(vec[j], vec[j - 1]);
+                if (vec[j] < vec[j - 1])
+                {
+                    std::swap(vec[j], vec[j - 1]);
+                }
+                else
+                {
+                    break;
+                }
             }
-            else
+        }
+    }
+    else
+    {
+        for (int i = 1; i < vec.size(); i++)
+        {
+            for (int j = i; j > 0; j--)
             {
-                break;
+                if (vec[j] < vec[j - 1])
+                {
+                    std::swap(vec[j], vec[j - 1]);
+                }
+                else
+                {
+                    break;
+                }
             }
         }
     }
 }
 
-void quickSort(std::string<int> &vec, int smaller, int greater)
+void quickSort(std::vector<int> vec, int smaller, int greater, bool is_rev)
 {
     int size = sizeof(vec);
     int pivot = vec[size];
 
-    for (int i = 0; i < size; i++)
+    if (is_rev)
     {
-        if (vec[i] >= pivot)
+        for (int i = 0; i < size; i++)
         {
-            greater++
+            if (vec[i] <= pivot)
+            {
+                greater++;
+            }
+            else
+            {
+                std::swap(vec[i], vec[smaller + 1]);
+                smaller++;
+                greater++;
+            }
         }
-        else
-        {
-            swap(vec[i], vec[smaller + 1]);
-            smaller++;
-            greater++;
-        }
+        quickSort(vec, smaller, greater, is_rev);
     }
-    quickSort(std::string<int> &vec, int smaller, int greater)
+    else
+    {
+        for (int i = 0; i < size; i++)
+        {
+            if (vec[i] >= pivot)
+            {
+                greater++;
+            }
+            else
+            {
+                std::swap(vec[i], vec[smaller + 1]);
+                smaller++;
+                greater++;
+            }
+        }
+        quickSort(vec, smaller, greater, is_rev);
+    }
 }

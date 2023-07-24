@@ -33,12 +33,12 @@ void help()
     std::cout << help_output << std::endl;
 }
 
-void reverse(bool &is_reverse)
+void reverse(bool is_reverse)
 {
     is_reverse = true;
 }
 
-void output(std::string &output_file_name, std::string value, bool &is_output)
+void output(std::string &output_file_name, std::string value, bool is_output)
 {
     is_output = true;
     output_file_name = value;

@@ -40,14 +40,14 @@ struct Parse_Result
 };*/
 
 
-Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[]) // NEST :(
+Parse_Result parse_arguments(int argc, char **argv, const Option_Definition defs[]) // NEST :(
 {
   Parse_Result *result;
   for (int i = 1; i < argc; i++)
   {
     for (int j = 0; j < sizeof(defs); j++)
     {
-      if ((strcmp(argv[i], defs[j].long_name) == 0) || (strcmp(argv[i], defs[j].short_name) == 0))
+      if ((strcmp(argv[i], defs[j].long_name.c_str()) == 0) || (strcmp(argv[i], defs[j].short_name.c_str()) == 0))
       {
         if (defs[j].mandatory_argument == true)
         {
@@ -67,4 +67,5 @@ Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[]) //
       }
     }
   }
+  return *result;
 }
