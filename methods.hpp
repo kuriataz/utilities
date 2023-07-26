@@ -9,13 +9,14 @@
 #include <string_view>
 #include "options.hpp"
 
+void normal(std::vector<int> ints);
 
 void help();
 
-void reverse(bool is_rev);
+void reverse(std::vector<int> &ints, bool is_sorted);
 
-void output(std::string &output_file_name, std::string value, bool is_output);
+void output(std::vector<int> &ints, std::string value, bool is_sorted);
 
-void stable(std::string &sort_type);
+void stable(std::vector<int> &ints);
 
-void quick(std::string &sort_type);
+void quick(std::vector<int> &ints);

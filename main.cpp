@@ -6,15 +6,9 @@
 #include <vector>
 #include <string_view>
 #include <optional>
-#include "options.hpp" // wiem ze zle
+#include "options.hpp"
 #include "methods.hpp"
 #include "sort_types.hpp"
-
-
-//TO DO:
-// --stable - insertion sort
-//  --quick - quick sort
-
 
 std::vector<int> getNumberFromString(std::string s)
 {
@@ -35,19 +29,22 @@ std::vector<int> getNumberFromString(std::string s)
 }
 
 
-
-// std::optional<Parse_Result>
-// return std::nullopt
-
 int main(int argc, char **argv)
 {
-  bool is_reverse = false;
-  bool is_output = false;
+  if (argc > 1 && ((strcmp(argv[1], "-h") == 0) || (strcmp(argv[1], "--help") == 0)))
+  {
+    help();
+    return 0;
+  }
   std::string output_file_name;
   int32_t flags_counter = 0;
   std::string sort_type;
 
-  Option_Definition const option_defs[] = {
+  std::ofstream output_file;
+  std::istream *stream = &std::cin;
+  std::ifstream file;
+
+  Option_Definition option_defs[] = {
     Option_Definition{"-h", "--help", 1, false},
     Option_Definition{"-r", "--reverse", 2, false},
     Option_Definition{"-o", "--output", 3, true},
@@ -55,124 +52,71 @@ int main(int argc, char **argv)
     Option_Definition{"-q", "--quick", 5, false}
   };
 
+  Parse_Result result;
+  result = parse_arguments(argc, argv, option_defs, 5);
 
-  std::optional<Parse_Result> result = parse_arguments(argc, argv, option_defs);
 
-  if(result)
+  // from file
+  if (!(result.arguments.empty()))
   {
-    for(Option const& option: result->options)
+    std::string arg(result.arguments[0]);
+    file.open(arg);
+    if (!file.is_open())
+    {
+      std::cerr << "Couldn't open file\n";
+      return 1;
+    }
+    stream = &file;
+  }
+  std::string input;
+  std::string input_line;
+  while (*stream)
+  {
+    if (!input.empty())
+    {
+      input.append(" ");
+    }
+    input.append(input_line);
+    getline(*stream, input_line);
+  }
+
+  std::vector<int> ints = getNumberFromString(input);
+  bool is_sorted = false;
+
+  if(!(result.options.empty()))
+  {
+    for(Option const& option: result.options)
     {
       switch(option.id)
       {
-        case 1: // -h, --help
-          flags_counter++;
+        case 1:
           help();
           break;
-        case 2:
-          flags_counter++;
-          reverse(&is_reverse); // why not *is_reverse??
-          break;
-        case 3:
-          flags_counter++;
-          output(output_file_name, option.value, &is_output);
         case 4:
-          flags_counter++;
-          stable(sort_type);
+          stable(ints);
+          is_sorted = true;
           break;
         case 5:
-          flags_counter++;
-          quick(sort_type);
+          quick(ints);
+          is_sorted = true;
           break;
+        case 2:
+          reverse(ints, is_sorted);
+          is_sorted = true;
+          break;
+        case 3:
+          output(ints, option.value, is_sorted);
+          return 0;
       }
     }
   }
-  // TODO: Add options:
-  //        -h, --help
-  //        -r, --reverse
-  //        -o, --output  FILE
-
-  // Option{"-h", "--help", 1};
-  // Option{"-r", "--reverse", 2};
-  // Option{"-o", "--output", 3};
-
-  std::ofstream output_file;
-  std::istream *stream = &std::cin;
-  std::ifstream file;
-
-  // input from file
-  if (argc > 1)
+  if (!is_sorted)
   {
-    if (argc > (flags_counter + 1))
-    {
-      std::cout << "from file" << std::endl;
-      std::string arg(argv[flags_counter + 1]);
-      file.open(arg);
-      if (!file.is_open())
-      {
-        std::cerr << "Couldn't open file\n";
-        return 1;
-      }
-      stream = &file;
+    bubbleSort(ints, ints.size());
   }
-}
-
-std::string input;
-std::string input_line;
-while (*stream)
-{
-  if (!input.empty())
+  for (int i = 0; i < ints.size(); i++)
   {
-    input.append(" ");
+    std::cout << ints.at(i) << std::endl;
   }
-  input.append(input_line);
-  getline(*stream, input_line);
-}
-
-std::vector<int> ints = getNumberFromString(input);
-
-bubbleSort(ints, ints.size(), is_reverse);
-
-if (!is_output)
-{
-  if (!is_reverse)
-  {
-    for (int i = 0; i < ints.size(); i++)
-    {
-      std::cout << ints.at(i) << std::endl;
-    }
-  }
-  else
-  {
-    for (int i = 1; i <= ints.size(); i++)
-    {
-      std::cout << ints.at(ints.size() - i) << std::endl;
-    }
-  }
-}
-else
-{
-  output_file.open(output_file_name);
-  // output_file.open("output.txt");
-  if (!output_file.is_open())
-  {
-    std::cerr << "wrong file\n";
-    std::cout << output_file_name << std::endl;
-  }
-  if (!is_reverse)
-  {
-    for (int i = 0; i < ints.size(); i++)
-    {
-      output_file << ints.at(i) << std::endl;
-    }
-  }
-  else
-  {
-    for (int i = 1; i <= ints.size(); i++)
-    {
-      output_file << ints.at(ints.size() - i) << std::endl;
-    }
-  }
-  output_file.close();
-}
 return 0;
 }

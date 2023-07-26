@@ -42,5 +42,5 @@ struct Parse_Result
 };
 
 
-Parse_Result parse_arguments(int argc, char **argv, const Option_Definition defs[]);
+Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[], int size);
 

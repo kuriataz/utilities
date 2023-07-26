@@ -5,8 +5,17 @@
 #include <string.h>
 #include <vector>
 #include <string_view>
+#include <algorithm>
 #include "methods.hpp"
+#include "sort_types.hpp"
 
+void normal(std::vector<int> ints)
+{
+    for (int i = 0; i < ints.size(); i++)
+    {
+      std::cout << ints.at(i) << std::endl;
+    }
+}
 
 void help()
 {
@@ -33,23 +42,48 @@ void help()
     std::cout << help_output << std::endl;
 }
 
-void reverse(bool is_reverse)
+void reverse(std::vector<int> &ints, bool is_sorted)
 {
-    is_reverse = true;
+    if(!is_sorted)
+    {
+        bubbleSort(ints, ints.size());
+    }
+    int temp = 0;
+    for (int i = 0; i < (ints.size() / 2) + 1; i++)
+    {
+        std::swap(ints[i], ints[ints.size() - i - 1]);
+    }
 }
 
-void output(std::string &output_file_name, std::string value, bool is_output)
+void output(std::vector<int> &ints, std::string value, bool is_sorted)
 {
-    is_output = true;
-    output_file_name = value;
+    std::ofstream output_file;
+    output_file.open(value);
+    if (!output_file.is_open())
+    {
+        std::cerr << "wrong file\n";
+        std::cout << value << std::endl;
+    }
+    else
+    {
+        if(!is_sorted)
+        {
+            bubbleSort(ints, ints.size());
+        }
+        for (int i = 0; i < ints.size(); i++)
+        {
+        output_file << ints.at(i) << std::endl;
+        }
+    }
+    output_file.close();
 }
 
-void stable(std::string &sort_type)
+void stable(std::vector<int> &ints)
 {
-    sort_type = "insertSort";
+    insertionSort(ints);
 }
 
-void quick(std::string &sort_type)
+void quick(std::vector<int> &ints)
 {
-    sort_type = "quickSort";
+    quickSort(ints, 0, 0);
 }
