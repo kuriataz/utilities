@@ -85,5 +85,6 @@ void stable(std::vector<int> &ints)
 
 void quick(std::vector<int> &ints)
 {
-    quickSort(ints, 0, 0);
+    int size = ints.size();
+    quickSort(ints, 0, size - 1);
 }

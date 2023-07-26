@@ -42,22 +42,32 @@ void insertionSort(std::vector<int> &vec)
 
 void quickSort(std::vector<int> &vec, int smaller, int greater)
 {
-    int size = sizeof(vec);
-    int pivot = vec[size];
+    if (smaller >= greater)
+    {
+        return;
+    }
 
-    for (int i = 0; i < size; i++)
+    int left = smaller;
+    int right = smaller;
+    int pivot = vec[greater];
+
+    for (int i = smaller; i <= greater; i++)
     {
         if (vec[i] >= pivot)
         {
-            greater++;
+            right++;
         }
         else
         {
-            std::swap(vec[i], vec[smaller + 1]);
-            smaller++;
-            greater++;
+            std::swap(vec[i], vec[left]);
+            right++;
+            left++;
         }
     }
+    std::swap(vec[greater], vec[left]);
+
+    
+    quickSort(vec, 0, left - 1);
+    quickSort(vec, left + 1, greater);
     std::cout << "quick" << std::endl;
-    quickSort(vec, smaller, greater);
 }
