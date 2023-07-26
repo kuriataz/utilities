@@ -36,13 +36,6 @@ int main(int argc, char **argv)
     help();
     return 0;
   }
-  std::string output_file_name;
-  int32_t flags_counter = 0;
-  std::string sort_type;
-
-  std::ofstream output_file;
-  std::istream *stream = &std::cin;
-  std::ifstream file;
 
   Option_Definition option_defs[] = {
     Option_Definition{"-h", "--help", 1, false},
@@ -52,10 +45,16 @@ int main(int argc, char **argv)
     Option_Definition{"-q", "--quick", 5, false}
   };
 
-  Parse_Result result;
-  result = parse_arguments(argc, argv, option_defs, 5);
+  Parse_Result result = parse_arguments(argc, argv, option_defs, 5);
 
+  std::string output_file_name;
+  int32_t flags_counter = 0;
+  std::string sort_type;
 
+  std::ofstream output_file;
+  std::istream *stream = &std::cin;
+  std::ifstream file;
+  
   // from file
   if (!(result.arguments.empty()))
   {

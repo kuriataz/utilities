@@ -9,8 +9,6 @@
 #include <string_view>
 #include "options.hpp"
 
-void normal(std::vector<int> ints);
-
 void help();
 
 void reverse(std::vector<int> &ints, bool is_sorted);

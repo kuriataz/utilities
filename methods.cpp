@@ -9,14 +9,6 @@
 #include "methods.hpp"
 #include "sort_types.hpp"
 
-void normal(std::vector<int> ints)
-{
-    for (int i = 0; i < ints.size(); i++)
-    {
-      std::cout << ints.at(i) << std::endl;
-    }
-}
-
 void help()
 {
     std::ifstream help_file;
@@ -42,7 +34,7 @@ void help()
     std::cout << help_output << std::endl;
 }
 
-void reverse(std::vector<int> &ints, bool is_sorted)
+void std::reverse(std::vector<int> &ints, bool is_sorted)
 {
     if(!is_sorted)
     {

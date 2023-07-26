@@ -40,7 +40,7 @@ struct Parse_Result
 };*/
 
 
-Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[], int size) // NEST :(
+Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[], int size)
 {
   Parse_Result result;
   if (argc < 2)
