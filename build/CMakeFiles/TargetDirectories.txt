@@ -1,3 +1,0 @@
-/home/zosia/documents/Sort/build/CMakeFiles/rebuild_cache.dir
-/home/zosia/documents/Sort/build/CMakeFiles/edit_cache.dir
-/home/zosia/documents/Sort/build/CMakeFiles/sort.dir
