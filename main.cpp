@@ -82,8 +82,6 @@ int main(int argc, char **argv) {
   // 1 - insertionSort
   // 2 - quickSort
   int algorithm = 0;
-  bool is_reverse = false;
-  bool is_output = false;
 
   if (!(result.options.empty())) {
     for (Option const &option : result.options) {
