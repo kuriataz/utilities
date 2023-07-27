@@ -10,32 +10,26 @@
 #include <vector>
 
 void help() {
-  std::cout << "you need help\n
-          use-- reverse or
-      -r to sort from the biggest to the smallest\n use-- output[FILE_NAME] or
-      -o[FILE_NAME] to write output to the FILE_NAME " << std::endl;
+  std::cout << "you need help\nuse --reverse or-r to sort from the biggest to the smallest\n use --output[FILE_NAME] or -o[FILE_NAME] to write output to the FILE_NAME " << std::endl;
 }
 
-void reverse(std::vector<int> &ints, bool is_sorted) {
-  if (!is_sorted) {
-    bubbleSort(ints, ints.size());
-  }
-  int temp = 0;
-  for (int i = 0; i < (ints.size() / 2) + 1; i++) {
-    std::swap(ints[i], ints[ints.size() - i - 1]);
-  }
-}
+// void reverse(std::vector<int> &ints, bool is_sorted) {
+//   if (!is_sorted) {
+//     bubbleSort(ints, ints.size());
+//   }
+//   int temp = 0;
+//   for (int i = 0; i < (ints.size() / 2) + 1; i++) {
+//     std::swap(ints[i], ints[ints.size() - i - 1]);
+//   }
+// }
 
-void output(std::vector<int> &ints, std::string value, bool is_sorted) {
+void output(std::vector<int> &ints, std::string value) {
   std::ofstream output_file;
   output_file.open(value);
   if (!output_file.is_open()) {
     std::cerr << "wrong file\n";
     std::cout << value << std::endl;
   } else {
-    if (!is_sorted) {
-      bubbleSort(ints, ints.size());
-    }
     for (int i = 0; i < ints.size(); i++) {
       output_file << ints.at(i) << std::endl;
     }

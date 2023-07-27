@@ -11,9 +11,9 @@
 
 void help();
 
-void reverse(std::vector<int> &ints, bool is_sorted);
+// void reverse(std::vector<int> &ints);
 
-void output(std::vector<int> &ints, std::string value, bool is_sorted);
+void output(std::vector<int> &ints, std::string value);
 
 void stable(std::vector<int> &ints);
 

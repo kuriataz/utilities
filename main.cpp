@@ -9,6 +9,7 @@
 #include <string.h>
 #include <string_view>
 #include <vector>
+#include <algorithm>
 
 std::vector<int> getNumberFromString(std::string s) {
   std::vector<int> numbers;
@@ -26,11 +27,7 @@ std::vector<int> getNumberFromString(std::string s) {
 }
 
 int main(int argc, char **argv) {
-  if (argc > 1 &&
-      ((strcmp(argv[1], "-h") == 0) || (strcmp(argv[1], "--help") == 0))) {
-    help();
-    return 0;
-  }
+
 
   Option_Definition option_defs[] = {
       Option_Definition{"-h", "--help", 1, false},
@@ -40,6 +37,15 @@ int main(int argc, char **argv) {
       Option_Definition{"-q", "--quick", 5, false}};
 
   Parse_Result result = parse_arguments(argc, argv, option_defs, 5);
+  if (!(result.options.empty())) {
+    for (Option const &option : result.options)
+    {
+      if (option.id == 1)
+      {
+        help();
+      }
+    }
+  }
 
   std::string output_file_name;
   int32_t flags_counter = 0;
@@ -70,35 +76,55 @@ int main(int argc, char **argv) {
   }
 
   std::vector<int> ints = getNumberFromString(input);
-  bool is_sorted = false;
+
+  // algorithm:
+  // 0 - bubbleSort
+  // 1 - insertionSort
+  // 2 - quickSort
+  int algorithm = 0;
+  bool is_reverse = false;
+  bool is_output = false;
 
   if (!(result.options.empty())) {
     for (Option const &option : result.options) {
       switch (option.id) {
-      case 1:
-        help();
-        break;
       case 4:
-        stable(ints);
-        is_sorted = true;
+        algorithm = 1; // insertion
         break;
       case 5:
-        quick(ints);
-        is_sorted = true;
+        algorithm = 2; // quick
         break;
+      }
+    }
+  }
+
+  // sorting
+  switch (algorithm)
+  {
+    case 0:
+      bubbleSort(ints, ints.size());
+      break;
+    case 1:
+      insertionSort(ints);
+      break;
+    case 2:
+    int size = ints.size();
+      quickSort(ints, 0, size - 1);
+  }
+
+  if (!(result.options.empty())) {
+    for (Option const &option : result.options) {
+      switch (option.id) {
       case 2:
-        reverse(ints, is_sorted);
-        is_sorted = true;
+        std::reverse(ints.begin(), ints.end());
         break;
       case 3:
-        output(ints, option.value, is_sorted);
+        output(ints, option.value);
         return 0;
       }
     }
   }
-  if (!is_sorted) {
-    bubbleSort(ints, ints.size());
-  }
+
   for (int i = 0; i < ints.size(); i++) {
     std::cout << ints.at(i) << std::endl;
   }
