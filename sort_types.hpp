@@ -1,9 +1,8 @@
 #pragma once
 
-#include <iostream>
 #include <cstdio>
+#include <iostream>
 #include <vector>
-
 
 void bubbleSort(std::vector<int> &vec, int n);
 

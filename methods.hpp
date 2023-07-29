@@ -1,13 +1,13 @@
 #pragma once
 
+#include "options.hpp"
 #include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string.h>
-#include <vector>
 #include <string_view>
-#include "options.hpp"
+#include <vector>
 
 void help();
 

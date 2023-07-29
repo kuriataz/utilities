@@ -9,8 +9,12 @@
 #include <string_view>
 #include <vector>
 
-void help() {
-  std::cout << "you need help\nuse --reverse or-r to sort from the biggest to the smallest\n use --output[FILE_NAME] or -o[FILE_NAME] to write output to the FILE_NAME " << std::endl;
+void help()
+{
+  std::cout << "you need help\nuse --reverse or-r to sort from the biggest to "
+               "the smallest\n use --output[FILE_NAME] or -o[FILE_NAME] to "
+               "write output to the FILE_NAME "
+            << std::endl;
 }
 
 // void reverse(std::vector<int> &ints, bool is_sorted) {
@@ -23,14 +27,19 @@ void help() {
 //   }
 // }
 
-void output(std::vector<int> &ints, std::string value) {
+void output(std::vector<int> &ints, std::string value)
+{
   std::ofstream output_file;
   output_file.open(value);
-  if (!output_file.is_open()) {
+  if (!output_file.is_open())
+  {
     std::cerr << "wrong file\n";
     std::cout << value << std::endl;
-  } else {
-    for (int i = 0; i < ints.size(); i++) {
+  }
+  else
+  {
+    for (int i = 0; i < ints.size(); i++)
+    {
       output_file << ints.at(i) << std::endl;
     }
   }
@@ -39,7 +48,8 @@ void output(std::vector<int> &ints, std::string value) {
 
 void stable(std::vector<int> &ints) { insertionSort(ints); }
 
-void quick(std::vector<int> &ints) {
+void quick(std::vector<int> &ints)
+{
   int size = ints.size();
   quickSort(ints, 0, size - 1);
 }

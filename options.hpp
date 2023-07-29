@@ -5,9 +5,8 @@
 #include <iostream>
 #include <sstream>
 #include <string.h>
-#include <vector>
 #include <string_view>
-
+#include <vector>
 
 struct Option_Definition
 {
@@ -22,11 +21,8 @@ struct Option
   int32_t id = 0;
   std::string value;
 
-  public:
-  Option(int32_t id)
-  {
-    this->id = id;
-  }
+public:
+  Option(int32_t id) { this->id = id; }
 
   Option(int32_t id, std::string value)
   {
@@ -41,6 +37,5 @@ struct Parse_Result
   std::vector<std::string_view> arguments;
 };
 
-
-Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[], int size);
-
+Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[],
+                             int size);
