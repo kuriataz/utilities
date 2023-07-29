@@ -25,6 +25,10 @@ std::vector<int> getNumberFromString(std::string s)
     {
       numbers.push_back(temp_int);
     }
+    else
+    {
+      throw std::invalid_argument("Wrong input");
+    }
   }
   return numbers;
 }
@@ -102,7 +106,6 @@ int main(int argc, char **argv)
         break;
       case 5:
         algorithm = 2; // quick
-        break;
       }
     }
   }
@@ -110,15 +113,15 @@ int main(int argc, char **argv)
   // sorting
   switch (algorithm)
   {
-  case 0:
-    bubbleSort(ints, ints.size());
-    break;
-  case 1:
-    insertionSort(ints);
-    break;
-  case 2:
-    int size = ints.size();
-    quickSort(ints, 0, size - 1);
+    case 0:
+      bubbleSort(ints, ints.size());
+      break;
+    case 1:
+      insertionSort(ints);
+      break;
+    case 2:
+      int size = ints.size();
+      quickSort(ints, 0, size - 1);
   }
 
   if (!(result.options.empty()))
