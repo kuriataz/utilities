@@ -10,8 +10,12 @@
 #include <string.h>
 #include <string_view>
 #include <vector>
+#include "expected.hpp"
 
-std::vector<int> getNumberFromString(std::string s)
+using tl::expected;
+using tl::unexpected;
+
+expected<std::vector<int>, std::string> getNumberFromString(std::string s)
 {
   std::vector<int> numbers;
   std::stringstream stream;
@@ -27,7 +31,7 @@ std::vector<int> getNumberFromString(std::string s)
     }
     else
     {
-      throw std::invalid_argument("Wrong input");
+        return unexpected("Failed to parse the string into integers.");
     }
   }
   return numbers;
@@ -87,7 +91,12 @@ int main(int argc, char **argv)
     getline(*stream, input_line);
   }
 
-  std::vector<int> ints = getNumberFromString(input);
+  auto ints = getNumberFromString(input);
+
+  // if (!ints)
+  // {
+  //   std::cerr << ints.error() << std::endl;
+  // }
 
   // algorithm:
   // 0 - bubbleSort
@@ -114,13 +123,13 @@ int main(int argc, char **argv)
   switch (algorithm)
   {
     case 0:
-      bubbleSort(ints, ints.size());
+      bubbleSort(ints, ints->size());
       break;
     case 1:
       insertionSort(ints);
       break;
     case 2:
-      int size = ints.size();
+      int size = ints->size();
       quickSort(ints, 0, size - 1);
   }
 
@@ -131,7 +140,7 @@ int main(int argc, char **argv)
       switch (option.id)
       {
       case 2:
-        std::reverse(ints.begin(), ints.end());
+        std::reverse(ints->begin(), ints->end());
         break;
       case 3:
         output(ints, option.value);
@@ -140,9 +149,9 @@ int main(int argc, char **argv)
     }
   }
 
-  for (int i = 0; i < ints.size(); i++)
+  for (int i = 0; i < ints->size(); i++)
   {
-    std::cout << ints.at(i) << std::endl;
+    std::cout << ints->at(i) << std::endl;
   }
   return 0;
 }
