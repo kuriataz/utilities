@@ -11,10 +11,23 @@
 
 void help()
 {
-  std::cout << "you need help\nuse --reverse or-r to sort from the biggest to "
-               "the smallest\n use --output[FILE_NAME] or -o[FILE_NAME] to "
-               "write output to the FILE_NAME "
+  std::cout << "--reverse or -r to sort from the biggest to the smallest\n"
+               "--output[FILE_NAME] or -o[FILE_NAME] to write output to the FILE_NAME\n"
+               "--stable or -s to use stable sorting algorithm (insertion sort)\n"
+               "--quick or -q to use quick sorting algorithm (quick sort)\n\n\n\n"
+               "To close the 'help' press 'q'\n"
             << std::endl;
+
+  system("stty raw");
+
+  char quit = getchar();
+
+  system("stty cooked");
+
+  if (quit == 'q')
+  {
+    exit(0);
+  }
 }
 
 // void reverse(std::vector<int> &ints, bool is_sorted) {
