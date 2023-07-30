@@ -11,10 +11,11 @@
 
 void help()
 {
-  std::cout << "--reverse or -r to sort from the biggest to the smallest\n"
+  std::cout << "HELP\n\n"
+               "--reverse or -r to sort from the biggest to the smallest\n"
                "--output[FILE_NAME] or -o[FILE_NAME] to write output to the FILE_NAME\n"
                "--stable or -s to use stable sorting algorithm (insertion sort)\n"
-               "--quick or -q to use quick sorting algorithm (quick sort)\n\n\n\n"
+               "--quick or -q to use quick sorting algorithm (quick sort)\n\n"
                "To close the 'help' press 'q'\n"
             << std::endl;
 
