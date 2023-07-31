@@ -4,31 +4,24 @@
 #include <cstdio>
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <string.h>
 #include <string_view>
 #include <vector>
 
 void help()
 {
-  std::cout << "HELP\n\n"
-               "--reverse or -r to sort from the biggest to the smallest\n"
-               "--output[FILE_NAME] or -o[FILE_NAME] to write output to the FILE_NAME\n"
-               "--stable or -s to use stable sorting algorithm (insertion sort)\n"
-               "--quick or -q to use quick sorting algorithm (quick sort)\n\n"
-               "To close the 'help' press 'q'\n"
-            << std::endl;
+  std::cout
+      << "OPTIONS:\n\n"
+         " --reverse, -r                        Sort from the biggest to the "
+         "smallest\n"
+         " --output[FILE_NAME], -o[FILE_NAME]   Write output to the FILE_NAME\n"
+         " --stable, -s                         Stable sorting algorithm "
+         "(insertion sort)\n"
+         " --quick, -q                          Quick sorting algorithm (quick "
+         "sort)\n"
+      << std::endl;
 
-  system("stty raw");
-
-  char quit = getchar();
-
-  system("stty cooked");
-
-  if (quit == 'q')
-  {
-    exit(0);
-  }
+  exit(0);
 }
 
 // void reverse(std::vector<int> &ints, bool is_sorted) {
