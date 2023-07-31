@@ -10,12 +10,16 @@
 
 void help()
 {
-  std::cout << "OPTIONS:\n\n"
-               " --reverse, -r                        Sort from the biggest to the smallest\n"
-               " --output[FILE_NAME], -o[FILE_NAME]   Write output to the FILE_NAME\n"
-               " --stable, -s                         Stable sorting algorithm (insertion sort)\n"
-               " --quick, -q                          Quick sorting algorithm (quick sort)\n"
-            << std::endl;
+  std::cout
+      << "OPTIONS:\n\n"
+         " --reverse, -r                        Sort from the biggest to the "
+         "smallest\n"
+         " --output[FILE_NAME], -o[FILE_NAME]   Write output to the FILE_NAME\n"
+         " --stable, -s                         Stable sorting algorithm "
+         "(insertion sort)\n"
+         " --quick, -q                          Quick sorting algorithm (quick "
+         "sort)\n"
+      << std::endl;
 
   exit(0);
 }
