@@ -1,9 +1,9 @@
-#include "methods.hpp"
-#include "sort_types.hpp"
 #include <algorithm>
 #include <cstdio>
 #include <fstream>
 #include <iostream>
+#include <methods.hpp>
+#include <sort_types.hpp>
 #include <string.h>
 #include <string_view>
 #include <vector>
@@ -36,6 +36,15 @@ void help()
 
 void output(std::vector<int> &ints, std::string value)
 {
+  if (value == "cout")
+  {
+    for (int i = 0; i < ints.size(); i++)
+    {
+      std::cout << ints.at(i) << std::endl;
+    }
+    return;
+  }
+
   std::ofstream output_file;
   output_file.open(value);
   if (!output_file.is_open())
@@ -53,10 +62,7 @@ void output(std::vector<int> &ints, std::string value)
   output_file.close();
 }
 
-void stable(std::vector<int> &ints) { insertionSort(ints); }
+// void stable(std::vector<int> &ints) { insertionSort(ints); }
+void stable(std::vector<int> &ints) { insertionSort(&ints[0], &ints[ints.size()]); }
 
-void quick(std::vector<int> &ints)
-{
-  int size = ints.size();
-  quickSort(ints, 0, size - 1);
-}
+void quick(std::vector<int> &ints) { quickSort(&ints[0], &ints[ints.size()]); }

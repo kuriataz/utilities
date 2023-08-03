@@ -1,12 +1,12 @@
-#include "expected.hpp"
-#include "methods.hpp"
-#include "options.hpp"
-#include "sort_types.hpp"
 #include <algorithm>
 #include <cstdio>
+#include <expected.hpp>
 #include <fstream>
 #include <iostream>
+#include <methods.hpp>
 #include <optional>
+#include <options.hpp>
+#include <sort_types.hpp>
 #include <sstream>
 #include <string.h>
 #include <string_view>
@@ -39,20 +39,30 @@ expected<std::vector<int>, std::string> getNumberFromString(std::string s)
 
 int main(int argc, char **argv)
 {
+  constexpr int OPTION_HELP = 1;
+  constexpr int OPTION_REVERSE = 2;
+  constexpr int OPTION_OUTPUT = 3;
+  constexpr int OPTION_STABLE = 4;
+  constexpr int OPTION_QUICK = 5;
 
   Option_Definition option_defs[] = {
-      Option_Definition{"-h", "--help", 1, false},
+      Option_Definition{"-h", "--help", OPTION_HELP, false},
       Option_Definition{"-r", "--reverse", 2, false},
       Option_Definition{"-o", "--output", 3, true},
       Option_Definition{"-s", "--stable", 4, false},
       Option_Definition{"-q", "--quick", 5, false}};
 
-  Parse_Result result = parse_arguments(argc, argv, option_defs, 5);
+  // int size = sizeof(option_defs); // = 360 don't know why
+  // std::cout << size << std::endl;
+
+  Parse_Result result =
+      parse_arguments(argc, argv, option_defs, 5);
+
   if (!(result.options.empty()))
   {
     for (Option const &option : result.options)
     {
-      if (option.id == 1)
+      if (option.id == OPTION_HELP)
       {
         help();
       }
@@ -66,6 +76,7 @@ int main(int argc, char **argv)
   std::ofstream output_file;
   std::istream *stream = &std::cin;
   std::ifstream file;
+
 
   // from file
   if (!(result.arguments.empty()))
@@ -96,45 +107,34 @@ int main(int argc, char **argv)
   if (!pre_ints)
   {
     std::cerr << pre_ints.error() << std::endl;
-    return -1;
+    return 1;
   }
 
   std::vector<int> ints = pre_ints.value();
-
-  // algorithm:
-  // 0 - bubbleSort
-  // 1 - insertionSort
-  // 2 - quickSort
-  int algorithm = 0;
-
+  // typedef void(*Sort_Ptr)(std::vector<int>&);
+  // using Sort_Ptr = void (*)(std::vector<int> &);
+  // Sort_Ptr sort_ptr = bubbleSort;
+  using It_Sort_Ptr = void (*)(int*, int*);
+  It_Sort_Ptr it_sort_ptr = bubbleSort;
   if (!(result.options.empty()))
   {
     for (Option const &option : result.options)
     {
       switch (option.id)
       {
-      case 4:
-        algorithm = 1; // insertion
+      case OPTION_STABLE:
+        it_sort_ptr = insertionSort;
         break;
-      case 5:
-        algorithm = 2; // quick
+      case OPTION_QUICK:
+        it_sort_ptr = quickSort;
+        break;
       }
     }
   }
 
-  // sorting
-  switch (algorithm)
-  {
-  case 0:
-    bubbleSort(ints, ints.size());
-    break;
-  case 1:
-    insertionSort(ints);
-    break;
-  case 2:
-    int size = ints.size();
-    quickSort(ints, 0, size - 1);
-  }
+  it_sort_ptr(&ints[0], &ints[ints.size()]);
+
+  std::string output_destination = "cout";
 
   if (!(result.options.empty()))
   {
@@ -142,19 +142,17 @@ int main(int argc, char **argv)
     {
       switch (option.id)
       {
-      case 2:
+      case OPTION_REVERSE:
         std::reverse(ints.begin(), ints.end());
         break;
-      case 3:
-        output(ints, option.value);
-        return 0;
+      case OPTION_OUTPUT:
+        output_destination = option.value;
+        break;
       }
     }
   }
 
-  for (int i = 0; i < ints.size(); i++)
-  {
-    std::cout << ints.at(i) << std::endl;
-  }
+  output(ints, output_destination);
+
   return 0;
 }

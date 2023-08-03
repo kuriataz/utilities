@@ -11,7 +11,3 @@ target_include_directories(sort
     PUBLIC
     "./"
 )
-link_directories(
-    PUBLIC
-    "./"
-)
