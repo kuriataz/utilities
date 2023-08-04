@@ -47,10 +47,10 @@ int main(int argc, char **argv)
 
   Option_Definition option_defs[] = {
       Option_Definition{"-h", "--help", OPTION_HELP, false},
-      Option_Definition{"-r", "--reverse", 2, false},
-      Option_Definition{"-o", "--output", 3, true},
-      Option_Definition{"-s", "--stable", 4, false},
-      Option_Definition{"-q", "--quick", 5, false}};
+      Option_Definition{"-r", "--reverse", OPTION_REVERSE, false},
+      Option_Definition{"-o", "--output", OPTION_OUTPUT, true},
+      Option_Definition{"-s", "--stable", OPTION_STABLE, false},
+      Option_Definition{"-q", "--quick", OPTION_QUICK, false}};
 
   // int size = sizeof(option_defs); // = 360 don't know why
   // std::cout << size << std::endl;
@@ -112,10 +112,9 @@ int main(int argc, char **argv)
 
   std::vector<int> ints = pre_ints.value();
   // typedef void(*Sort_Ptr)(std::vector<int>&);
-  // using Sort_Ptr = void (*)(std::vector<int> &);
-  // Sort_Ptr sort_ptr = bubbleSort;
   using It_Sort_Ptr = void (*)(int*, int*);
   It_Sort_Ptr it_sort_ptr = bubbleSort;
+
   if (!(result.options.empty()))
   {
     for (Option const &option : result.options)
