@@ -151,7 +151,9 @@ int main(int argc, char **argv)
     }
   }
 
-  output(ints, output_destination);
+  int *begin = &ints[0];
+  int *end = &ints[ints.size()];
+  output(begin, end, output_destination);
 
   return 0;
 }
