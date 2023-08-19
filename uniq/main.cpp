@@ -93,7 +93,7 @@ int main(int argc, char **argv)
       output_destination = output;
     }
   }
-  
+
   std::string input;
   std::string input_line;
   while (*stream)
