@@ -1,0 +1,3 @@
+/mnt/c/Users/48517/Documents/utilities/uniq/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/48517/Documents/utilities/uniq/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/48517/Documents/utilities/uniq/build/CMakeFiles/uniq.dir

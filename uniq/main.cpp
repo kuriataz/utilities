@@ -7,17 +7,18 @@
 #include <sstream>
 #include <string.h>
 #include <string_view>
-#include <vector>
+
 #include <uniq.hpp>
 #include <options.hpp>
 #include <methods.hpp>
+#include <array.hpp>
 
 using tl::expected;
 using tl::unexpected;
 
-expected<std::vector<int>, std::string> getNumberFromString(std::string s)
+expected<Array<int>, std::string> getNumberFromString(std::string s)
 {
-  std::vector<int> numbers;
+  Array<int> numbers;
   std::stringstream stream;
   stream << s;
   std::string temp_str;
@@ -113,9 +114,10 @@ int main(int argc, char **argv)
     return 1;
   }
 
-  std::vector<int> ints = pre_ints.value();
+  Array<int> ints = pre_ints.value();
   int *begin = &ints[0];
-  int *end = uniq(&ints[0], &ints[ints.size()]);
+  int size = ints.get_size();
+  int *end = uniq(&ints[0], &ints[size]);
 
   output(begin, end, output_destination);
 

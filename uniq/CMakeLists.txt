@@ -12,4 +12,5 @@ target_include_directories(uniq
     "./"
     "../core/"
     "../sort/"
+    "../array/"
 )
