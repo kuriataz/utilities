@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <iostream>
-#include "sort_types.hpp"
+#include <sort_types.hpp>
 
 // void bubbleSort(int* begin, int* end) {
 //   int const n = end - begin;
