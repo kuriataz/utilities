@@ -72,9 +72,6 @@ int main(int argc, char **argv)
   std::istream *stream = &std::cin;
   std::ifstream file;
 
-
-  std::string output_destination = "cout";
-  // from and into a file
   if (!(result.arguments.empty()))
   {
     std::string input(result.arguments[0]);
@@ -87,11 +84,6 @@ int main(int argc, char **argv)
         return 1;
       }
       stream = &file;
-    }
-    std::string output(result.arguments[1]);
-    if (!(output == "-"))
-    {
-      output_destination = output;
     }
   }
 
@@ -107,7 +99,7 @@ int main(int argc, char **argv)
     getline(*stream, input_line);
   }
 
-  auto pre_ints = getNumberFromString(input);
+  auto pre_ints = getNumberFromString(input); // there is the problem
   if (!pre_ints)
   {
     std::cerr << pre_ints.error() << std::endl;
@@ -115,11 +107,11 @@ int main(int argc, char **argv)
   }
 
   Array<int> ints = pre_ints.value();
-  int *begin = &ints[0];
+  int *begin = ints.data();
   int size = ints.get_size();
   int *end = uniq(&ints[0], &ints[size]);
 
-  output(begin, end, output_destination);
+  output(begin, end, std::cout);
 
   return 0;
 }

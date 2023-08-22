@@ -1,22 +1,6 @@
 #include <cstdio>
 #include <iostream>
-#include <sort_types.hpp>
-
-// void bubbleSort(int* begin, int* end) {
-//   int const n = end - begin;
-//   for (int i = 0; i < n - 1; i++)
-//   {
-//     for (int j = 0; j < n - i - 1; j++)
-//     {
-//       if (begin[j] > begin[j + 1])
-//       {
-//         int temp = begin[j];
-//         begin[j] = begin[j + 1];
-//         begin[j + 1] = temp;
-//       }
-//     }
-//   }
-// }
+#include <sort.hpp>
 
 void bubbleSort(int *begin, int *end)
 {
@@ -43,25 +27,6 @@ void bubbleSort(int *begin, int *end)
     }
   }
 }
-
-// void insertionSort(int* begin, int* end)
-// {
-//   int const size = end - begin;
-//   for (int i = 1; i < size; i++)
-//   {
-//     for (int j = i; j > 0; j--)
-//     {
-//       if (begin[j] < begin[j - 1])
-//       {
-//         std::swap(begin[j], begin[j - 1]);
-//       }
-//       else
-//       {
-//         break;
-//       }
-//     }
-//   }
-// }
 
 void insertionSort(int *begin, int *end)
 {
@@ -104,8 +69,6 @@ void quickSort(int *begin, int *end)
     }
   }
   std::swap(*(end - 1), *left);
-
-  // std::cout << "here" << std::endl;
 
   quickSort(begin, left);
   quickSort((left + 1), end);

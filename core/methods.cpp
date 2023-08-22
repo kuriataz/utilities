@@ -3,7 +3,6 @@
 #include <fstream>
 #include <iostream>
 #include <methods.hpp>
-#include <../sort/sort_types.hpp>
 #include <string.h>
 #include <string_view>
 #include <vector>
@@ -34,35 +33,10 @@ void help()
 //   }
 // }
 
-void output(int *begin, int *end, std::string value)
+void output(int *begin, int *end, std::ostream& stream)
 {
-  if (value == "cout")
+  for ( ; begin != end; begin++)
   {
-    for ( ; begin != end; begin++)
-    {
-      std::cout << *begin << std::endl;
-    }
-    return;
+    stream << *begin << '\n';
   }
-
-  std::ofstream output_file;
-  output_file.open(value);
-  if (!output_file.is_open())
-  {
-    std::cerr << "wrong file\n";
-    std::cout << value << std::endl;
-  }
-  else
-  {
-    for ( ; begin != end; begin++)
-    {
-      output_file << *begin << std::endl;
-    }
-  }
-  output_file.close();
 }
-
-// void stable(std::vector<int> &ints) { insertionSort(ints); }
-void stable(std::vector<int> &ints) { insertionSort(&ints[0], &ints[ints.size()]); }
-
-void quick(std::vector<int> &ints) { quickSort(&ints[0], &ints[ints.size()]); }

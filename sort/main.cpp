@@ -6,7 +6,7 @@
 #include <methods.hpp>
 #include <optional>
 #include <options.hpp>
-#include <sort_types.hpp>
+#include <sort.hpp>
 #include <sstream>
 #include <string.h>
 #include <string_view>
@@ -133,8 +133,7 @@ int main(int argc, char **argv)
 
   it_sort_ptr(&ints[0], &ints[ints.size()]);
 
-  std::string output_destination = "cout";
-
+  std::ostream *output_stream = &std::cout;
   if (!(result.options.empty()))
   {
     for (Option const &option : result.options)
@@ -145,7 +144,14 @@ int main(int argc, char **argv)
         std::reverse(ints.begin(), ints.end());
         break;
       case OPTION_OUTPUT:
-        output_destination = option.value;
+        std::ofstream file;
+        file.open(option.value);
+        if (!file.is_open())
+        {
+          std::cerr << "Couldn't open file\n";
+          return 1;
+        }
+        output_stream = &file;
         break;
       }
     }
@@ -153,7 +159,8 @@ int main(int argc, char **argv)
 
   int *begin = &ints[0];
   int *end = &ints[ints.size()];
-  output(begin, end, output_destination);
+
+  output(begin, end, *output_stream);
 
   return 0;
 }

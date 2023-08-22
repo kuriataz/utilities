@@ -10,10 +10,4 @@
 
 void help();
 
-// void reverse(std::vector<int> &ints);
-
-void output(int*, int*, std::string value);
-
-void stable(std::vector<int> &ints);
-
-void quick(std::vector<int> &ints);
+void output(int*, int*, std::ostream& value);
