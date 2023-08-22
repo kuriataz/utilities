@@ -1,0 +1,2 @@
+cat - kot
+dog - pies

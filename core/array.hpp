@@ -86,10 +86,11 @@ struct Array
         dealloc(storage, capacity);
     }
 
-    T& operator [] (int index)
+    T& operator[] (int index)
     {
         return storage[index];
     }
+    Array& operator= (const Array&) = default;
 
     int get_size()
     {
@@ -106,7 +107,7 @@ struct Array
         ensure_capacity(size + 1);
         ::new (storage + size) T(std::move(new_element));
         size++;
-        return storage;
+        return *storage;
     }
 
     T& push_back(T const& new_element)
@@ -128,6 +129,15 @@ struct Array
     T* end()
     {
         return storage + size;
+    }
+
+    bool empty()
+    {
+        if (size == 0)
+        {
+            return true;
+        }
+        return false;
     }
 
 };

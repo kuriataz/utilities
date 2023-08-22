@@ -7,6 +7,7 @@
 #include <string.h>
 #include <string_view>
 #include <vector>
+#include <array.hpp>
 
 struct Option_Definition
 {
@@ -33,8 +34,10 @@ public:
 
 struct Parse_Result
 {
+  // Array<Option> options;
+  // Array<std::string> arguments;
   std::vector<Option> options;
-  std::vector<std::string_view> arguments;
+  std::vector<std::string> arguments;
 };
 
 Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[],

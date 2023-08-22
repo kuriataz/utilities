@@ -46,3 +46,18 @@ target_include_directories(sort
     "sort/"
 )
 target_link_libraries(sort PRIVATE core)
+
+add_executable(dict
+    "dict/main.cpp"
+    "dict/dict.hpp"
+    "dict/dict.cpp"
+)
+target_compile_options(dict
+    PRIVATE
+    # -ftime-trace
+)
+target_include_directories(dict
+    PRIVATE
+    "dict/"
+)
+target_link_libraries(dict PRIVATE core)

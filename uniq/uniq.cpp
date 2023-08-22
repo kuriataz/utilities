@@ -18,3 +18,20 @@ int *uniq (int *begin, int *end)
     }
     return ++result;
 }
+
+int *duplicate (int *begin, int* end)
+{
+    if (begin == end)
+    {
+        return nullptr;
+    }
+    int *result = begin;
+    while (++begin != end)
+    {
+        if (*begin == *(begin - 1))
+        {
+            *(result++) = std::move(*begin);
+        }
+    }
+    return result;
+}

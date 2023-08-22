@@ -4,7 +4,8 @@
 #include <options.hpp>
 #include <sstream>
 #include <string.h>
-#include <vector>
+// #include <vector>
+#include <array.hpp>
 
 Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[],
                              int size)

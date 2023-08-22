@@ -33,7 +33,7 @@ void help()
 //   }
 // }
 
-void output(int *begin, int *end, std::ostream& stream)
+void output(int *begin, int *end, std::ostream &stream)
 {
   for ( ; begin != end; begin++)
   {
