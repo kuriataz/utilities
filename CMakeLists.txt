@@ -51,6 +51,8 @@ add_executable(dict
     "dict/main.cpp"
     "dict/dict.hpp"
     "dict/dict.cpp"
+    "dict/data.hpp"
+    "dict/data.cpp"
 )
 target_compile_options(dict
     PRIVATE

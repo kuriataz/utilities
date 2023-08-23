@@ -12,6 +12,7 @@
 #include <methods.hpp>
 #include <array.hpp>
 #include <dict.hpp>
+#include <data.hpp>
 
 
 int main(int argc, char **argv)
@@ -29,6 +30,7 @@ int main(int argc, char **argv)
   // int size = sizeof(option_defs); // = 360 don't know why
   // std::cout << size << std::endl;
 
+
   Parse_Result result =
       parse_arguments(argc, argv, option_defs, 1);
 
@@ -45,38 +47,46 @@ int main(int argc, char **argv)
 
   std::string word;
   // Array<std::string> description;
-  std::vector<std::string> description;
+  std::vector<std::string> record;
 
   if (!(result.arguments.empty()))
   {
     word = result.arguments[1];
 
-    if (!(result.arguments.size() > 2))
+    if (result.arguments.size() > 2)
     {
-      std::cerr << "no description\n";
-    }
-    else
-    {
-      // Array<std::string> description(result.arguments);
-      description = result.arguments;
+      record = result.arguments;
     }
   }
 
   std::string command = argv[1];
-  std::ofstream data_base;
-  data_base.open("dict/data_base.txt", std::ios::app);
-  // std::ostream *output_stream = &data_base;
+  std::fstream data_base_file;
+  data_base_file.open("dict/data_base.txt", std::ios::out | std::ios::in);
+
+  // Data data_base = get_data_from_base("dict/data_base.txt");
+  Data data_base = get_data_from_base(data_base_file);
 
 
-  if (command == "add")
+  if (command == "show")
   {
-    add(word, description, data_base);
+    show(word, data_base);
+  }
+  else if (command == "list")
+  {
+    list(data_base);
+  }
+  else if (command == "add")
+  {
+  std::cout << "here\n";
+    add(record, data_base);
+  }
+  else if (command == "remove")
+  {
+    remove(word, data_base);
   }
 
-  // else if (command == "remove")
-  // {
-  //   remove
-  // }
-
+  send_data_to_base(data_base, data_base_file);
+  // send_data_to_base(data_base, "dict/data_base1.txt");
+  data_base_file.close();
   return 0;
 }

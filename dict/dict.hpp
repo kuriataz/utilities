@@ -1,14 +1,17 @@
+#pragma once
+
 #include <cstdlib>
 #include <string>
 #include <iostream>
 #include <array.hpp>
 #include <vector>
+#include <data.hpp>
 
-void add(std::string, std::vector<std::string> description, std::ofstream &data_base);
+void add(std::vector<std::string>, Data&);
 // void add(std::string, std::vector<std::string> description);
 
-void remove(std::string);
+void remove(std::string, Data&);
 
-void list();
+void list(Data&);
 
-void show(std::string);
+void show(std::string, Data&);
