@@ -49,7 +49,7 @@ int main(int argc, char **argv)
   // Array<std::string> description;
   std::vector<std::string> record;
 
-  if (!(result.arguments.empty()))
+  if (result.arguments.size() > 1)
   {
     word = result.arguments[1];
 
@@ -57,9 +57,9 @@ int main(int argc, char **argv)
     {
       record = result.arguments;
       record.erase(record.begin());
+  Record new_line(record);
     }
   }
-  Record new_line(record);
 
   std::string command = argv[1];
   std::fstream data_base_file;
@@ -87,6 +87,7 @@ int main(int argc, char **argv)
 
   data_base_file.open("dict/data_base.txt", std::ios::in | std::ios::out);
   send_data_to_base(data_base, data_base_file);
+          std::cout << data_base.data.size() << " - send2\n";
 
   data_base_file.close();
   return 0;

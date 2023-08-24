@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdlib>
+#include <iostream>
 #include <vector>
 #include <string>
 #include <array.hpp>
@@ -35,9 +36,10 @@ struct Record
 
     Record(std::string record_as_string)
     {
-        int white_space = record_as_string.find(" ");
-        word = record_as_string.substr(0, white_space + 1);
-        description = record_as_string.substr(white_space + 1);
+        std::string minus = "-";
+        size_t white_space = record_as_string.find(minus);
+        word = record_as_string.substr(0, white_space - 1);
+        description = record_as_string.substr(white_space -1);
         record.push_back(word);
         record.push_back(description);
     }

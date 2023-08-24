@@ -42,38 +42,16 @@ void get_data_from_base(Data &data_base, std::fstream &input)
     }
     else
     {
-        std::string word;
-        while (getline(input, word))
+        std::string record_as_string;
+        while (getline(input, record_as_string))
         {
-            Record new_record(word);
+            // std::cout << record_as_string << " - rec as string\n";
+            Record new_record(record_as_string);
             data_base.data.push_back(new_record);
         }
         input.close();
     }
 }
-
-// void send_data_to_base(Data &data_base, std::string base)
-// {
-//     std::ofstream output;
-//     output.open(base);
-//     if (!(output.is_open()))
-//     {
-//         std::cerr << "couldn't open the file\n";
-//     }
-//     else
-//     {
-//         std::string word;
-//         for (int i = 0; i != data_base.data.size(); i++)
-//         {
-//             for (int j = 0; j != data_base.data[i].record.size(); j++)
-//             {
-//                 output << data_base.data[i].record[j] << " ";
-//             }
-//             output << '\n';
-//         }
-//     }
-//     output.close();
-// }
 
 void send_data_to_base(Data &data_base, std::fstream &output)
 {
@@ -86,7 +64,10 @@ void send_data_to_base(Data &data_base, std::fstream &output)
         for (int i = 0; i != data_base.data.size(); i++)
         {
             output << data_base.data[i].word;
+            // std::cout << data_base.data[i].word;
             output << data_base.data[i].description << '\n';
+            // std::cout << data_base.data[i].description << '\n';
         }
+        std::cout << data_base.data.size() << " - send\n";
     }
 }
