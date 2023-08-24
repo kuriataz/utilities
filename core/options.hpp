@@ -34,11 +34,13 @@ public:
 
 struct Parse_Result
 {
-  // Array<Option> options;
-  // Array<std::string> arguments;
-  std::vector<Option> options;
-  std::vector<std::string> arguments;
+  Array<Option> options;
+  Array<std::string> arguments;
+  // std::vector<Option> options;
+  // std::vector<std::string> arguments;
 };
 
 Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[],
                              int size);
+
+std::string array_to_string(Array<std::string>);

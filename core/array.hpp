@@ -10,8 +10,8 @@ struct Array
 
     private:
 
-    int size = 0;
-    int capacity = 0;
+    int _size = 0;
+    int _capacity = 0;
     T *storage = nullptr;
 
     T* alloc(i64 capacity) {
@@ -23,22 +23,22 @@ struct Array
     }
 
     void ensure_capacity(i64 const required_capacity) {
-        if(capacity < required_capacity) {
+        if(_capacity < required_capacity) {
             i64 new_capacity = 64;
             while(new_capacity < required_capacity) {
                 new_capacity *= 2;
             }
 
             T *const new_storage = alloc(new_capacity);
-            for (int i = 0; i != size; i++)
+            for (int i = 0; i != _size; i++)
             {
                 ::new (new_storage + i) T(std::move(storage[i]));
                 storage[i].~T();
             }
 
-            dealloc(storage, capacity);
+            dealloc(storage, _capacity);
             storage = new_storage;
-            capacity = new_capacity;
+            _capacity = new_capacity;
         }
     }
 
@@ -54,10 +54,10 @@ struct Array
 
     Array(Array const &old)
     {
-        storage = alloc(old.capacity);
-        size = old.size;
-        capacity = old.capacity;
-        for (int i = 0; i != old.size; i++)
+        storage = alloc(old._capacity);
+        _size = old._size;
+        _capacity = old._capacity;
+        for (int i = 0; i != old._size; i++)
         {
             ::new (storage + i) T(old.storage[i]);
         }
@@ -71,19 +71,19 @@ struct Array
 
     Array(Array&& old)
     {
-        size = old.size;
-        capacity = old.capacity;
+        _size = old._size;
+        _capacity = old._capacity;
         storage = old.storage;
 
-        old.size = 0;
-        old.capacity = 0;
+        old._size = 0;
+        old._capacity = 0;
         old.storage = nullptr;
     }
 
     ~Array()
     {
         // TODO: Call all destructors.
-        dealloc(storage, capacity);
+        dealloc(storage, _capacity);
     }
 
     T& operator[] (int index)
@@ -92,29 +92,29 @@ struct Array
     }
     Array& operator= (const Array&) = default;
 
-    int get_size()
+    int size()
     {
-        return size;
+        return _size;
     }
 
-    int get_capacity()
+    int capacity()
     {
-        return capacity;
+        return _capacity;
     }
 
     T& push_back(T&& new_element)
     {
-        ensure_capacity(size + 1);
-        ::new (storage + size) T(std::move(new_element));
-        size++;
+        ensure_capacity(_size + 1);
+        ::new (storage + _size) T(std::move(new_element));
+        _size++;
         return *storage;
     }
 
     T& push_back(T const& new_element)
     {
-        ensure_capacity(size + 1);
-        ::new (storage + size) T(new_element);
-        size++;
+        ensure_capacity(_size + 1);
+        ::new (storage + _size) T(new_element);
+        _size++;
         return *storage;
     }
 
@@ -128,12 +128,12 @@ struct Array
     }
     T* end()
     {
-        return storage + size;
+        return storage + _size;
     }
 
     bool empty()
     {
-        return size == 0;
+        return _size == 0;
     }
 
 };

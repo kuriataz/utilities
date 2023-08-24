@@ -120,7 +120,7 @@ int main(int argc, char **argv)
 
   Array<int> ints = pre_ints.value();
   int *begin = ints.data();
-  int size = ints.get_size();
+  int size = ints.size();
   int *end = nullptr;
 
   if (!(result.options.empty()))

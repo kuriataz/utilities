@@ -7,11 +7,14 @@
 #include <vector>
 #include <data.hpp>
 
-void add(std::vector<std::string>, Data&);
-// void add(std::string, std::vector<std::string> description);
+struct Functions
+{
+    virtual void add(std::string, std::string) = 0;
+    // void add(std::string, std::vector<std::string> description);
 
-void remove(std::string, Data&);
+    virtual void remove(std::string) = 0;
 
-void list(Data&);
+    virtual void list() = 0;
 
-void show(std::string, Data&);
+    virtual void show(std::string) = 0;
+};

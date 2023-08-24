@@ -47,3 +47,15 @@ Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[],
   }
   return result;
 }
+
+std::string array_to_string(Array<std::string> array)
+{
+  std::string result;
+  std::string *begin = array.begin();
+  std::string *end = array.end();
+  for ( ; begin != end; begin++)
+  {
+    result += *begin;
+  }
+  return result;
+}

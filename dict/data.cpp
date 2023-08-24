@@ -5,69 +5,59 @@
 #include <iostream>
 #include <fstream>
 
-// Data get_data_from_base(std::string base)
-// {
-//     Data data_base;
-//     std::ifstream input;
-//     input.open(base);
-//     if (!(input.is_open()))
-//     {
-//         std::cerr << "couldn't open the file\n";
-//     }
-//     else
-//     {
-//         std::string word;
-//         while (input >> word)
-//         {
-//             Record new_record;
-//             if (word == "\n")
-//             {
-//                 data_base.data.push_back(new_record);
-//                 continue;
-//             }
-//             new_record.record.push_back(word);
-//         }
-//     }
-//     input.close();
-//     return data_base;
-// }
 
-void get_data_from_base(Data &data_base, std::fstream &input)
+struct Dict : public Functions
 {
-    // std::ifstream input;
-    // input.open(base);
-    if (!(input.is_open()))
-    {
-        std::cerr << "couldn't open the file - get_data_from_base\n";
-    }
-    else
-    {
-        std::string record_as_string;
-        while (getline(input, record_as_string))
-        {
-            // std::cout << record_as_string << " - rec as string\n";
-            Record new_record(record_as_string);
-            data_base.data.push_back(new_record);
-        }
-        input.close();
-    }
-}
+    Dict() = default;
 
-void send_data_to_base(Data &data_base, std::fstream &output)
-{
-    if (!(output.is_open()))
+    Array<Record> data;
+
+    void add(std::string word, std::string description)
     {
-        std::cerr << "couldn't open the file - send_data_to_base\n";
+        Record new_record(word, description);
+        data.push_back(new_record);
     }
-    else
+
+    void remove(std::string word)
     {
-        for (int i = 0; i != data_base.data.size(); i++)
+        Array<Record> new_data;
+        // Array<Record> data(data_base.data);
+
+        for (int i = 0; i != data.size(); i++)
         {
-            output << data_base.data[i].word;
-            // std::cout << data_base.data[i].word;
-            output << data_base.data[i].description << '\n';
-            // std::cout << data_base.data[i].description << '\n';
+            if (data[i].word != word)
+            {
+                new_data.push_back(data[i]);
+            }
         }
-        std::cout << data_base.data.size() << " - send\n";
+        data = new_data;
     }
-}
+    void show(std::string word)
+    {
+        for (int i = 0; i != data.size(); i++)
+        {
+            if (data[i].word == word)
+            {
+                std::cout << data[i].word << data[i].description << '\n';
+            }
+        }
+    }
+
+    void list()
+    {
+        for (int i = 0; i != data.size(); i++)
+        {
+            std::cout << data[i].word << data[i].description << '\n';
+        }
+    }
+
+    void get_data_from_base(std::fstream &base)
+    {
+
+    }
+
+    void send_data_to_base(std::fstream &base)
+    {
+
+    }
+};

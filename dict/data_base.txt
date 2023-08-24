@@ -1,5 +1,3 @@
-hamster - chomik
-hamster - chomik
-dog - pies
 hippo - hipopotam
-hipopotam
+dog - pies
+og - pies

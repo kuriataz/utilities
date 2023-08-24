@@ -46,8 +46,7 @@ int main(int argc, char **argv)
   }
 
   std::string word;
-  // Array<std::string> description;
-  std::vector<std::string> record;
+  std::string description;
 
   if (result.arguments.size() > 1)
   {
@@ -55,40 +54,37 @@ int main(int argc, char **argv)
 
     if (result.arguments.size() > 2)
     {
-      record = result.arguments;
-      record.erase(record.begin());
-  Record new_line(record);
+      description = array_to_string(result.arguments);
     }
   }
 
-  std::string command = argv[1];
-  std::fstream data_base_file;
-  data_base_file.open("dict/data_base.txt", std::ios::in | std::ios::out);
+  Dict dict;
 
-  Data data_base;
-  get_data_from_base(data_base, data_base_file);
+  std::string command = argv[1];
+  std::fstream base;
+  base.open("dict/data_base.txt", std::ios::in | std::ios::out);
+
+  dict.get_data_from_base(base);
 
   if (command == "show")
   {
-    show(word, data_base);
+    dict.show(word);
   }
   else if (command == "list")
   {
-    list(data_base);
+    dict.list();
   }
   else if (command == "add")
   {
-    add(record, data_base);
+    dict.add(word, description);
   }
   else if (command == "remove")
   {
-    remove(word, data_base);
+    dict.remove(word);
   }
 
-  data_base_file.open("dict/data_base.txt", std::ios::in | std::ios::out);
-  send_data_to_base(data_base, data_base_file);
-          std::cout << data_base.data.size() << " - send2\n";
+  base.open("dict/data_base.txt", std::ios::in | std::ios::out);
+  dict.send_data_to_base(base);
 
-  data_base_file.close();
   return 0;
 }
