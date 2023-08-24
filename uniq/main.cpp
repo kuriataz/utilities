@@ -130,14 +130,14 @@ int main(int argc, char **argv)
       if (option.id == OPTION_DUPLICATE)
       {
         // end = duplicate(ints.data(), ints.data() + size);
-        end = duplicate(&ints[0], &ints[size]);
+        end = find_duplicate(&ints[0], &ints[size]);
       }
     }
   }
 
   if (end == nullptr)
   {
-    end = uniq(&ints[0], &ints[size]);
+    end = find_uniq(&ints[0], &ints[size]);
   }
 
   output(begin, end, *output_stream);

@@ -9,7 +9,7 @@ struct Record
 {
     std::vector<std::string> record;
     std::string word;
-    // std::string description;
+    std::string description;
 
     Record() = default;
 
@@ -20,7 +20,27 @@ struct Record
     //     description = record;
     // }
     // Record(std::string word, std::string description): word(word), description(description){}
-    Record(std::vector<std::string> record): record(record), word(record[0]){}
+    Record(std::vector<std::string> record): record(record), word(record[0])
+    {
+        if (record.size() > 1)
+        {
+            description += " -";
+            for (int i = 1; i != record.size(); i++)
+            {
+                description += " ";
+                description += record[i];
+            }
+        }
+    }
+
+    Record(std::string record_as_string)
+    {
+        int white_space = record_as_string.find(" ");
+        word = record_as_string.substr(0, white_space + 1);
+        description = record_as_string.substr(white_space + 1);
+        record.push_back(word);
+        record.push_back(description);
+    }
 
     std::string& operator[] (int index)
     {
@@ -38,6 +58,6 @@ struct Data
 };
 
 // Data get_data_from_base(std::string);
-Data get_data_from_base(std::fstream&);
+void get_data_from_base(Data&, std::fstream&);
 void send_data_to_base(Data&, std::fstream&);
 // void send_data_to_base(Data&, std::string);

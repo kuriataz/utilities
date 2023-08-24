@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <utility>
 
-int *uniq (int *begin, int *end)
+int *find_uniq (int *begin, int *end)
 {
     if (begin == end)
     {
@@ -19,7 +19,7 @@ int *uniq (int *begin, int *end)
     return ++result;
 }
 
-int *duplicate (int *begin, int* end)
+int *find_duplicate (int *begin, int* end)
 {
     if (begin == end)
     {

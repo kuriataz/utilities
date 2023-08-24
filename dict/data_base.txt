@@ -1,1 +1,6 @@
-cat - kot
+dog - pies
+dog - pies
+dog - pies
+dog - pies
+dog - pies
+dog - pies

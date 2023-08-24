@@ -56,16 +56,17 @@ int main(int argc, char **argv)
     if (result.arguments.size() > 2)
     {
       record = result.arguments;
+      record.erase(record.begin());
     }
   }
+  Record new_line(record);
 
   std::string command = argv[1];
   std::fstream data_base_file;
-  data_base_file.open("dict/data_base.txt", std::ios::out | std::ios::in);
+  data_base_file.open("dict/data_base.txt", std::ios::in | std::ios::out);
 
-  // Data data_base = get_data_from_base("dict/data_base.txt");
-  Data data_base = get_data_from_base(data_base_file);
-
+  Data data_base;
+  get_data_from_base(data_base, data_base_file);
 
   if (command == "show")
   {
@@ -77,7 +78,6 @@ int main(int argc, char **argv)
   }
   else if (command == "add")
   {
-  std::cout << "here\n";
     add(record, data_base);
   }
   else if (command == "remove")
@@ -85,8 +85,9 @@ int main(int argc, char **argv)
     remove(word, data_base);
   }
 
+  data_base_file.open("dict/data_base.txt", std::ios::in | std::ios::out);
   send_data_to_base(data_base, data_base_file);
-  // send_data_to_base(data_base, "dict/data_base1.txt");
+
   data_base_file.close();
   return 0;
 }

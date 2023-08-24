@@ -22,21 +22,21 @@
 
 void add(std::vector<std::string> record_to_add, Data &data_base)
 {
-    Record to_data_base;
-    to_data_base.record.push_back(record_to_add[0]);
-    to_data_base.record.push_back("-");
+    Record to_data_base(record_to_add);
+    // to_data_base.record.push_back(record_to_add[0]);
+    // to_data_base.record.push_back("-");
     // data_base.data[data_base.data.size() - 1].record.push_back(record_to_add[0]);
     // data_base.data[data_base.data.size() - 1].record.push_back("-");
     // std::string *begin = record.begin();
     // std::string *end = record.end();
-    std::string *begin = &record_to_add[1];
-    std::string *end = &record_to_add[record_to_add.size()];
-    for ( ; begin != end; begin++)
-    {
-        // data_base << *begin << " ";
-        // data_base.data[data_base.data.size() - 1].record_to_add.push_back(*begin);
-        to_data_base.record.push_back(*begin);
-    }
+    // std::string *begin = &record_to_add[1];
+    // std::string *end = &record_to_add[record_to_add.size()];
+    // for ( ; begin != end; begin++)
+    // {
+    //     // data_base << *begin << " ";
+    //     // data_base.data[data_base.data.size() - 1].record_to_add.push_back(*begin);
+    //     to_data_base.record.push_back(*begin);
+    // }
     data_base.data.push_back(to_data_base);
     // data_base << std::endl;
 }

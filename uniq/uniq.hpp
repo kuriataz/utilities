@@ -2,6 +2,6 @@
 
 #include <cstdio>
 
-int *uniq(int*, int*);
+int *find_uniq(int*, int*);
 
-int *duplicate(int*, int*);
+int *find_duplicate(int*, int*);
