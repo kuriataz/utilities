@@ -2,6 +2,7 @@
 
 #include <cstdio>
 #include <utility>
+#include <iterator>
 
 using i64 = std::int64_t;
 template <typename T>
@@ -83,6 +84,10 @@ struct Array
     ~Array()
     {
         // TODO: Call all destructors.
+        for (int i = 0; i != _size; i++)
+        {
+            storage[i].~T();
+        }
         dealloc(storage, _capacity);
     }
 
@@ -118,6 +123,18 @@ struct Array
         return *storage;
     }
 
+    T& erase(int position)
+    {
+        storage[position].~T();
+        for ( ; position != _size; ++position)
+        {
+            storage[position - 1] = storage[position];
+        }
+        storage[_size - 1].~T();
+        _size--;
+        return *storage;
+    }
+
     T* data() {
         return storage;
     }
@@ -135,5 +152,4 @@ struct Array
     {
         return _size == 0;
     }
-
 };

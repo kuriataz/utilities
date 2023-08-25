@@ -12,7 +12,7 @@
 #include <methods.hpp>
 #include <array.hpp>
 #include <dict.hpp>
-#include <data.hpp>
+#include <functions.hpp>
 
 
 int main(int argc, char **argv)
@@ -54,6 +54,8 @@ int main(int argc, char **argv)
 
     if (result.arguments.size() > 2)
     {
+      result.arguments.erase(0);
+      result.arguments.erase(1);
       description = array_to_string(result.arguments);
     }
   }

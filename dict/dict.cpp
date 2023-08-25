@@ -1,76 +1,84 @@
 #include <cstdlib>
+#include <vector>
 #include <string>
+#include <dict.hpp>
 #include <iostream>
 #include <fstream>
-#include <array.hpp>
-#include <vector>
-#include <data.hpp>
 
-// struct Functions
-// {
-//     virtual void add(std::vector<std::string> record_to_add, Data &data_base)
-//     {
-//         Record to_data_base(record_to_add);
-//         data_base.data.push_back(to_data_base);
-//     }
+void Dict::add(std::string word, std::string description)
+{
+    std::string new_description;
+    new_description += " - ";
+    new_description += description;
+    Record new_record(word, new_description);
+    data.push_back(new_record);
+}
 
-//     void remove(std::string word, Data &data_base)
-//     {
-//         std::vector<Record> new_data;
-//         // Array<Record> data(data_base.data);
+void Dict::remove(std::string word)
+{
+    Array<Record> new_data;
+    // Array<Record> data(data_base.data);
 
-//         for (int i = 0; i != data_base.data.size(); i++)
-//         {
-//             if (data_base.data[i].record[0].compare(word) != 0)
-//             {
-//                 new_data.push_back(data_base.data[i]);
-//             }
-//         }
+    for (int i = 0; i != data.size(); i++)
+    {
+        if (data[i].word != word)
+        {
+            new_data.push_back(data[i]);
+        }
+    }
+    data = new_data;
+}
+void Dict::show(std::string word)
+{
+    for (int i = 0; i != data.size(); i++)
+    {
+        if (data[i].word == word)
+        {
+            std::cout << data[i].word << data[i].description << '\n';
+        }
+    }
+}
 
-//         data_base.data = new_data;
-//     }
+void Dict::list()
+{
+    for (int i = 0; i != data.size(); i++)
+    {
+        std::cout << data[i].word << data[i].description << '\n';
+    }
+}
 
-//     void show(std::string word, Data &data_base)
-//     {
-//         int size = data_base.data.size();
-//         Record *begin = &data_base.data[0];
-//         Record *end = &data_base.data[size];
-//         // Array<Record> data(data_base.data);
+void Dict::get_data_from_base(std::fstream &base)
+{
+    if (!(base.is_open()))
+    {
+        std::cerr << "couldn't open the file\n";
+    }
+    std::string line;
+    while (getline(base, line))
+    {
+        size_t dash = line.find("-");
+        if (dash == std::string::npos)
+        {
+            std::cerr << "error: - missing\n";
+            return;
+        }
+        std::string word = line.substr(0, dash - 1);
+        std::string description = line.substr(dash - 1);
+        Record record(word, description);
+        data.push_back(record);
+    }
+    base.close();
+}
 
-//         std::cout << "HERE\n";
-
-//         for (int i = 0; i != size; i++)
-//         {
-//             if (data_base.data[i][0] == word)
-//             {
-//                 std::vector<std::string> record = data_base.data[i].record;
-//                 std::string *begin = &record[0];
-//                 std::string *end = &record[record.size()];
-//                 for ( ; begin != end; begin++)
-//                 {
-//                     // data_base << *begin << " ";
-//                     std::cout << *begin << " ";
-//                 }
-//                 std::cout << '\n';
-//             }
-//         }
-//     }
-
-//     void list(Data &data_base)
-//     {
-//         int size = data_base.data.size();
-//         for (int i = 0; i != size; i++)
-//         {
-//             std::vector<std::string> record = data_base.data[i].record;
-//             std::string *begin = &record[0];
-//             std::string *end = &record[record.size()];
-//             for ( ; begin != end; begin++)
-//             {
-//                 // data_base << *begin << " ";
-//                 std::cout << *begin << " ";
-//             }
-//             std::cout << '\n';
-
-//         }
-//     }
-// }
+void Dict::send_data_to_base(std::fstream &base)
+{
+    if (!(base.is_open()))
+    {
+        std::cerr << "couldn't open the file\n";
+    }
+    for (int i = 0; i != data.size(); i++)
+    {
+        base << data[i].word << data[i].description << '\n';
+    }
+    base.close();
+}
