@@ -1,5 +1,0 @@
-cat - kot
-dog - pies
-horse - kon
-pies
-horse - kon

@@ -8,9 +8,7 @@ using i64 = std::int64_t;
 template <typename T>
 struct Array
 {
-
     private:
-
     int _size = 0;
     int _capacity = 0;
     T *storage = nullptr;
@@ -44,14 +42,7 @@ struct Array
     }
 
     public:
-
     Array() = default;
-
-    // Array(Array const& old): storage(old)
-    // {
-    //     size = old.size;
-    //     capacity = old.capacity;
-    // }
 
     Array(Array const &old)
     {
@@ -63,12 +54,6 @@ struct Array
             ::new (storage + i) T(old.storage[i]);
         }
     }
-
-    // Array(Array&& old): storage(std::move(old))
-    // {
-    //     size = old.size;
-    //     capacity = old.capacity;
-    // }
 
     Array(Array&& old)
     {
@@ -88,7 +73,7 @@ struct Array
         {
             storage[i].~T();
         }
-        // dealloc(storage, _capacity);
+        dealloc(storage, _capacity); // only if it is commented dict remove works
     }
 
     T& operator[] (int index)
