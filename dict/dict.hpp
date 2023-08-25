@@ -27,7 +27,6 @@ struct Dict : public Functions
     Array<Record> data;
 
     virtual void add(std::string, std::string);
-    // void add(std::string, std::vector<std::string> description);
 
     virtual void remove(std::string);
 

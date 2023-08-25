@@ -14,20 +14,21 @@ void Dict::add(std::string word, std::string description)
     data.push_back(new_record);
 }
 
+// doesnt work - might be problem with line#29 (Array)
 void Dict::remove(std::string word)
 {
     Array<Record> new_data;
-    // Array<Record> data(data_base.data);
 
     for (int i = 0; i != data.size(); i++)
     {
-        if (data[i].word != word)
+        if (data[i].word == word)
         {
             new_data.push_back(data[i]);
         }
     }
     data = new_data;
 }
+
 void Dict::show(std::string word)
 {
     for (int i = 0; i != data.size(); i++)

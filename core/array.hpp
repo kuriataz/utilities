@@ -88,11 +88,15 @@ struct Array
         {
             storage[i].~T();
         }
-        dealloc(storage, _capacity);
+        // dealloc(storage, _capacity);
     }
 
     T& operator[] (int index)
     {
+        if (index < 0 || index >= _size)
+        {
+            std::cerr << "out of range\n";
+        }
         return storage[index];
     }
     Array& operator= (const Array&) = default;
