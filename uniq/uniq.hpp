@@ -1,7 +1,41 @@
 #pragma once
 
+// #include <uniq.hpp>
 #include <cstdio>
+#include <utility>
 
-int *find_uniq(int*, int*);
+template <typename T>
+T *find_uniq(T *begin, T *end)
+{
+    if (begin == end)
+    {
+        return begin;
+    }
+    T *result = begin;
+    while (++begin != end)
+    {
+        if (*result != *begin)
+        {
+            *(++result) = std::move(*begin);
+        }
+    }
+    return ++result;
+}
 
-int *find_duplicate(int*, int*);
+template <typename T>
+T *find_duplicate(T *begin, T *end)
+{
+    if (begin == end)
+    {
+        return nullptr;
+    }
+    T *result = begin;
+    while (++begin != end)
+    {
+        if (*begin == *(begin - 1))
+        {
+            *(result++) = std::move(*begin);
+        }
+    }
+    return result;
+}

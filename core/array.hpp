@@ -76,11 +76,12 @@ struct Array
         dealloc(storage, _capacity); // only if it is commented dict remove works
     }
 
+    // doesn't work well
     T& operator[] (int index)
     {
         if (index < 0 || index >= _size)
         {
-            std::cerr << "out of range\n";
+            // std::cerr << "out of range - from operator[]\n";
         }
         return storage[index];
     }

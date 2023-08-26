@@ -20,7 +20,7 @@ target_include_directories(core
 add_executable(uniq
     "uniq/main.cpp"
     "uniq/uniq.hpp"
-    "uniq/uniq.cpp"
+    # "uniq/uniq.cpp"
 )
 target_compile_options(uniq
     PRIVATE
@@ -35,7 +35,6 @@ target_link_libraries(uniq PRIVATE core)
 add_executable(sort
     "sort/main.cpp"
     "sort/sort.hpp"
-    "sort/sort.cpp"
 )
 target_compile_options(sort
     PRIVATE
