@@ -81,7 +81,7 @@ struct Array
     {
         if (index < 0 || index >= _size)
         {
-            // std::cerr << "out of range - from operator[]\n";
+            std::cerr << "out of range - from operator[]\n";
         }
         return storage[index];
     }

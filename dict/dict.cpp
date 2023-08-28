@@ -21,9 +21,9 @@ void Dict::remove(std::string word)
 {
     Array<Record> new_data;
 
-    for (int i = 0; i != data.size(); i++)
+    for (int i = 0; i != data.size() - 1; i++)
     {
-        if (data[i].word == word)
+        if (data[i].word != word)
         {
             new_data.push_back(data[i]);
         }
@@ -89,5 +89,9 @@ void Dict::send_data_to_base(std::fstream &base)
     {
         base << (*begin).word << (*begin).description << '\n';
     }
+    // for (int i = 0; i != data.size(); i++)
+    // {
+    //     base << data[i].word << data[i].description << '\n';
+    // }
     base.close();
 }
