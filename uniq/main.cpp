@@ -142,5 +142,12 @@ int main(int argc, char **argv)
 
   output(begin, end, *output_stream);
 
+  Array<std::string> arr;
+  arr.push_back("beb");
+  arr.push_back("aeb");
+  arr.push_back("azeb");
+  arr.push_back("aab");
+  
+
   return 0;
 }

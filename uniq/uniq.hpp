@@ -1,6 +1,5 @@
 #pragma once
 
-// #include <uniq.hpp>
 #include <cstdio>
 #include <utility>
 
@@ -29,6 +28,7 @@ T *find_duplicate(T *begin, T *end)
     {
         return nullptr;
     }
+    T *beg = begin;
     T *result = begin;
     while (++begin != end)
     {
@@ -37,5 +37,6 @@ T *find_duplicate(T *begin, T *end)
             *(result++) = std::move(*begin);
         }
     }
+    result = find_uniq(beg, result);
     return result;
 }

@@ -59,5 +59,7 @@ target_compile_options(dict
 target_include_directories(dict
     PRIVATE
     "dict/"
+    "sort/"
+    "uniq/"
 )
 target_link_libraries(dict PRIVATE core)

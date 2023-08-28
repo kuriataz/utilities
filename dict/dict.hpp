@@ -20,6 +20,23 @@ struct Record
         // this->description += " - ";
         // this->description += description;
     }
+
+    bool operator> (const Record& obj)
+    {
+        return this->word > obj.word;
+    }
+    bool operator< (const Record& obj)
+    {
+        return this->word < obj.word;
+    }
+    bool operator!= (const Record& obj)
+    {
+        return this->word != obj.word;
+    }
+    bool operator== (const Record& obj)
+    {
+        return this->word == obj.word;
+    }
 };
 
 struct Dict : public Functions

@@ -4,6 +4,8 @@
 #include <dict.hpp>
 #include <iostream>
 #include <fstream>
+#include <sort.hpp>
+#include <uniq.hpp>
 
 void Dict::add(std::string word, std::string description)
 {
@@ -68,6 +70,8 @@ void Dict::get_data_from_base(std::fstream &base)
         Record record(word, description);
         data.push_back(record);
     }
+    bubbleSort<Record>(data.begin(), data.end());
+    // find_uniq<Record>(data.begin(), data.end());
     base.close();
 }
 
@@ -77,9 +81,13 @@ void Dict::send_data_to_base(std::fstream &base)
     {
         std::cerr << "couldn't open the file\n";
     }
-    for (int i = 0; i != data.size(); i++)
+
+    Record *begin = data.begin();
+    Record *end = data.end();
+    bubbleSort<Record>(begin, end);
+    for ( ; begin != end; begin++)
     {
-        base << data[i].word << data[i].description << '\n';
+        base << (*begin).word << (*begin).description << '\n';
     }
     base.close();
 }
