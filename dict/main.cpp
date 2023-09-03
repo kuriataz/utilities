@@ -64,7 +64,7 @@ int main(int argc, char **argv)
 
   std::string command = argv[1];
   std::fstream base;
-  base.open("dict/data_base.txt", std::ios::in | std::ios::out);
+  base.open("dict/data_base.txt", std::ios::in);
 
   dict.get_data_from_base(base);
 

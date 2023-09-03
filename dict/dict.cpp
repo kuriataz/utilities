@@ -10,7 +10,7 @@
 void Dict::add(std::string word, std::string description)
 {
     std::string new_description;
-    new_description += " - ";
+    new_description += " , ";
     new_description += description;
     Record new_record(word, new_description);
     data.push_back(new_record);
@@ -50,6 +50,16 @@ void Dict::list()
     }
 }
 
+// void Dict::select(Array<std::string> input)
+// {
+//     std::string *begin = input.begin();
+//     std::string *end = input.end();
+//     while (begin != end && *begin != "from")
+//     {
+
+//     }
+// }
+
 void Dict::get_data_from_base(std::fstream &base)
 {
     if (!(base.is_open()))
@@ -59,7 +69,7 @@ void Dict::get_data_from_base(std::fstream &base)
     std::string line;
     while (getline(base, line))
     {
-        size_t dash = line.find("-");
+        size_t dash = line.find(",");
         if (dash == std::string::npos)
         {
             std::cerr << "error: - missing\n";

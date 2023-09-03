@@ -32,11 +32,10 @@ T *find_duplicate(T *begin, T *end)
     T *result = begin;
     while (++begin != end)
     {
-        if (*begin == *(begin - 1))
+        if (*begin == *(begin - 1) && *begin != *(result - 1))
         {
             *(result++) = std::move(*begin);
         }
     }
-    result = find_uniq(beg, result);
     return result;
 }

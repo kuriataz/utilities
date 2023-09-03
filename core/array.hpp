@@ -89,7 +89,7 @@ struct Array
     // doesn't work well
     T& operator[] (int index)
     {
-        if (index < 0 || index >= _size)
+        if (index < 0 || index > _size)
         {
             std::cerr << "out of range - from operator[]\n";
         }

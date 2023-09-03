@@ -53,6 +53,8 @@ struct Dict : public Functions
 
     virtual void show(std::string);
 
+    // virtual void select(Array<std::string>);
+
     void get_data_from_base(std::fstream&);
     void send_data_to_base(std::fstream&);
 };
