@@ -43,6 +43,8 @@ struct Dict : public Functions
 {
     Array<Record> data;
 
+    ~Dict() {}
+
     virtual void add(std::string, std::string);
 
     virtual void remove(std::string);

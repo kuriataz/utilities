@@ -68,14 +68,24 @@ struct Array
 
     ~Array()
     {
-        // TODO: Call all destructors.
         for (int i = 0; i != _size; i++)
         {
             storage[i].~T();
         }
-        dealloc(storage, _capacity); // only if it is commented dict remove works
+        dealloc(storage, _capacity);
     }
 
+    private:
+    void destruct()
+    {
+        for (int i = 0; i != _size; i++)
+        {
+            storage[i].~T();
+        }
+        dealloc(storage, _capacity);
+    }
+
+    public:
     // doesn't work well
     T& operator[] (int index)
     {
@@ -85,7 +95,29 @@ struct Array
         }
         return storage[index];
     }
-    Array& operator= (const Array&) = default;
+    Array& operator= (const Array& old)
+    {
+        destruct();
+        storage = alloc(old._capacity);
+        _size = old._size;
+        _capacity = old._capacity;
+        for (int i = 0; i != old._size; i++)
+        {
+            ::new (storage + i) T(old.storage[i]);
+        }
+        return *this;
+    }
+    Array& operator= (Array&& old)
+    {
+        destruct();
+        storage = old.storage;
+        _size = old._size;
+        _capacity = old._capacity;
+        old.storage = nullptr;
+        old._size = 0;
+        old._capacity = 0;
+        return *this;
+    }
 
     int size()
     {

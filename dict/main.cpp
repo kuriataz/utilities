@@ -85,7 +85,7 @@ int main(int argc, char **argv)
     dict.remove(word);
   }
 
-  base.open("dict/data_base.txt", std::ios::in | std::ios::out);
+  base.open("dict/data_base.txt", std::ios::out);
   dict.send_data_to_base(base);
 
   return 0;

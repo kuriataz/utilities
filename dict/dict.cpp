@@ -16,16 +16,16 @@ void Dict::add(std::string word, std::string description)
     data.push_back(new_record);
 }
 
-// doesnt work - might be problem with line#29 (Array)
+// doesnt work - might be problem with line#31 (Array)
 void Dict::remove(std::string word)
 {
     Array<Record> new_data;
 
-    for (int i = 0; i != data.size() - 1; i++)
+    for (Record& record: data)
     {
-        if (data[i].word != word)
+        if (record.word != word)
         {
-            new_data.push_back(data[i]);
+            new_data.push_back(record);
         }
     }
     data = new_data;

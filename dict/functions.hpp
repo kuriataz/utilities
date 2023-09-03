@@ -8,6 +8,8 @@
 
 struct Functions
 {
+    virtual ~Functions() = default;
+
     virtual void add(std::string, std::string) = 0;
 
     virtual void remove(std::string) = 0;
