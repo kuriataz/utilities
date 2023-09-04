@@ -2,3 +2,6 @@ build/
 .vscode/
 numbers.txt
 data_base.txt
+type
+type.hpp
+type.cpp

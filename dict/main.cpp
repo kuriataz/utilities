@@ -28,8 +28,6 @@ int main(int argc, char **argv)
       Option_Definition{"-h", "--help", OPTION_HELP, false}};
 
   // int size = sizeof(option_defs); // = 360 don't know why
-  // std::cout << size << std::endl;
-
 
   Parse_Result result =
       parse_arguments(argc, argv, option_defs, 1);
@@ -65,8 +63,8 @@ int main(int argc, char **argv)
   std::string command = argv[1];
   std::fstream base;
   base.open("dict/data_base.txt", std::ios::in);
-
   dict.get_data_from_base(base);
+  base.close();
 
   if (command == "show")
   {
@@ -87,6 +85,7 @@ int main(int argc, char **argv)
 
   base.open("dict/data_base.txt", std::ios::out);
   dict.send_data_to_base(base);
+  base.close();
 
   return 0;
 }
