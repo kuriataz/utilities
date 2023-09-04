@@ -16,5 +16,5 @@ struct Functions
 
     virtual void list() = 0;
 
-    virtual void show(std::string) = 0;
+    virtual void select(std::string) = 0;
 };

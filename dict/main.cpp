@@ -13,6 +13,7 @@
 #include <array.hpp>
 #include <dict.hpp>
 #include <functions.hpp>
+#include <uniq.hpp>
 
 
 int main(int argc, char **argv)
@@ -23,14 +24,29 @@ int main(int argc, char **argv)
   }
 
   constexpr int OPTION_HELP = 1;
+  constexpr int OPTION_DUPLICATE = 2;
+  constexpr int OPTION_UNIQ = 3;
 
   Option_Definition option_defs[] = {
-      Option_Definition{"-h", "--help", OPTION_HELP, false}};
+      Option_Definition{"-h", "--help", OPTION_HELP, false},
+      Option_Definition{"-d", "--duplicate", OPTION_DUPLICATE, false},
+      Option_Definition{"-u", "--uniq", OPTION_UNIQ, false}};
+
+  constexpr int COMMAND_LIST = 1;
+  constexpr int COMMAND_ADD = 2;
+  constexpr int COMMAND_REMOVE = 3;
+  constexpr int COMMAND_SELECT = 4;
+
+  Command_Definition command_defs[] = {
+      Command_Definition{"list", COMMAND_LIST, true},
+      Command_Definition{"add", COMMAND_ADD, false},
+      Command_Definition{"remove", COMMAND_REMOVE, false},
+      Command_Definition{"select", COMMAND_SELECT, false}};
 
   // int size = sizeof(option_defs); // = 360 don't know why
 
   Parse_Result result =
-      parse_arguments(argc, argv, option_defs, 1);
+      parse_arguments(argc, argv, option_defs, 1, command_defs, 4);
 
   if (!(result.options.empty()))
   {
@@ -46,14 +62,13 @@ int main(int argc, char **argv)
   std::string word;
   std::string description;
 
-  if (result.arguments.size() > 1)
+  if (result.arguments.size() > 0)
   {
-    word = result.arguments[1];
+    word = result.arguments[0];
 
-    if (result.arguments.size() > 2)
+    if (result.arguments.size() > 0)
     {
       result.arguments.erase(0);
-      result.arguments.erase(1);
       description = array_to_string(result.arguments);
     }
   }
@@ -66,22 +81,60 @@ int main(int argc, char **argv)
   dict.get_data_from_base(base);
   base.close();
 
-  if (command == "show")
+  if (!(result.options.empty()))
   {
-    dict.show(word);
+    for (Option const &option : result.options)
+    {
+      switch (option.id)
+      {
+      case OPTION_DUPLICATE:
+        find_duplicate(dict.data.begin(), dict.data.end());
+        break;
+      case OPTION_UNIQ:
+        find_uniq(dict.data.begin(), dict.data.end());
+        break;
+      }
+    }
   }
-  else if (command == "list")
+
+  if (!(result.commands.empty()))
   {
-    dict.list();
+    for (Command const &command : result.commands)
+    {
+      switch (command.id)
+      {
+      case COMMAND_LIST:
+        dict.list();
+        break;
+      case COMMAND_ADD:
+        dict.add(word, description);
+        break;
+      case COMMAND_REMOVE:
+        dict.remove(word);
+        break;
+      case COMMAND_SELECT:
+        dict.select(word);
+        break;
+      }
+    }
   }
-  else if (command == "add")
-  {
-    dict.add(word, description);
-  }
-  else if (command == "remove")
-  {
-    dict.remove(word);
-  }
+
+  // if (command == "show")
+  // {
+  //   dict.show(word);
+  // }
+  // else if (command == "list")
+  // {
+  //   dict.list();
+  // }
+  // else if (command == "add")
+  // {
+  //   dict.add(word, description);
+  // }
+  // else if (command == "remove")
+  // {
+  //   dict.remove(word);
+  // }
 
   base.open("dict/data_base.txt", std::ios::out);
   dict.send_data_to_base(base);

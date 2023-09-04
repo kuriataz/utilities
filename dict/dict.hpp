@@ -10,13 +10,15 @@
 
 struct Record
 {
+    std::string id;
     std::string word;
     std::string description;
 
     Record() = default;
 
-    Record(std::string word, std::string description): word(word), description(description)
+    Record(std::string word, std::string description, int max_id): word(word), description(description), id(std::to_string(max_id))
     {
+        // id = max_id + 1;
         // this->description += " - ";
         // this->description += description;
     }
@@ -42,6 +44,7 @@ struct Record
 struct Dict : public Functions
 {
     Array<Record> data;
+    int max_id = 0;
 
     ~Dict() {}
 
@@ -51,7 +54,7 @@ struct Dict : public Functions
 
     virtual void list();
 
-    virtual void show(std::string);
+    virtual void select(std::string);
 
     // virtual void select(Array<std::string>);
 
