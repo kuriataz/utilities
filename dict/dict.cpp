@@ -66,6 +66,24 @@ void Dict::list()
     }
 }
 
+void Dict::update(std::string id, std::string column, std::string new_value)
+{
+    for (int i = 0; i != data.size(); i++)
+    {
+        if (data[i].id == id)
+        {
+            if (column == "word")
+            {
+                data[i].word = new_value;
+            }
+            else if (column == "description")
+            {
+                data[i].description = new_value;
+            }
+        }
+    }
+}
+
 void Dict::get_data_from_base(std::fstream &base)
 {
     if (!(base.is_open()))

@@ -18,4 +18,6 @@ struct Functions
     virtual void list() = 0;
 
     virtual void select(std::string) = 0;
+
+    virtual void update(std::string, std::string, std::string) = 0;
 };

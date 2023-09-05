@@ -13,7 +13,7 @@
 
 void shell_main(int argc, Array<std::string> argv, Dict &dict)
 {
-  if (argc < 2)
+  if (argc < 1)
   {
     return;
   }
@@ -123,10 +123,13 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
 
 void shell(Dict &dict)
 {
-    std::cout << "HERE\n";
   std::string line;
   while(getline(std::cin, line))
   {
+    if (line == "q")
+    {
+        return;
+    }
     Array<std::string> argv;
     argv = tokenize(line, " ");
     int argc = argv.size();
