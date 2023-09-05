@@ -1,27 +1,21 @@
-#include <algorithm>
 #include <cstdio>
-#include <expected.hpp>
 #include <fstream>
 #include <iostream>
-#include <optional>
-#include <sstream>
 #include <string.h>
-#include <string_view>
 
-#include <options.hpp>
 #include <methods.hpp>
+#include <options.hpp>
 #include <array.hpp>
 #include <dict.hpp>
 #include <functions.hpp>
 #include <uniq.hpp>
-#include <shell.hpp>
+#include <algorithm>
 
-
-int main(int argc, char **argv)
+void shell_main(int argc, Array<std::string> argv, Dict &dict)
 {
   if (argc < 2)
   {
-    return 1;
+    return;
   }
 
   constexpr int OPTION_HELP = 1;
@@ -49,7 +43,7 @@ int main(int argc, char **argv)
   // int size = sizeof(option_defs); // = 360 don't know why
 
   Parse_Result result =
-      parse_arguments(argc, argv, option_defs, 1, command_defs, 5);
+      parse_arguments(argc, argv, option_defs, 1, command_defs, 4);
 
   if (!(result.options.empty()))
   {
@@ -76,13 +70,10 @@ int main(int argc, char **argv)
     }
   }
 
-  Dict dict;
-
-  std::string command = argv[1];
-  std::fstream base;
-  base.open("dict/data_base.txt", std::ios::in);
-  dict.get_data_from_base(base);
-  base.close();
+  // std::fstream base;
+  // base.open("dict/data_base.txt", std::ios::in);
+  // dict.get_data_from_base(base);
+  // base.close();
 
   if (!(result.options.empty()))
   {
@@ -107,8 +98,7 @@ int main(int argc, char **argv)
       switch (command.id)
       {
       case COMMAND_SHELL:
-          std::cout << "HERE\n";
-        shell(dict);
+        std::cout << "do not nest shell\n";
         break;
       case COMMAND_LIST:
         dict.list();
@@ -126,26 +116,20 @@ int main(int argc, char **argv)
     }
   }
 
-  // if (command == "show")
-  // {
-  //   dict.show(word);
-  // }
-  // else if (command == "list")
-  // {
-  //   dict.list();
-  // }
-  // else if (command == "add")
-  // {
-  //   dict.add(word, description);
-  // }
-  // else if (command == "remove")
-  // {
-  //   dict.remove(word);
-  // }
+  // base.open("dict/data_base.txt", std::ios::out);
+  // dict.send_data_to_base(base);
+  // base.close();
+}
 
-  base.open("dict/data_base.txt", std::ios::out);
-  dict.send_data_to_base(base);
-  base.close();
-
-  return 0;
+void shell(Dict &dict)
+{
+    std::cout << "HERE\n";
+  std::string line;
+  while(getline(std::cin, line))
+  {
+    Array<std::string> argv;
+    argv = tokenize(line, " ");
+    int argc = argv.size();
+    shell_main(argc, argv, dict);
+  }
 }

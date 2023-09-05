@@ -11,3 +11,8 @@
 void help();
 
 void output(int*, int*, std::ostream& value);
+
+std::string pretty_print();
+
+Array<std::string> tokenize(std::string, std::string);
+

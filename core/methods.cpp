@@ -40,3 +40,28 @@ void output(int *begin, int *end, std::ostream &stream)
     stream << *begin << '\n';
   }
 }
+
+std::string pretty_print()
+{
+    std::string pretty;
+    for (int i = 0; i != 40; i++)
+    {
+        pretty += " ";
+    }
+    return pretty;
+}
+
+Array<std::string> tokenize(std::string s, std::string del)
+{
+    Array<std::string> strings;
+    int start, end = -1*del.size();
+    do {
+        start = end + del.size();
+        end = s.find(del, start);
+        // std::cout << s.substr(start, end - start) << std::endl;
+        strings.push_back(s.substr(start, end - start));
+
+    } while (end != -1);
+
+    return strings;
+}

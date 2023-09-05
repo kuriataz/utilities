@@ -6,21 +6,8 @@
 #include <fstream>
 #include <sort.hpp>
 #include <uniq.hpp>
+#include <methods.hpp>
 
-Array<std::string> tokenize(std::string s, std::string del)
-{
-    Array<std::string> strings;
-    int start, end = -1*del.size();
-    do {
-        start = end + del.size();
-        end = s.find(del, start);
-        // std::cout << s.substr(start, end - start) << std::endl;
-        strings.push_back(s.substr(start, end - start));
-
-    } while (end != -1);
-
-    return strings;
-}
 
 void Dict::add(std::string word, std::string description)
 {
@@ -45,13 +32,28 @@ void Dict::remove(std::string word)
     data = new_data;
 }
 
+void Dict::remove(int id)
+{
+    Array<Record> new_data;
+    std::string id_as_string = std::to_string(id);
+
+    for (Record& record: data)
+    {
+        if (record.id != id_as_string)
+        {
+            new_data.push_back(record);
+        }
+    }
+    data = new_data;
+}
+
 void Dict::select(std::string word)
 {
     for (int i = 0; i != data.size(); i++)
     {
         if (data[i].word == word)
         {
-            std::cout << data[i].word << data[i].description << '\n';
+            std::cout << data[i].word << pretty_print() << data[i].description << '\n';
         }
     }
 }
@@ -76,21 +78,10 @@ void Dict::get_data_from_base(std::fstream &base)
     max_id = std::stoi(max);
     while (getline(base, line))
     {
-        // size_t dash2 = line.find(",");
-        // size_t dash = line.find(",");
-        // std::cout << dash << " - dash, dash2 - " << dash2 << "\n";
-        // if (dash == std::string::npos)
-        // {
-        //     std::cerr << "error: - missing\n";
-        //     return;
-        // }
-
         Array<std::string> strings = tokenize(line, ",");
         std::string id = strings[0];
         std::string word = strings[1];
-        // std::string word = line.substr(dash2 - 1, dash - 1);
         std::string description = strings[2];
-        // std::string description = line.substr(dash - 1);
         Record record(word, description, std::stoi(id));
         data.push_back(record);
     }

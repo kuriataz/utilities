@@ -69,7 +69,10 @@ struct Parse_Result
 Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[], int size,
                             Command_Definition com_defs[], int com_size);
 
+Parse_Result parse_arguments(int argc, Array<std::string> argv, Option_Definition defs[], int size,
+                            Command_Definition com_defs[], int com_size);
+
 Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[],
                              int size);
-                             
+
 std::string array_to_string(Array<std::string>);

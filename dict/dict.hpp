@@ -50,6 +50,7 @@ struct Dict : public Functions
 
     virtual void add(std::string, std::string);
 
+    virtual void remove(int);
     virtual void remove(std::string);
 
     virtual void list();

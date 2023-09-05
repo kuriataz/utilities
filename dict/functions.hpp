@@ -12,7 +12,8 @@ struct Functions
 
     virtual void add(std::string, std::string) = 0;
 
-    virtual void remove(std::string) = 0;
+    virtual void remove(int) = 0;
+    // virtual void remove(std::string) = 0;
 
     virtual void list() = 0;
 
