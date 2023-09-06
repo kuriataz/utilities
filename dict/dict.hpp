@@ -66,4 +66,4 @@ struct Dict : public Functions
     void send_data_to_base(std::fstream&);
 };
 
-
+void dict_help();

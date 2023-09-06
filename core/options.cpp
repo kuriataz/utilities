@@ -182,6 +182,7 @@ std::string array_to_string(Array<std::string> array)
   for ( ; begin != end; begin++)
   {
     result += *begin;
+    result +=  " ";
   }
   return result;
 }

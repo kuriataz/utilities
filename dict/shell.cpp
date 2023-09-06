@@ -32,18 +32,20 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
   constexpr int COMMAND_REMOVE = 3;
   constexpr int COMMAND_SELECT = 4;
   constexpr int COMMAND_SHELL = 5;
+  constexpr int COMMAND_UPDATE = 6;
 
   Command_Definition command_defs[] = {
       Command_Definition{"list", COMMAND_LIST, true},
       Command_Definition{"add", COMMAND_ADD, false},
       Command_Definition{"remove", COMMAND_REMOVE, false},
       Command_Definition{"select", COMMAND_SELECT, false},
-      Command_Definition{"shell", COMMAND_SHELL, false}};
+      Command_Definition{"shell", COMMAND_SHELL, false},
+      Command_Definition{"update", COMMAND_UPDATE, false}};
 
   // int size = sizeof(option_defs); // = 360 don't know why
 
   Parse_Result result =
-      parse_arguments(argc, argv, option_defs, 1, command_defs, 4);
+      parse_arguments(argc, argv, option_defs, 1, command_defs, 6);
 
   if (!(result.options.empty()))
   {
@@ -51,29 +53,30 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
     {
       if (option.id == OPTION_HELP)
       {
-        help();
+        dict_help();
       }
     }
   }
 
   std::string word;
   std::string description;
+  std::string column;
+  std::string new_value;
 
   if (result.arguments.size() > 0)
   {
     word = result.arguments[0];
 
-    if (result.arguments.size() > 0)
+    if (result.arguments.size() > 1)
     {
       result.arguments.erase(0);
       description = array_to_string(result.arguments);
+
+      column = result.arguments[0];
+      result.arguments.erase(0);
+      new_value = array_to_string(result.arguments);
     }
   }
-
-  // std::fstream base;
-  // base.open("dict/data_base.txt", std::ios::in);
-  // dict.get_data_from_base(base);
-  // base.close();
 
   if (!(result.options.empty()))
   {
@@ -112,13 +115,12 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
       case COMMAND_SELECT:
         dict.select(word);
         break;
+      case COMMAND_UPDATE:
+        dict.update(word, column, new_value);
+        break;
       }
     }
   }
-
-  // base.open("dict/data_base.txt", std::ios::out);
-  // dict.send_data_to_base(base);
-  // base.close();
 }
 
 void shell(Dict &dict)

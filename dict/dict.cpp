@@ -121,3 +121,15 @@ void Dict::send_data_to_base(std::fstream &base)
         base << (*begin).id << "," << (*begin).word << "," <<  (*begin).description << '\n';
     }
 }
+
+void dict_help()
+{
+    std::cout << "DICT - program to keep words and their description\n\n"
+              << "COMMANDS:\n"
+              << "dict add WORD DESCRIPTION         - add a word and the description\n"
+              << "dict remove ID                  - id of the record to be removed\n"
+              << "dict list                         - list all words\n"
+              << "dict select WORD                  - show all entries with given word\n"
+              << "dict update ID COLUMN NEW_VALUE   - updates the column of given id's record with the new_value\n"
+              << "dict shell                        - interactive mode for the db system, use q to quit\n";
+}

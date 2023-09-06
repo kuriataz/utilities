@@ -59,7 +59,7 @@ int main(int argc, char **argv)
     {
       if (option.id == OPTION_HELP)
       {
-        help();
+        dict_help();
       }
     }
   }
@@ -73,7 +73,7 @@ int main(int argc, char **argv)
   {
     word = result.arguments[0];
 
-    if (result.arguments.size() > 0)
+    if (result.arguments.size() > 1)
     {
       result.arguments.erase(0);
       description = array_to_string(result.arguments);
