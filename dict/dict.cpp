@@ -88,7 +88,7 @@ void Dict::get_data_from_base(std::fstream &base)
 {
     if (!(base.is_open()))
     {
-        std::cerr << "couldn't open the file\n";
+        std::cerr << "couldn't open the file (but probably works)\n";
     }
     std::string line;
     std::string max;
