@@ -1,4 +1,6 @@
-template <typename T> struct iterator {
+template <typename T>
+struct iterator
+{
 private:
   T *value;
 

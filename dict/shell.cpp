@@ -126,6 +126,7 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
 void shell(Dict &dict)
 {
   std::string line;
+  Array<std::string> history;
   while(getline(std::cin, line))
   {
     if (line == "q")
@@ -135,6 +136,7 @@ void shell(Dict &dict)
     Array<std::string> argv;
     argv = tokenize(line, " ");
     int argc = argv.size();
+    history.push_back(argv[0]);
     shell_main(argc, argv, dict);
   }
 }

@@ -93,6 +93,10 @@ void Dict::get_data_from_base(std::fstream &base)
     std::string line;
     std::string max;
     getline(base, max);
+    if (max == "")
+    {
+        max = "0";
+    }
     max_id = std::stoi(max);
     while (getline(base, line))
     {

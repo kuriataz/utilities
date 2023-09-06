@@ -93,6 +93,7 @@ int main(int argc, char **argv)
   dict.get_data_from_base(base);
   base.close();
 
+  Record *end = dict.data.end();
   if (!(result.options.empty()))
   {
     for (Option const &option : result.options)
@@ -100,10 +101,10 @@ int main(int argc, char **argv)
       switch (option.id)
       {
       case OPTION_DUPLICATE:
-        find_duplicate(dict.data.begin(), dict.data.end());
+        end = find_duplicate(dict.data.begin(), dict.data.end());
         break;
       case OPTION_UNIQ:
-        find_uniq(dict.data.begin(), dict.data.end());
+        end = find_uniq(dict.data.begin(), dict.data.end());
         break;
       }
     }
