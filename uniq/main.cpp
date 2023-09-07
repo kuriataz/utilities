@@ -125,8 +125,8 @@ int main(int argc, char **argv)
   int *end = nullptr;
   bool d_flag = false;
 
-  iterator<int> b = ints.begin();
-  iterator<int> e = ints.end();
+  // iterator<int> b = ints.begin();
+  // iterator<int> e = ints.end();
   if (!(result.options.empty()))
   {
     for (Option const &option : result.options)
@@ -134,8 +134,8 @@ int main(int argc, char **argv)
       if (option.id == OPTION_DUPLICATE)
       {
         // end = duplicate(ints.data(), ints.data() + size);
-        // end = find_duplicate<int>(&ints[0], &ints[size]);
-        e = find_duplicate<iterator<int>>(b, e);
+        end = find_duplicate<int>(&ints[0], &ints[size]);
+        // e = find_duplicate<iterator<int>>(b, e);
         d_flag = true;
       }
     }
@@ -143,11 +143,11 @@ int main(int argc, char **argv)
 
   if (!d_flag)
   {
-    // end = find_uniq<int>(&ints[0], &ints[size]);
-    e = find_uniq<iterator<int>>(b, e);
+    end = find_uniq<int>(&ints[0], &ints[size]);
+    // e = find_uniq<iterator<int>>(b, e);
   }
 
-  output(begin, e->value, *output_stream);
+  output(begin, end, *output_stream);
   // output(begin, end, *output_stream);
 
   // Array<std::string> arr;
