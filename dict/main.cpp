@@ -21,6 +21,7 @@ int main(int argc, char **argv)
 {
   if (argc < 2)
   {
+    std::cout << "Dict requires at least one argument\n";
     return 1;
   }
 
@@ -51,7 +52,7 @@ int main(int argc, char **argv)
   // int size = sizeof(option_defs); // = 360 don't know why
 
   Parse_Result result =
-      parse_arguments(argc, argv, option_defs, 1, command_defs, 6);
+      parse_arguments(argc, argv, option_defs, 3, command_defs, 6);
 
   if (!(result.options.empty()))
   {
@@ -64,14 +65,14 @@ int main(int argc, char **argv)
     }
   }
 
-  std::string word;
+  std::string first_arg;
   std::string description;
   std::string column;
   std::string new_value;
 
   if (result.arguments.size() > 0)
   {
-    word = result.arguments[0];
+    first_arg = result.arguments[0];
 
     if (result.arguments.size() > 1)
     {
@@ -123,37 +124,20 @@ int main(int argc, char **argv)
         dict.list();
         break;
       case COMMAND_ADD:
-        dict.add(word, description);
+        dict.add(first_arg, description);
         break;
       case COMMAND_REMOVE:
-        dict.remove(stoi(word));
+        dict.remove(stoi(first_arg));
         break;
       case COMMAND_SELECT:
-        dict.select(word);
+        dict.select(first_arg);
         break;
       case COMMAND_UPDATE:
-        dict.update(word, column, new_value);
+        dict.update(first_arg, column, new_value);
         break;
       }
     }
   }
-
-  // if (command == "show")
-  // {
-  //   dict.show(word);
-  // }
-  // else if (command == "list")
-  // {
-  //   dict.list();
-  // }
-  // else if (command == "add")
-  // {
-  //   dict.add(word, description);
-  // }
-  // else if (command == "remove")
-  // {
-  //   dict.remove(word);
-  // }
 
   base.open("dict/data_base.txt", std::ios::out);
   dict.send_data_to_base(base);

@@ -12,7 +12,7 @@ void help();
 
 void output(int*, int*, std::ostream& value);
 
-std::string pretty_print();
+std::string pretty_print(int);
 
 Array<std::string> tokenize(std::string, std::string);
 

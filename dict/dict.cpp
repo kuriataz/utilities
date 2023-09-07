@@ -49,17 +49,21 @@ void Dict::remove(int id)
 
 void Dict::select(std::string word)
 {
+    std::cout << "ID" << pretty_print(0) << "WORD" << pretty_print(0) << "DESCRIPTION\n";
     for (int i = 0; i != data.size(); i++)
     {
         if (data[i].word == word)
         {
-            std::cout << data[i].word << pretty_print() << data[i].description << '\n';
+            std::cout << data[i].id << pretty_print(data[i].id.length() - 2)
+                      << data[i].word << pretty_print(data[i].word.length() - 4)
+                      << data[i].description << '\n';
         }
     }
 }
 
 void Dict::list()
 {
+    std::cout << "WORD\n";
     for (int i = 0; i != data.size(); i++)
     {
         std::cout << data[i].word << '\n';
@@ -88,7 +92,7 @@ void Dict::get_data_from_base(std::fstream &base)
 {
     if (!(base.is_open()))
     {
-        std::cerr << "couldn't open the file (but probably works)\n";
+        // std::cerr << "couldn't open the file (but probably works)\n";
     }
     std::string line;
     std::string max;
@@ -131,7 +135,7 @@ void dict_help()
     std::cout << "DICT - program to keep words and their description\n\n"
               << "COMMANDS:\n"
               << "dict add WORD DESCRIPTION         - add a word and the description\n"
-              << "dict remove ID                  - id of the record to be removed\n"
+              << "dict remove ID                    - id of the record to be removed\n"
               << "dict list                         - list all words\n"
               << "dict select WORD                  - show all entries with given word\n"
               << "dict update ID COLUMN NEW_VALUE   - updates the column of given id's record with the new_value\n"

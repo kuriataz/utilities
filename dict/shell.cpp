@@ -15,6 +15,7 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
 {
   if (argc < 1)
   {
+    std::cout << "Dict requires at least one argument\n";
     return;
   }
 
@@ -23,7 +24,7 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
   constexpr int OPTION_UNIQ = 3;
 
   Option_Definition option_defs[] = {
-      Option_Definition{"-h", "--help", OPTION_HELP, false},
+      Option_Definition{"h", "help", OPTION_HELP, false},
       Option_Definition{"-d", "--duplicate", OPTION_DUPLICATE, false},
       Option_Definition{"-u", "--uniq", OPTION_UNIQ, false}};
 
@@ -45,7 +46,7 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
   // int size = sizeof(option_defs); // = 360 don't know why
 
   Parse_Result result =
-      parse_arguments(argc, argv, option_defs, 1, command_defs, 6);
+      parse_arguments(argc, argv, option_defs, 3, command_defs, 6);
 
   if (!(result.options.empty()))
   {

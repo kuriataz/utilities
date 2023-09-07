@@ -152,7 +152,7 @@ struct Array
         {
             storage[position - 1] = storage[position];
         }
-        storage[_size - 1].~T();
+        // storage[_size - 1].~T();
         _size--;
         return *storage;
     }
