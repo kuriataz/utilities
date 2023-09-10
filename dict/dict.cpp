@@ -17,18 +17,6 @@ void Dict::add(std::string word, std::string description)
     max_id++;
     data.push_back(new_record);
 }
-void Dict::add(std::string all_args)
-{
-    std::string word;
-    std::string description;
-    Array<std::string> strings = tokenize(all_args, "-");
-    word = strings[0];
-    description = strings[1];
-
-    Record new_record(word, description, max_id + 1);
-    max_id++;
-    data.push_back(new_record);
-}
 
 void Dict::remove(std::string word)
 {
@@ -146,7 +134,7 @@ void dict_help()
 {
     std::cout << "DICT - program to keep words and their description\n\n"
               << "COMMANDS:\n"
-              << "dict add WORD -DESCRIPTION        - add a word and the description\n"
+              << "dict add 'WORD' 'DESCRIPTION'     - add a word and the description\n"
               << "dict remove ID                    - id of the record to be removed\n"
               << "dict list                         - list all words\n"
               << "dict select WORD                  - show all entries with given word\n"

@@ -19,6 +19,10 @@
 
 int main(int argc, char **argv)
 {
+  // for (int i = 1; i != argc; i++)
+  // {
+  //   std::cout << argv[i] << '\n';
+  // }
   if (argc < 2)
   {
     std::cout << "Dict requires at least one argument\n";
@@ -67,14 +71,12 @@ int main(int argc, char **argv)
 
   std::string first_arg;
   std::string description;
-  std::string all_args;
   std::string column;
   std::string new_value;
 
   if (result.arguments.size() > 0)
   {
     first_arg = result.arguments[0];
-    all_args = array_to_string(result.arguments);
 
     if (result.arguments.size() > 1)
     {
@@ -126,8 +128,7 @@ int main(int argc, char **argv)
         dict.list();
         break;
       case COMMAND_ADD:
-        // dict.add(first_arg, description);
-        dict.add(all_args);
+        dict.add(first_arg, description);
         break;
       case COMMAND_REMOVE:
         dict.remove(stoi(first_arg));
