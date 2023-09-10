@@ -19,7 +19,6 @@ void Dict::add(std::string word, std::string description)
 }
 void Dict::add(std::string all_args)
 {
-    std::cout << "SIEMA\n";
     std::string word;
     std::string description;
     Array<std::string> strings = tokenize(all_args, "-");
