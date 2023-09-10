@@ -49,6 +49,7 @@ struct Dict : public Functions
     ~Dict() {}
 
     virtual void add(std::string, std::string);
+    virtual void add(std::string);
 
     virtual void remove(int);
     virtual void remove(std::string);
