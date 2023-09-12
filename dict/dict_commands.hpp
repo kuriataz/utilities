@@ -19,4 +19,8 @@ struct Dict_Commands
     virtual void select(std::string) = 0;
 
     virtual void update(std::string, std::string, std::string) = 0;
+
+    virtual void connect(std::string&) = 0;
+
+    virtual void disconnect() = 0;
 };

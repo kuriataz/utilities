@@ -43,6 +43,7 @@ struct Dict : public Dict_Commands
 {
     Array<Record> data;
     int max_id = 0;
+    std::string base_name;
 
     ~Dict() {}
 
@@ -56,6 +57,10 @@ struct Dict : public Dict_Commands
     virtual void select(std::string);
 
     virtual void update(std::string, std::string, std::string);
+
+    virtual void connect(std::string&);
+
+    virtual void disconnect();
 
     void get_data_from_base(std::fstream&);
     void send_data_to_base(std::fstream&);

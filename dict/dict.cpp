@@ -86,8 +86,23 @@ void Dict::update(std::string id, std::string column, std::string new_value)
     }
 }
 
+void Dict::connect(std::string &base_name)
+{
+    this->base_name = base_name;
+}
+
+void Dict:: disconnect()
+{
+    base_name = "";
+}
+
 void Dict::get_data_from_base(std::fstream &base)
 {
+    if (base_name == "")
+    {
+        std::cerr << "not connected to the base\n";
+        return;
+    }
     if (!(base.is_open()))
     {
         // std::cerr << "couldn't open the file (but probably works)\n";
@@ -113,6 +128,11 @@ void Dict::get_data_from_base(std::fstream &base)
 
 void Dict::send_data_to_base(std::fstream &base)
 {
+    if (base_name == "")
+    {
+        std::cerr << "not connected to the base\n";
+        return;
+    }
     if (!(base.is_open()))
     {
         std::cerr << "couldn't open the file\n";

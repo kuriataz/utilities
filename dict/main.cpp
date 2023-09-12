@@ -68,7 +68,9 @@ int main(int argc, char **argv)
       }
       else if (option.id == OPTION_CONFIG)
       {
+        std::cout << base_name << "\n";
         base_name = option.value;
+        std::cout << base_name << "\n";
       }
     }
   }
@@ -95,6 +97,7 @@ int main(int argc, char **argv)
   }
 
   Dict dict;
+  dict.connect(base_name);
 
   std::string command = argv[1];
   std::fstream base;
@@ -150,6 +153,8 @@ int main(int argc, char **argv)
   base.open(base_name, std::ios::out);
   dict.send_data_to_base(base);
   base.close();
+
+  dict.disconnect();
 
   return 0;
 }
