@@ -4,6 +4,11 @@
 #include <utility>
 #include <iterator.hpp>
 
+// find_uniq is a function that takes only unique elements from given collection
+// example: 1 2 2 3 1 -> 1 2 3 1
+// it returns pointer to one after the last element in modified collection
+// begin is a pointer to the first element from the collection that is modified
+// end is a pointer to the one after the last element from the collection that is modified
 template <typename T>
 T *find_uniq(T *begin, T *end)
 {
@@ -40,6 +45,11 @@ T find_uniq(T begin, T end)
     return ++result;
 }
 
+// find_duplicate is a function that takes only duplicated elements from given collection
+// example: 1 2 2 3 3 3 1 -> 2 3
+// it returns pointer to one after the last element in modified collection
+// begin is a pointer to the first element from the collection that is modified
+// end is a pointer to the one after the last element from the collection that is modified
 template <typename T>
 T *find_duplicate(T *begin, T *end)
 {

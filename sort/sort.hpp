@@ -1,6 +1,10 @@
 #include <cstdio>
 #include <iostream>
 
+// bubbleSort is a function that uses bubble sort algorithm
+//it is default in sort/main.cpp
+// begin is a pointer to the first element from the collection that is sorted
+// end is a pointer to the one after the last element from the collection that is sorted
 template <typename T>
 void bubbleSort(T *begin, T *end)
 {
@@ -28,6 +32,10 @@ void bubbleSort(T *begin, T *end)
   }
 }
 
+// insertionSort is a function that uses insertion sort algorithm
+// it is used after "stable" flag
+// begin is a pointer to the first element from the collection that is sorted
+// end is a pointer to the one after the last element from the collection that is sorted
 template <typename T>
 void insertionSort(T *begin, T *end)
 {
@@ -49,6 +57,10 @@ void insertionSort(T *begin, T *end)
   }
 }
 
+// quickSort is a function that uses quick sort algorithm
+// it is used after "quick" flag
+// begin is a pointer to the first element from the collection that is sorted
+// end is a pointer to the one after the last element from the collection that is sorted
 template <typename T>
 void quickSort(T *begin, T *end)
 {

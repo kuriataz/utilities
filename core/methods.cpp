@@ -23,16 +23,6 @@ void help()
   exit(0);
 }
 
-// void reverse(std::vector<int> &ints, bool is_sorted) {
-//   if (!is_sorted) {
-//     bubbleSort(ints, ints.size());
-//   }
-//   int temp = 0;
-//   for (int i = 0; i < (ints.size() / 2) + 1; i++) {
-//     std::swap(ints[i], ints[ints.size() - i - 1]);
-//   }
-// }
-
 void output(int *begin, int *end, std::ostream &stream)
 {
   for ( ; begin != end; begin++)
@@ -54,11 +44,7 @@ std::string pretty_print(int length)
 Array<std::string> tokenize(std::string s, std::string del)
 {
     Array<std::string> strings;
-    // if (s.find(del) != std::string::npos)
-    // {
-    //   return strings;
-    // }
-    int start, end = -1*del.size();
+    int start, end = -1 * del.size();
     do {
         start = end + del.size();
         end = s.find(del, start);
@@ -66,14 +52,5 @@ Array<std::string> tokenize(std::string s, std::string del)
         strings.push_back(s.substr(start, end - start));
 
     } while (end != -1);
-
-      // while(end != -1)
-      // {
-      //   start = end + del.size();
-      //   end = s.find(del, start);
-      //   // std::cout << s.substr(start, end - start) << std::endl;
-      //   strings.push_back(s.substr(start, end - start));
-      // }
-
     return strings;
 }

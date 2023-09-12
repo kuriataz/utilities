@@ -11,8 +11,6 @@
 
 void Dict::add(std::string word, std::string description)
 {
-    // std::string new_description;
-    // new_description += description;
     Record new_record(word, description, max_id + 1);
     max_id++;
     data.push_back(new_record);

@@ -48,9 +48,6 @@ int main(int argc, char **argv)
       Option_Definition{"-h", "--help", OPTION_HELP, false},
       Option_Definition{"-d", "--duplicate", OPTION_DUPLICATE, false}};
 
-  // int size = sizeof(option_defs); // = 360 don't know why
-  // std::cout << size << std::endl;
-
   Parse_Result result =
       parse_arguments(argc, argv, option_defs, 2);
 
@@ -112,7 +109,7 @@ int main(int argc, char **argv)
     getline(*input_stream, input_line);
   }
 
-  auto pre_ints = getNumberFromString(input); // there is the problem
+  auto pre_ints = getNumberFromString(input);
   if (!pre_ints)
   {
     std::cerr << pre_ints.error() << std::endl;
@@ -125,17 +122,13 @@ int main(int argc, char **argv)
   int *end = nullptr;
   bool d_flag = false;
 
-  // iterator<int> b = ints.begin();
-  // iterator<int> e = ints.end();
   if (!(result.options.empty()))
   {
     for (Option const &option : result.options)
     {
       if (option.id == OPTION_DUPLICATE)
       {
-        // end = duplicate(ints.data(), ints.data() + size);
         end = find_duplicate<int>(&ints[0], &ints[size]);
-        // e = find_duplicate<iterator<int>>(b, e);
         d_flag = true;
       }
     }
@@ -144,13 +137,9 @@ int main(int argc, char **argv)
   if (!d_flag)
   {
     end = find_uniq<int>(&ints[0], &ints[size]);
-    // e = find_uniq<iterator<int>>(b, e);
   }
 
   output(begin, end, *output_stream);
-  // output(begin, end, *output_stream);
-
-  // Array<std::string> arr;
 
   return 0;
 }

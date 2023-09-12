@@ -6,14 +6,13 @@
 #include <array.hpp>
 #include <vector>
 
-struct Functions
+struct Dict_Commands
 {
-    virtual ~Functions() = default;
+    virtual ~Dict_Commands() = default;
 
     virtual void add(std::string, std::string) = 0;
 
     virtual void remove(int) = 0;
-    // virtual void remove(std::string) = 0;
 
     virtual void list() = 0;
 

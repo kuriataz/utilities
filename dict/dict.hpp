@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include <array.hpp>
-#include <functions.hpp>
+#include <dict_commands.hpp>
 
 
 struct Record
@@ -18,9 +18,7 @@ struct Record
 
     Record(std::string word, std::string description, int max_id): word(word), description(description), id(std::to_string(max_id))
     {
-        // id = max_id + 1;
-        // this->description += " - ";
-        // this->description += description;
+
     }
 
     bool operator> (const Record& obj)
@@ -41,7 +39,7 @@ struct Record
     }
 };
 
-struct Dict : public Functions
+struct Dict : public Dict_Commands
 {
     Array<Record> data;
     int max_id = 0;
@@ -58,9 +56,6 @@ struct Dict : public Functions
     virtual void select(std::string);
 
     virtual void update(std::string, std::string, std::string);
-
-
-    // virtual void select(Array<std::string>);
 
     void get_data_from_base(std::fstream&);
     void send_data_to_base(std::fstream&);

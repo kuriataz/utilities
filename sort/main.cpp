@@ -52,8 +52,6 @@ int main(int argc, char **argv)
       Option_Definition{"-s", "--stable", OPTION_STABLE, false},
       Option_Definition{"-q", "--quick", OPTION_QUICK, false}};
 
-  // int size = sizeof(option_defs); // = 360 don't know why
-  // std::cout << size << std::endl;
 
   Parse_Result result =
       parse_arguments(argc, argv, option_defs, 5);
@@ -111,7 +109,6 @@ int main(int argc, char **argv)
   }
 
   std::vector<int> ints = pre_ints.value();
-  // typedef void(*Sort_Ptr)(std::vector<int>&);
   using It_Sort_Ptr = void (*)(int*, int*);
   It_Sort_Ptr it_sort_ptr = bubbleSort;
 

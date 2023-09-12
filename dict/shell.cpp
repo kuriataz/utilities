@@ -7,7 +7,7 @@
 #include <options.hpp>
 #include <array.hpp>
 #include <dict.hpp>
-#include <functions.hpp>
+#include <dict_commands.hpp>
 #include <uniq.hpp>
 #include <algorithm>
 

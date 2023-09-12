@@ -12,17 +12,13 @@
 #include <methods.hpp>
 #include <array.hpp>
 #include <dict.hpp>
-#include <functions.hpp>
+#include <dict_commands.hpp>
 #include <uniq.hpp>
 #include <shell.hpp>
 
 
 int main(int argc, char **argv)
 {
-  // for (int i = 1; i != argc; i++)
-  // {
-  //   std::cout << argv[i] << '\n';
-  // }
   if (argc < 2)
   {
     std::cout << "Dict requires at least one argument\n";
@@ -32,11 +28,14 @@ int main(int argc, char **argv)
   constexpr int OPTION_HELP = 1;
   constexpr int OPTION_DUPLICATE = 2;
   constexpr int OPTION_UNIQ = 3;
+  constexpr int OPTION_CONFIG = 4;
+
 
   Option_Definition option_defs[] = {
       Option_Definition{"-h", "--help", OPTION_HELP, false},
       Option_Definition{"-d", "--duplicate", OPTION_DUPLICATE, false},
-      Option_Definition{"-u", "--uniq", OPTION_UNIQ, false}};
+      Option_Definition{"-u", "--uniq", OPTION_UNIQ, false},
+      Option_Definition{"-c", "--config", OPTION_CONFIG, true}};
 
   constexpr int COMMAND_LIST = 1;
   constexpr int COMMAND_ADD = 2;
@@ -53,10 +52,11 @@ int main(int argc, char **argv)
       Command_Definition{"shell", COMMAND_SHELL, false},
       Command_Definition{"update", COMMAND_UPDATE, false}};
 
-  // int size = sizeof(option_defs); // = 360 don't know why
 
   Parse_Result result =
-      parse_arguments(argc, argv, option_defs, 3, command_defs, 6);
+      parse_arguments(argc, argv, option_defs, 4, command_defs, 6);
+
+  std::string base_name = "dict/data_base.txt";
 
   if (!(result.options.empty()))
   {
@@ -65,6 +65,10 @@ int main(int argc, char **argv)
       if (option.id == OPTION_HELP)
       {
         dict_help();
+      }
+      else if (option.id == OPTION_CONFIG)
+      {
+        base_name = option.value;
       }
     }
   }
@@ -94,7 +98,7 @@ int main(int argc, char **argv)
 
   std::string command = argv[1];
   std::fstream base;
-  base.open("dict/data_base.txt", std::ios::in);
+  base.open(base_name, std::ios::in);
   dict.get_data_from_base(base);
   base.close();
 
@@ -143,7 +147,7 @@ int main(int argc, char **argv)
     }
   }
 
-  base.open("dict/data_base.txt", std::ios::out);
+  base.open(base_name, std::ios::out);
   dict.send_data_to_base(base);
   base.close();
 

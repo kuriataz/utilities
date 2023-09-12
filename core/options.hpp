@@ -38,8 +38,6 @@ struct Command_Definition
 {
   std::string name;
   int32_t id = 0;
-  // bool mandatory_argument = false;
-  // int number_of_args = 0;
   bool flag = false;
 };
 
@@ -62,10 +60,11 @@ struct Parse_Result
   Array<Option> options;
   Array<Command> commands;
   Array<std::string> arguments;
-  // std::vector<Option> options;
-  // std::vector<std::string> arguments;
 };
 
+// parse_arguments is a function that parses strings into Parse_Result
+// parse_arguments takes also Option_Definition[] and optoinally Command_Definition[]
+// to check if any of given strings is a command or an option
 Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[], int size,
                             Command_Definition com_defs[], int com_size);
 
@@ -75,4 +74,5 @@ Parse_Result parse_arguments(int argc, Array<std::string> argv, Option_Definitio
 Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[],
                              int size);
 
+// array_to_string is a function that transforms given Array of strings to one string
 std::string array_to_string(Array<std::string>);

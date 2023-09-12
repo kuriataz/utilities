@@ -4,7 +4,6 @@
 #include <options.hpp>
 #include <sstream>
 #include <string.h>
-// #include <vector>
 #include <array.hpp>
 
 
@@ -87,24 +86,6 @@ Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[], in
     {
       if((strcmp(argv[i], com_defs[j].name.c_str()) == 0))
       {
-        // if(com_defs[j].flag == true)
-        // {
-        //   Command new_command = Command(com_defs[j].id, argv[i + 1]);
-        //   result.commands.push_back(new_command);
-        //   i++;
-        //   commands_added++;
-        //   break;
-        // }
-        // else if(com_defs[j].number_of_args != 0)
-        // {
-
-        //   Command new_command = Command(com_defs[j].id, argv[i + 1]);
-        //   result.commands.push_back(new_command);
-        //   i++;
-        //   commands_added++;
-        //   break;
-        // }
-        // else
         {
           Command new_command = Command(com_defs[j].id);
           result.commands.push_back(new_command);
