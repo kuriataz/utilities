@@ -7,6 +7,7 @@
 #include <string_view>
 #include <vector>
 
+
 void help()
 {
   std::cout
@@ -31,15 +32,17 @@ void output(int *begin, int *end, std::ostream &stream)
   }
 }
 
-std::string pretty_print(int length)
-{
-    std::string pretty;
-    for (int i = 0; i != 10 - length; i++)
-    {
-        pretty += " ";
-    }
-    return pretty;
-}
+// std::string pretty_print(int length)
+// {
+//     std::string pretty;
+//     for (int i = 0; i != 10 - length; i++)
+//     {
+//         pretty += " ";
+//     }
+//     return pretty;
+// }
+
+
 
 Array<std::string> tokenize(std::string s, std::string del)
 {

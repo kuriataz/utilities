@@ -147,10 +147,9 @@ struct Array
 
     T& erase(int position)
     {
-        storage[position].~T();
         for ( ; position != _size; ++position)
         {
-            storage[position - 1] = storage[position];
+            storage[position] = std::move(storage[position + 1]);
         }
         _size--;
         return *storage;

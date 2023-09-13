@@ -7,6 +7,7 @@
 #include <sort.hpp>
 #include <uniq.hpp>
 #include <methods.hpp>
+#include <pretty_print.hpp>
 
 
 void Dict::add(std::string word, std::string description)
@@ -45,16 +46,15 @@ void Dict::remove(int id)
     data = new_data;
 }
 
+
 void Dict::select(std::string word)
 {
-    std::cout << "ID" << pretty_print(0) << "WORD" << pretty_print(0) << "DESCRIPTION\n";
+    std::cout << "  ID |" << "  WORD   |" << " DESCRIPTION\n";
     for (int i = 0; i != data.size(); i++)
     {
         if (data[i].word == word)
         {
-            std::cout << data[i].id << pretty_print(data[i].id.length() - 2)
-                      << data[i].word << pretty_print(data[i].word.length() - 4)
-                      << data[i].description << '\n';
+            pretty_print(data[i]);
         }
     }
 }
