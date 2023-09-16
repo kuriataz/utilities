@@ -117,9 +117,11 @@ int main(int argc, char **argv)
   }
 
   Array<int> ints = pre_ints.value();
-  int *begin = ints.data();
-  int size = ints.size();
-  int *end = nullptr;
+  iterator<int> begin_it = ints.data();
+  iterator<int> end_it = ints.end();
+  // int *begin = ints.data();
+  // int size = ints.size();
+  // int *end = ints.end();
   bool d_flag = false;
 
   if (!(result.options.empty()))
@@ -128,7 +130,8 @@ int main(int argc, char **argv)
     {
       if (option.id == OPTION_DUPLICATE)
       {
-        end = find_duplicate<int>(&ints[0], &ints[size]);
+        // end = find_duplicate<int>(&ints[0], &ints[size]);
+        end_it = find_duplicate<iterator<int>>(begin_it, end_it);
         d_flag = true;
       }
     }
@@ -136,10 +139,12 @@ int main(int argc, char **argv)
 
   if (!d_flag)
   {
-    end = find_uniq<int>(&ints[0], &ints[size]);
+    // end = find_uniq<int>(&ints[0], &ints[size]);
+    end_it = find_uniq<iterator<int>>(begin_it, end_it);
   }
 
-  output(begin, end, *output_stream);
+  // output(begin, end, *output_stream);
+  output(begin_it, end_it, *output_stream);
 
   return 0;
 }

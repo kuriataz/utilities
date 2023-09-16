@@ -15,7 +15,6 @@ T find_uniq(T begin, T end)
     T result = begin;
     while (++begin != end)
     {
-            std::cout << "HERE\n";
         if (*result != *begin)
         {
             *(++result) = std::move(*begin);
@@ -54,12 +53,12 @@ int main(int argc, char **argv)
     array.push_back(3);
     array.push_back(1);
     array.push_back(8);
+    array.push_back(8);
     array.push_back(4);
-    array.push_back(4);
-    array.push_back(5);
-    array.push_back(2);
-    array.push_back(2);
-    array.push_back(1);
+    // array.push_back(5);
+    // array.push_back(2);
+    // array.push_back(2);
+    // array.push_back(1);
 
 
     iterator<int> begin = array.begin();
@@ -68,7 +67,7 @@ int main(int argc, char **argv)
 
     std::cout << *begin << " *begin\n";
     std::cout << *end << " *end\n";
-    end = find_duplicate(begin, end);
+    end = find_uniq(begin, end);
     std::cout << *end << " *end po raz drugi\n";
 
     for ( ; begin != end; ++begin)

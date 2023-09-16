@@ -30,12 +30,12 @@ T *find_uniq(T *begin, T *end)
 template <typename T>
 T find_uniq(T begin, T end)
 {
-    if (&(*begin) == &(*end))
+    if (begin == end)
     {
         return begin;
     }
     T result = begin;
-    while (&(*(++begin)) != &(*end))
+    while (++begin != end)
     {
         if (*result != *begin)
         {
@@ -71,14 +71,14 @@ T *find_duplicate(T *begin, T *end)
 template <typename T>
 T find_duplicate(T begin, T end)
 {
-    if (&(*begin) == &(*end))
+    if (begin == end)
     {
         return begin;
     }
     T origin_beg = begin;
     T result = begin;
     T pre_begin = begin;
-    while (&(*(++begin)) != &(*end))
+    while (++begin != end)
     {
         if (*begin == *pre_begin)
         {

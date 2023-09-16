@@ -7,10 +7,12 @@
 #include <sstream>
 #include <string.h>
 #include <vector>
+#include <iterator.hpp>
 
 void help();
 
-void output(int*, int*, std::ostream& value);
+void output(int*, int*, std::ostream&);
+void output(iterator<int>, iterator<int>, std::ostream&);
 
 std::string pretty_print(int);
 

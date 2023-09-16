@@ -6,6 +6,7 @@
 #include <string.h>
 #include <string_view>
 #include <vector>
+#include <iterator.hpp>
 
 
 void help()
@@ -32,17 +33,13 @@ void output(int *begin, int *end, std::ostream &stream)
   }
 }
 
-// std::string pretty_print(int length)
-// {
-//     std::string pretty;
-//     for (int i = 0; i != 10 - length; i++)
-//     {
-//         pretty += " ";
-//     }
-//     return pretty;
-// }
-
-
+void output(iterator<int> begin, iterator<int> end, std::ostream &stream)
+{
+  for ( ; begin != end; ++begin)
+  {
+    stream << *begin << '\n';
+  }
+}
 
 Array<std::string> tokenize(std::string s, std::string del)
 {
@@ -51,7 +48,6 @@ Array<std::string> tokenize(std::string s, std::string del)
     do {
         start = end + del.size();
         end = s.find(del, start);
-        // std::cout << s.substr(start, end - start) << std::endl;
         strings.push_back(s.substr(start, end - start));
 
     } while (end != -1);
