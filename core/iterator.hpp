@@ -25,6 +25,6 @@ public:
 
   [[nodiscard]] friend bool operator!=(iterator<T> const &lhs,
                                        iterator<T> const &rhs) {
-    return lhs.value == rhs.value;
+    return lhs.value != rhs.value;
   }
 };

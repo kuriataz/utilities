@@ -59,35 +59,20 @@ int main(int argc, char **argv)
     array.push_back(5);
     array.push_back(2);
     array.push_back(2);
-    array.push_back(2);
-
-    std::vector<int> vec;
-    vec.push_back(3);
-    vec.push_back(3);
-    vec.push_back(1);
-    vec.push_back(8);
-    vec.push_back(4);
-    vec.push_back(4);
-    vec.push_back(5);
-    vec.push_back(2);
-    vec.push_back(2);
-    vec.push_back(2);
+    array.push_back(1);
 
 
-    // iterator<int> begin = array.begin();
-    iterator<int> begin = &vec[0];
+    iterator<int> begin = array.begin();
     iterator<int> begin2 = array.begin();
-    iterator<int> begin3 = array.begin();
-    // iterator<int> end = array.end();
-    iterator<int> end = &vec[vec.size()];
+    iterator<int> end = array.end();
 
-    std::cout << *begin << '\n';
-    std::cout << *end << '\n';
-    end = find_uniq(begin, end);
-    std::cout << *begin << '\n';
+    std::cout << *begin << " *begin\n";
+    std::cout << *end << " *end\n";
+    end = find_duplicate(begin, end);
+    std::cout << *end << " *end po raz drugi\n";
+
     for ( ; begin != end; ++begin)
     {
-    std::cout << "test" << "\n";
         std::cout << *begin << " - main\n";
     }
 
