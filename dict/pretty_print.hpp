@@ -17,65 +17,92 @@ std::string whitespaces(int length)
     return whitespaces;
 }
 
-std::string wrap_desc(std::string description)
+Array<std::string> wrap_desc(std::string description)
 {
     int desc_length = description.length();
     int wrap0 = 0;
-    int wrap1 = 60;
-    std::string new_desc;
-    if (desc_length <= wrap1)
+    Array<std::string> descriptions;
+    if (desc_length <= 60)
     {
-        new_desc = description;
+        descriptions.push_back(description);
     }
-    while (desc_length > wrap1)
+    std::string new_desc;
+    while (desc_length > 60)
     {
-        new_desc = description.substr(wrap0, wrap1);
-        new_desc += whitespaces(16);
-        new_desc += "\n";
+        new_desc = description.substr(wrap0, 60);
+        descriptions.push_back(new_desc);
         wrap0 += 60;
-        wrap1 += 60;
-        if (desc_length <= wrap1)
+        if (desc_length <= wrap0 + 60)
         {
-            new_desc += whitespaces(17);
-            new_desc += description.substr(wrap0);
+            descriptions.push_back(description.substr(wrap0));
+            break;
         }
     }
-    return new_desc;
+    return descriptions;
 }
 
-std::string wrap_word(std::string word)
+Array<std::string> wrap_word(std::string word)
 {
     int word_length = word.length();
     int wrap0 = 0;
-    int wrap1 = 6;
-    int spaces_left = 5 - (word_length % 6);
-    std::string new_word;
-    if (word_length <= wrap1)
+    Array<std::string> words;
+    if (word_length <= 6)
     {
-        new_word = word;
+        words.push_back(word);
     }
-    while (word_length > wrap1)
+    std::string new_word;
+    while (word_length > 6)
     {
-        new_word += word.substr(wrap0, wrap1);
-        new_word += "|";
-        new_word += whitespaces(8);
-        new_word += "\n";
-        wrap0 += 6;
-        wrap1 += 6;
-        if (word_length <= wrap1)
+        // works only once
+        if (word.find(" ") == wrap0)
         {
-            new_word += whitespaces(5);
-            new_word += "|  ";
-            new_word += word.substr(wrap0);
+            new_word = word.substr(wrap0 + 1, 6);
+        }
+        else
+        {
+            new_word = word.substr(wrap0, 6);
+        }
+        words.push_back(new_word);
+        wrap0 += 6;
+        if (word_length <= wrap0 + 6)
+        {
+            words.push_back(word.substr(wrap0));
+            break;
         }
     }
-    new_word += whitespaces(spaces_left);
-    return new_word;
+    return words;
 }
 
 void pretty_print(Record record)
 {
-  std::cout << whitespaces(4 - record.id.length()) << record.id << " |  "
-            << record.word << whitespaces(4 - record.word.length()) << " | "
-            << wrap_desc(record.description) << "\n";
+    int i = 1;
+    int j = 1;
+    Array<std::string> words = wrap_word(record.word);
+    Array<std::string> descriptions = wrap_desc(record.description);
+    std::cout << whitespaces(4 - record.id.length()) << record.id << " |  "
+              << words[0] << whitespaces(7 - words[0].length()) << "| "
+              << descriptions[0] << "\n";
+    while (i != words.size() || j != descriptions.size())
+    {
+        if (i != words.size())
+        {
+            std::cout << whitespaces(4) << " |  "
+            << words[i] << whitespaces(7 - words[i].length()) << "| ";
+            i++;
+        }
+        else
+        {
+            std::cout << whitespaces(4) << " |  " << whitespaces(7) << "| ";
+        }
+
+        if (j != descriptions.size())
+        {
+            std::cout << descriptions[j] << "\n";
+            ++j;
+        }
+        else
+        {
+            std::cout << "\n";
+        }
+    }
 }
