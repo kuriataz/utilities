@@ -10,13 +10,14 @@
 
 struct Record
 {
-    std::string id;
+    // std::string id;
+    int id = 0;
     std::string word;
     std::string description;
 
     Record() = default;
 
-    Record(std::string word, std::string description, int max_id): word(word), description(description), id(std::to_string(max_id))
+    Record(std::string word, std::string description, int max_id): word(word), description(description), id(max_id)
     {
 
     }
@@ -47,7 +48,7 @@ struct Dict : public Dict_Commands
 
     ~Dict() {}
 
-    virtual void add(std::string, std::string);
+    virtual void add(std::string&, std::string&);
 
     virtual void remove(int);
     virtual void remove(std::string);
@@ -56,7 +57,9 @@ struct Dict : public Dict_Commands
 
     virtual void select(std::string);
 
-    virtual void update(std::string, std::string, std::string);
+    virtual void update(int, std::string&, std::string&);
+
+    virtual void show_history();
 
     virtual void connect(std::string&);
 

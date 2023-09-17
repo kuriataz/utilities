@@ -3,6 +3,7 @@
 
 #include <array.hpp>
 #include <dict.hpp>
+#include <list.hpp>
 
 void shell(Dict&);
 

@@ -43,6 +43,13 @@ Array<std::string> wrap_desc(std::string description)
 
 Array<std::string> wrap_word(std::string word)
 {
+    Array<std::string> words_arr = tokenize(word, " ");
+    int length = 0;
+    // for (int i = 0; i != words_arr.size(); i++)
+    // {
+    //     std::string line;
+    //     words_arr[i]
+    // }
     int word_length = word.length();
     int wrap0 = 0;
     Array<std::string> words;
@@ -51,9 +58,8 @@ Array<std::string> wrap_word(std::string word)
         words.push_back(word);
     }
     std::string new_word;
-    while (word_length > 6)
+    while (word.length() > 6)
     {
-        // works only once
         if (word.find(" ") == wrap0)
         {
             new_word = word.substr(wrap0 + 1, 6);
@@ -62,13 +68,14 @@ Array<std::string> wrap_word(std::string word)
         {
             new_word = word.substr(wrap0, 6);
         }
+        word = word.substr(6);
         words.push_back(new_word);
-        wrap0 += 6;
-        if (word_length <= wrap0 + 6)
-        {
-            words.push_back(word.substr(wrap0));
-            break;
-        }
+        // wrap0 += 6;
+    }
+    // if (word_length <= wrap0 + 6)
+    {
+        words.push_back(word.substr(wrap0));
+        // break;
     }
     return words;
 }
@@ -79,7 +86,7 @@ void pretty_print(Record record)
     int j = 1;
     Array<std::string> words = wrap_word(record.word);
     Array<std::string> descriptions = wrap_desc(record.description);
-    std::cout << whitespaces(4 - record.id.length()) << record.id << " |  "
+    std::cout << whitespaces(4 - 2) << record.id << " |  "
               << words[0] << whitespaces(7 - words[0].length()) << "| "
               << descriptions[0] << "\n";
     while (i != words.size() || j != descriptions.size())

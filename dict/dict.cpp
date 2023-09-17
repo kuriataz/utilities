@@ -10,7 +10,7 @@
 #include <pretty_print.hpp>
 
 
-void Dict::add(std::string word, std::string description)
+void Dict::add(std::string &word, std::string &description)
 {
     Record new_record(word, description, max_id + 1);
     max_id++;
@@ -34,11 +34,11 @@ void Dict::remove(std::string word)
 void Dict::remove(int id)
 {
     Array<Record> new_data;
-    std::string id_as_string = std::to_string(id);
+    // std::string id_as_string = std::to_string(id);
 
     for (Record& record: data)
     {
-        if (record.id != id_as_string)
+        if (record.id != id)
         {
             new_data.push_back(record);
         }
@@ -68,45 +68,59 @@ void Dict::list()
     }
 }
 
-void Dict::update(std::string id, std::string column, std::string new_value)
+void Dict::update(int id, std::string &column, std::string &new_value)
 {
-    for (int i = 0; i != data.size(); i++)
+    // for (int i = 0; i != data.size(); i++)
+    for (Record record : data)
     {
-        if (data[i].id == id)
+        if (record.id == id)
         {
             if (column == "word")
             {
-                data[i].word = new_value;
+                record.word = new_value;
             }
             else if (column == "description")
             {
-                data[i].description = new_value;
+                record.description = new_value;
             }
         }
     }
 }
 
+void Dict::show_history()
+{
+    
+}
+
 void Dict::connect(std::string &base_name)
 {
     this->base_name = base_name;
+    std::fstream base;
+    base.open(base_name, std::ios::in);
+    if (base_name == "" || !(base.is_open()))
+    {
+        std::cerr << "failed to connect\n";
+        return;
+    }
+    // if (!(base.is_open()))
+    // {
+    //     std::cerr << "couldn't open the file (but probably works)\n";
+    // }
+    get_data_from_base(base);
+    base.close();
 }
 
 void Dict:: disconnect()
 {
+    std::fstream base;
+    base.open(base_name, std::ios::out);
+    send_data_to_base(base);
+    base.close();
     base_name = "";
 }
 
 void Dict::get_data_from_base(std::fstream &base)
 {
-    if (base_name == "")
-    {
-        std::cerr << "not connected to the base\n";
-        return;
-    }
-    if (!(base.is_open()))
-    {
-        // std::cerr << "couldn't open the file (but probably works)\n";
-    }
     std::string line;
     std::string max;
     getline(base, max);
@@ -126,14 +140,14 @@ void Dict::get_data_from_base(std::fstream &base)
     }
 }
 
-void Dict::send_data_to_base(std::fstream &base)
+void Dict::send_data_to_base(std::fstream &db)
 {
     if (base_name == "")
     {
         std::cerr << "not connected to the base\n";
         return;
     }
-    if (!(base.is_open()))
+    if (!(db.is_open()))
     {
         std::cerr << "couldn't open the file\n";
     }
@@ -141,10 +155,10 @@ void Dict::send_data_to_base(std::fstream &base)
     Record *begin = data.begin();
     Record *end = data.end();
     insertionSort<Record>(begin, end);
-    base << std::to_string(max_id) << '\n';
-    for ( ; begin != end; begin++)
+    db << std::to_string(max_id) << '\n';
+    for (Record record : data)
     {
-        base << (*begin).id << "," << (*begin).word << "," <<  (*begin).description << '\n';
+        db << record.id << "," << record.word << "," <<  record.description << '\n';
     }
 }
 

@@ -10,8 +10,9 @@
 #include <dict_commands.hpp>
 #include <uniq.hpp>
 #include <algorithm>
+#include <list.hpp>
 
-void shell_main(int argc, Array<std::string> argv, Dict &dict)
+void shell_main(int argc, Array<std::string> argv, Dict &dict, Node<std::string> *head)
 {
   if (argc < 1)
   {
@@ -34,6 +35,7 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
   constexpr int COMMAND_SELECT = 4;
   constexpr int COMMAND_SHELL = 5;
   constexpr int COMMAND_UPDATE = 6;
+  constexpr int COMMAND_HISTORY = 7;
 
   Command_Definition command_defs[] = {
       Command_Definition{"list", COMMAND_LIST, true},
@@ -41,13 +43,14 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
       Command_Definition{"remove", COMMAND_REMOVE, false},
       Command_Definition{"select", COMMAND_SELECT, false},
       Command_Definition{"shell", COMMAND_SHELL, false},
-      Command_Definition{"update", COMMAND_UPDATE, false}};
+      Command_Definition{"update", COMMAND_UPDATE, false},
+      Command_Definition{"history", COMMAND_HISTORY, false}};
 
   // int size = sizeof(option_defs); // = 360 don't know why
 
   Parse_Result result =
-      parse_arguments(argc, argv, option_defs, 3, command_defs, 6);
-
+      parse_arguments(argc, argv, option_defs, 3, command_defs, 7);
+    std::string base_name = "dict/data_base.txt";
   if (!(result.options.empty()))
   {
     for (Option const &option : result.options)
@@ -59,25 +62,48 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
     }
   }
 
-  std::string word;
+  if (!(result.commands.empty()))
+  {
+    for (Command const &command : result.commands)
+    {
+      if (command.id == COMMAND_HISTORY)
+      {
+        print_list(head);
+      }
+    }
+  }
+
+  std::string first_arg;
   std::string description;
   std::string column;
   std::string new_value;
 
   if (result.arguments.size() > 0)
   {
-    word = result.arguments[0];
+    first_arg = result.arguments[0];
 
     if (result.arguments.size() > 1)
     {
       result.arguments.erase(0);
       description = array_to_string(result.arguments);
 
+      // for update
       column = result.arguments[0];
       result.arguments.erase(0);
       new_value = array_to_string(result.arguments);
     }
   }
+
+  //   Dict dict;
+  // // std::fstream base;
+  // dict.connect(base_name);
+
+  // std::string command = argv[1];
+  // // base.open(base_name, std::ios::in);
+  // // dict.get_data_from_base(base);
+  // // base.close();
+
+  // Record *end = dict.data.end();
 
   if (!(result.options.empty()))
   {
@@ -108,16 +134,16 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
         dict.list();
         break;
       case COMMAND_ADD:
-        dict.add(word, description);
+        dict.add(first_arg, description);
         break;
       case COMMAND_REMOVE:
-        dict.remove(stoi(word));
+        dict.remove(stoi(first_arg));
         break;
       case COMMAND_SELECT:
-        dict.select(word);
+        dict.select(first_arg);
         break;
       case COMMAND_UPDATE:
-        dict.update(word, column, new_value);
+        dict.update(std::stoi(first_arg), column, new_value);
         break;
       }
     }
@@ -127,7 +153,7 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict)
 void shell(Dict &dict)
 {
   std::string line;
-  Array<std::string> history;
+  Node<std::string> *head = nullptr;
   while(getline(std::cin, line))
   {
     if (line == "q")
@@ -137,7 +163,9 @@ void shell(Dict &dict)
     Array<std::string> argv;
     argv = tokenize(line, " ");
     int argc = argv.size();
-    history.push_back(argv[0]);
-    shell_main(argc, argv, dict);
+    std::string command = argv[0];
+    Node<std::string> *new_command = new_node(command);
+    insert_node(&head, new_command);
+    shell_main(argc, argv, dict, head);
   }
 }

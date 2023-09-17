@@ -97,13 +97,13 @@ int main(int argc, char **argv)
   }
 
   Dict dict;
+  // std::fstream base;
   dict.connect(base_name);
 
   std::string command = argv[1];
-  std::fstream base;
-  base.open(base_name, std::ios::in);
-  dict.get_data_from_base(base);
-  base.close();
+  // base.open(base_name, std::ios::in);
+  // dict.get_data_from_base(base);
+  // base.close();
 
   Record *end = dict.data.end();
   if (!(result.options.empty()))
@@ -144,15 +144,15 @@ int main(int argc, char **argv)
         dict.select(first_arg);
         break;
       case COMMAND_UPDATE:
-        dict.update(first_arg, column, new_value);
+        dict.update(std::stoi(first_arg), column, new_value);
         break;
       }
     }
   }
 
-  base.open(base_name, std::ios::out);
-  dict.send_data_to_base(base);
-  base.close();
+  // base.open(base_name, std::ios::out);
+  // dict.send_data_to_base(base);
+  // base.close();
 
   dict.disconnect();
 

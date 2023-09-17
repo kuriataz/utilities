@@ -10,7 +10,7 @@ struct Dict_Commands
 {
     virtual ~Dict_Commands() = default;
 
-    virtual void add(std::string, std::string) = 0;
+    virtual void add(std::string&, std::string&) = 0;
 
     virtual void remove(int) = 0;
 
@@ -18,7 +18,9 @@ struct Dict_Commands
 
     virtual void select(std::string) = 0;
 
-    virtual void update(std::string, std::string, std::string) = 0;
+    virtual void update(int, std::string&, std::string&) = 0;
+
+    virtual void show_history() = 0;
 
     virtual void connect(std::string&) = 0;
 
