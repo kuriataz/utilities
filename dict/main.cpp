@@ -97,13 +97,9 @@ int main(int argc, char **argv)
   }
 
   Dict dict;
-  // std::fstream base;
   dict.connect(base_name);
 
   std::string command = argv[1];
-  // base.open(base_name, std::ios::in);
-  // dict.get_data_from_base(base);
-  // base.close();
 
   Record *end = dict.data.end();
   if (!(result.options.empty()))
@@ -149,10 +145,6 @@ int main(int argc, char **argv)
       }
     }
   }
-
-  // base.open(base_name, std::ios::out);
-  // dict.send_data_to_base(base);
-  // base.close();
 
   dict.disconnect();
 

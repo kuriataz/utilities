@@ -23,11 +23,13 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict, Node<std::string>
   constexpr int OPTION_HELP = 1;
   constexpr int OPTION_DUPLICATE = 2;
   constexpr int OPTION_UNIQ = 3;
+  constexpr int OPTION_CONFIG = 4;
 
   Option_Definition option_defs[] = {
       Option_Definition{"h", "help", OPTION_HELP, false},
       Option_Definition{"-d", "--duplicate", OPTION_DUPLICATE, false},
-      Option_Definition{"-u", "--uniq", OPTION_UNIQ, false}};
+      Option_Definition{"-u", "--uniq", OPTION_UNIQ, false},
+      Option_Definition{"-c", "--config", OPTION_CONFIG, false}};
 
   constexpr int COMMAND_LIST = 1;
   constexpr int COMMAND_ADD = 2;
@@ -44,12 +46,12 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict, Node<std::string>
       Command_Definition{"select", COMMAND_SELECT, false},
       Command_Definition{"shell", COMMAND_SHELL, false},
       Command_Definition{"update", COMMAND_UPDATE, false},
-      Command_Definition{"history", COMMAND_HISTORY, false}};
+      Command_Definition{"history", COMMAND_HISTORY, true}};
 
   // int size = sizeof(option_defs); // = 360 don't know why
 
   Parse_Result result =
-      parse_arguments(argc, argv, option_defs, 3, command_defs, 7);
+      parse_arguments(argc, argv, option_defs, 4, command_defs, 7);
     std::string base_name = "dict/data_base.txt";
   if (!(result.options.empty()))
   {
@@ -58,6 +60,12 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict, Node<std::string>
       if (option.id == OPTION_HELP)
       {
         dict_help();
+      }
+      else if (option.id == OPTION_CONFIG)
+      {
+        std::cout << base_name << "\n";
+        base_name = option.value;
+        std::cout << base_name << "\n";
       }
     }
   }
@@ -68,7 +76,7 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict, Node<std::string>
     {
       if (command.id == COMMAND_HISTORY)
       {
-        print_list(head);
+        print_count_list(head, 2);
       }
     }
   }
@@ -93,17 +101,6 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict, Node<std::string>
       new_value = array_to_string(result.arguments);
     }
   }
-
-  //   Dict dict;
-  // // std::fstream base;
-  // dict.connect(base_name);
-
-  // std::string command = argv[1];
-  // // base.open(base_name, std::ios::in);
-  // // dict.get_data_from_base(base);
-  // // base.close();
-
-  // Record *end = dict.data.end();
 
   if (!(result.options.empty()))
   {
