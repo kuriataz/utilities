@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <cmath>
 #include <dict.hpp>
 
 std::string whitespaces(int length)
@@ -48,20 +49,12 @@ Array<std::string> wrap(std::string const &input, size_t width, size_t indent = 
 
 void pretty_print(Record record)
 {
-    int id_length = 1;
-    if (record.id > 9)
-    {
-        id_length++;
-    }
-    if (record.id > 99)
-    {
-        id_length++;
-    }
+    int id_length = trunc(log10(record.id));
     constexpr int white_before_word = 4;
     constexpr int white_after_word = 7;
     Array<std::string> words = wrap(record.word, 6);
     Array<std::string> descriptions = wrap(record.description, 60);
-    std::cout << whitespaces(white_before_word - id_length) << record.id << " |  "
+    std::cout << whitespaces(white_before_word - 1 - id_length) << record.id << " |  "
               << words[1] << whitespaces(white_after_word - words[1].length()) << "| "
               << descriptions[1] << "\n";
     int i = 2;
