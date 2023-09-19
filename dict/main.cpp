@@ -145,8 +145,7 @@ int main(int argc, char **argv)
       }
     }
   }
-
   dict.disconnect();
-
+  
   return 0;
 }

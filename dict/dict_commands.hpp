@@ -20,8 +20,6 @@ struct Dict_Commands
 
     virtual void update(int, std::string&, std::string&) = 0;
 
-    virtual void show_history() = 0;
-
     virtual void connect(std::string&) = 0;
 
     virtual void disconnect() = 0;

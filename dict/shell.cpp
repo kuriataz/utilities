@@ -58,7 +58,7 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict, Node<std::string>
       parse_arguments(argc, argv, option_defs, 6, command_defs, 7);
     std::string base_name = "dict/data_base.txt";
 
-  Array<std::string> history = print_list(head);
+  Array<std::string> history = list_to_array(head);
   int n_count = history.size();
   bool rev_history = false;
   if (!(result.options.empty()))
@@ -165,7 +165,7 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict, Node<std::string>
 void shell(Dict &dict)
 {
   std::string line;
-  Node<std::string> *head = nullptr;
+  Node<std::string> *history_beg = nullptr;
   while(getline(std::cin, line))
   {
     if (line == "q")
@@ -175,9 +175,8 @@ void shell(Dict &dict)
     Array<std::string> argv;
     argv = tokenize(line, " ");
     int argc = argv.size();
-    std::string command = argv[0];
-    Node<std::string> *new_command = new_node(command);
-    insert_node(&head, new_command);
-    shell_main(argc, argv, dict, head);
+    Node<std::string> *new_command = new_node(line);
+    insert_node(&history_beg, new_command);
+    shell_main(argc, argv, dict, history_beg);
   }
 }

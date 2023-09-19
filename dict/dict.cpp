@@ -34,7 +34,6 @@ void Dict::remove(std::string word)
 void Dict::remove(int id)
 {
     Array<Record> new_data;
-    // std::string id_as_string = std::to_string(id);
 
     for (Record& record: data)
     {
@@ -87,25 +86,16 @@ void Dict::update(int id, std::string &column, std::string &new_value)
     }
 }
 
-void Dict::show_history()
-{
-    
-}
-
 void Dict::connect(std::string &base_name)
 {
     this->base_name = base_name;
     std::fstream base;
     base.open(base_name, std::ios::in);
-    if (base_name == "" || !(base.is_open()))
+    if (base_name == "")
     {
         std::cerr << "failed to connect\n";
         return;
     }
-    // if (!(base.is_open()))
-    // {
-    //     std::cerr << "couldn't open the file (but probably works)\n";
-    // }
     get_data_from_base(base);
     base.close();
 }
@@ -119,17 +109,17 @@ void Dict:: disconnect()
     base_name = "";
 }
 
-void Dict::get_data_from_base(std::fstream &base)
+void Dict::get_data_from_base(std::fstream &db)
 {
     std::string line;
     std::string max;
-    getline(base, max);
+    getline(db, max);
     if (max == "")
     {
         max = "0";
     }
     max_id = std::stoi(max);
-    while (getline(base, line))
+    while (getline(db, line))
     {
         Array<std::string> strings = tokenize(line, ",");
         std::string id = strings[0];

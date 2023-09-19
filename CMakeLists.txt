@@ -50,7 +50,7 @@ add_executable(dict
     "dict/main.cpp"
     "dict/dict.hpp"
     "dict/dict.cpp"
-    "dict/functions.hpp"
+    "dict/dict_commands.hpp"
     "dict/shell.hpp"
     "dict/shell.cpp"
 )

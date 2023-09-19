@@ -10,7 +10,6 @@
 
 struct Record
 {
-    // std::string id;
     int id = 0;
     std::string word;
     std::string description;
@@ -48,25 +47,23 @@ struct Dict : public Dict_Commands
 
     ~Dict() {}
 
-    virtual void add(std::string&, std::string&);
+    virtual void add(std::string &word, std::string &description);
 
-    virtual void remove(int);
-    virtual void remove(std::string);
+    virtual void remove(int id);
+    virtual void remove(std::string word);
 
     virtual void list();
 
-    virtual void select(std::string);
+    virtual void select(std::string word);
 
-    virtual void update(int, std::string&, std::string&);
+    virtual void update(int, std::string &column, std::string &new_value);
 
-    virtual void show_history();
-
-    virtual void connect(std::string&);
+    virtual void connect(std::string &base_name);
 
     virtual void disconnect();
 
-    void get_data_from_base(std::fstream&);
-    void send_data_to_base(std::fstream&);
+    void get_data_from_base(std::fstream &db);
+    void send_data_to_base(std::fstream &db);
 };
 
 void dict_help();
