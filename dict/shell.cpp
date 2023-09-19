@@ -24,12 +24,16 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict, Node<std::string>
   constexpr int OPTION_DUPLICATE = 2;
   constexpr int OPTION_UNIQ = 3;
   constexpr int OPTION_CONFIG = 4;
+  constexpr int OPTION_NCOUNT = 5;
+  constexpr int OPTION_REV = 6;
 
   Option_Definition option_defs[] = {
       Option_Definition{"h", "help", OPTION_HELP, false},
       Option_Definition{"-d", "--duplicate", OPTION_DUPLICATE, false},
       Option_Definition{"-u", "--uniq", OPTION_UNIQ, false},
-      Option_Definition{"-c", "--config", OPTION_CONFIG, false}};
+      Option_Definition{"-c", "--config", OPTION_CONFIG, true},
+      Option_Definition{"-n", "--n_count", OPTION_NCOUNT, true},
+      Option_Definition{"-r", "--rev", OPTION_REV, false}};
 
   constexpr int COMMAND_LIST = 1;
   constexpr int COMMAND_ADD = 2;
@@ -51,21 +55,32 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict, Node<std::string>
   // int size = sizeof(option_defs); // = 360 don't know why
 
   Parse_Result result =
-      parse_arguments(argc, argv, option_defs, 4, command_defs, 7);
+      parse_arguments(argc, argv, option_defs, 6, command_defs, 7);
     std::string base_name = "dict/data_base.txt";
+
+  Array<std::string> history = print_list(head);
+  int n_count = history.size();
+  bool rev_history = false;
   if (!(result.options.empty()))
   {
     for (Option const &option : result.options)
     {
-      if (option.id == OPTION_HELP)
+      switch (option.id)
       {
+      case OPTION_HELP:
         dict_help();
-      }
-      else if (option.id == OPTION_CONFIG)
-      {
+        break;
+      case OPTION_CONFIG:
         std::cout << base_name << "\n";
         base_name = option.value;
         std::cout << base_name << "\n";
+        break;
+      case OPTION_NCOUNT:
+        n_count = stoi(option.value);
+        break;
+      case OPTION_REV:
+        rev_history = true;
+        break;
       }
     }
   }
@@ -76,7 +91,7 @@ void shell_main(int argc, Array<std::string> argv, Dict &dict, Node<std::string>
     {
       if (command.id == COMMAND_HISTORY)
       {
-        print_count_list(head, 2);
+        print_count_list(head, n_count, rev_history);
       }
     }
   }

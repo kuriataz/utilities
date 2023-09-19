@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <dict.hpp>
 
@@ -17,6 +18,75 @@ std::string whitespaces(int length)
     return whitespaces;
 }
 
+Array<std::string> wrap(std::string const &input, size_t width, size_t indent = 0)
+{
+    std::istringstream in(input);
+    Array<std::string> output;
+
+    // os << whitespaces(indent);
+    output.push_back(whitespaces(indent));
+    size_t curr = indent;
+    std::string word_to_output;
+    std::string word;
+    while (in >> word)
+    {
+        if (curr + word.size() > width)
+        {
+            // os << "\n" << whitespaces(indent);
+            output.push_back(word_to_output);
+            word_to_output = "";
+            curr = indent;
+        }
+        // os << word << " ";
+        word_to_output += word;
+        word_to_output += " ";
+        curr = curr + word.size() + 1;
+    }
+    if (!(word_to_output == ""))
+    {
+        output.push_back(word_to_output);
+    }
+    return output;
+}
+
+// Array<std::string> wrap_desc(std::string description)
+// {
+//     const char *desc_as_c = description.c_str();
+//     int desc_length = description.length();
+//     int wrap0 = 0;
+//     Array<std::string> descriptions;
+//     if (desc_length <= 60)
+//     {
+//         descriptions.push_back(description);
+//         return descriptions;
+//     }
+//     std::string new_desc;
+//     int i = 0;
+//     int white1 = 0;
+//     int white2 = description.find(" ");
+//     while (desc_length > 60)
+//     {
+//         while (i != 60)
+//         {
+//             if (desc_as_c[i] == ' ')
+//             {
+//                 white1 = white2;
+//                 white2 = i;
+//             }
+//             i++;
+//         }
+
+//         new_desc = description.substr(wrap0, 60);
+//         descriptions.push_back(new_desc);
+//         wrap0 += 60;
+//         if (desc_length <= wrap0 + 60)
+//         {
+//             descriptions.push_back(description.substr(wrap0));
+//             break;
+//         }
+//     }
+//     return descriptions;
+// }
 Array<std::string> wrap_desc(std::string description)
 {
     int desc_length = description.length();
@@ -82,13 +152,22 @@ Array<std::string> wrap_word(std::string word)
 
 void pretty_print(Record record)
 {
-    int i = 1;
-    int j = 1;
-    Array<std::string> words = wrap_word(record.word);
-    Array<std::string> descriptions = wrap_desc(record.description);
-    std::cout << whitespaces(4 - 2) << record.id << " |  "
-              << words[0] << whitespaces(7 - words[0].length()) << "| "
-              << descriptions[0] << "\n";
+    int id_length = 1;
+    if (record.id > 9)
+    {
+        id_length++;
+    }
+    if (record.id > 99)
+    {
+        id_length++;
+    }
+    Array<std::string> words = wrap(record.word, 6);
+    Array<std::string> descriptions = wrap(record.description, 60);
+    std::cout << whitespaces(4 - id_length) << record.id << " |  "
+              << words[1] << whitespaces(7 - words[1].length()) << "| "
+              << descriptions[1] << "\n";
+    int i = 2;
+    int j = 2;
     while (i != words.size() || j != descriptions.size())
     {
         if (i != words.size())
