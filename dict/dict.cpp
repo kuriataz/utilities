@@ -60,10 +60,10 @@ void Dict::select(std::string word)
 
 void Dict::list()
 {
-    std::cout << "WORD\n";
+    std::cout << "  ID |" << "  WORD   |" << " DESCRIPTION\n";
     for (int i = 0; i != data.size(); i++)
     {
-        std::cout << data[i].word << '\n';
+        pretty_print(data[i]);
     }
 }
 
