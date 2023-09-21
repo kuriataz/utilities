@@ -69,18 +69,28 @@ void Dict::list()
 
 void Dict::update(int id, std::string &column, std::string &new_value)
 {
-    // for (int i = 0; i != data.size(); i++)
-    for (Record record : data)
+    std::string white(" \t\f\v\n\r");
+    for (Record &record : data)
     {
         if (record.id == id)
         {
-            if (column == "word")
+            if (column == "word" || column == "WORD")
             {
                 record.word = new_value;
+                std::size_t found = record.word.find_last_not_of(white);
+                if (found != std::string::npos)
+                {
+                    record.word.erase(found + 1);
+                }
             }
-            else if (column == "description")
+            else if (column == "description" || column == "DESCRIPTION")
             {
                 record.description = new_value;
+                std::size_t found = record.description.find_last_not_of(white);
+                if (found != std::string::npos)
+                {
+                    record.description.erase(found + 1);
+                }
             }
         }
     }
