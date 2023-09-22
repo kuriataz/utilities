@@ -52,9 +52,11 @@ int main(int argc, char **argv)
       Command_Definition{"shell", COMMAND_SHELL, false},
       Command_Definition{"update", COMMAND_UPDATE, false}};
 
+  size_t opt_size = sizeof(option_defs) / sizeof(option_defs[0]);
+  size_t com_size = sizeof(command_defs) / sizeof(command_defs[0]);
 
   Parse_Result result =
-      parse_arguments(argc, argv, option_defs, 4, command_defs, 6);
+      parse_arguments(argc, argv, option_defs, opt_size, command_defs, com_size);
 
   std::string base_name = "dict/data_base.txt";
 
@@ -146,6 +148,6 @@ int main(int argc, char **argv)
     }
   }
   dict.disconnect();
-  
+
   return 0;
 }
