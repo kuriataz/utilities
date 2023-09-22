@@ -1,3 +1,7 @@
+, in description
+what with words longer than 6 chars? should they be cut or the space for WORD should be as big as for DESCRIPTION?
+
+
 dict add [OPTION] WORD DESCRIPTION - add a word and the description
 dict remove [OPTION] WORD          - remove the word and its description
 dict list [OPTION]                 - list all words

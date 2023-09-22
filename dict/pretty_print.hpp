@@ -54,16 +54,28 @@ void pretty_print(Record record)
     constexpr int white_after_word = 7;
     Array<std::string> words = wrap(record.word, 6);
     Array<std::string> descriptions = wrap(record.description, 60);
-    std::cout << whitespaces(white_before_word - 1 - id_length) << record.id << " |  "
-              << words[1] << whitespaces(white_after_word - words[1].length()) << "| "
-              << descriptions[1] << "\n";
-    int i = 2;
-    int j = 2;
-    while (i != words.size() || j != descriptions.size())
+    // std::cout << whitespaces(white_before_word - 1 - id_length) << record.id << " |  "
+    //           << words[1] << whitespaces(white_after_word - words[1].length()) << "| "
+    //           << descriptions[1] << "\n";
+    int i = 1;
+    int j = 1;
+    int w_size = words.size();
+    int d_size = descriptions.size();
+    bool print_id = false;
+    while (i < w_size || j < d_size)
     {
-        if (i != words.size())
+        if (print_id)
         {
-            std::cout << whitespaces(white_before_word) << " |  "
+            std::cout << whitespaces(white_before_word);
+        }
+        else
+        {
+            std::cout << whitespaces(white_before_word - 1 - id_length) << record.id;
+            print_id = true;
+        }
+        if (i <= w_size)
+        {
+            std::cout << " |  "
             << words[i] << whitespaces(white_after_word - words[i].length()) << "| ";
             i++;
         }
@@ -72,7 +84,7 @@ void pretty_print(Record record)
             std::cout << whitespaces(white_before_word) << " |  " << whitespaces(white_after_word) << "| ";
         }
 
-        if (j != descriptions.size())
+        if (j <= d_size)
         {
             std::cout << descriptions[j] << "\n";
             ++j;

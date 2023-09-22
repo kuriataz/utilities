@@ -49,11 +49,11 @@ void Dict::remove(int id)
 void Dict::select(std::string word)
 {
     std::cout << "  ID |" << "  WORD   |" << " DESCRIPTION\n";
-    for (int i = 0; i != data.size(); i++)
+    for (Record& record: data)
     {
-        if (data[i].word == word)
+        if (record.word == word)
         {
-            pretty_print(data[i]);
+            pretty_print(record);
         }
     }
 }
@@ -61,9 +61,9 @@ void Dict::select(std::string word)
 void Dict::list()
 {
     std::cout << "  ID |" << "  WORD   |" << " DESCRIPTION\n";
-    for (int i = 0; i != data.size(); i++)
+    for (Record& record: data)
     {
-        pretty_print(data[i]);
+        pretty_print(record);
     }
 }
 
