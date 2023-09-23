@@ -103,7 +103,9 @@ int main(int argc, char **argv)
 
   std::string command = argv[1];
 
-  Record *end = dict.data.end();
+  // Record *end = dict.data.end();
+  iterator<Record> begin = dict.data.begin();
+  iterator<Record> end = dict.data.end();
   if (!(result.options.empty()))
   {
     for (Option const &option : result.options)
@@ -111,10 +113,12 @@ int main(int argc, char **argv)
       switch (option.id)
       {
       case OPTION_DUPLICATE:
-        end = find_duplicate(dict.data.begin(), dict.data.end());
+        // end = find_duplicate(dict.data.begin(), dict.data.end());
+        dict.end_of_data = find_duplicate(begin, end);
         break;
       case OPTION_UNIQ:
-        end = find_uniq(dict.data.begin(), dict.data.end());
+        // end = find_uniq(dict.data.begin(), dict.data.end());
+        dict.end_of_data = find_uniq(begin, end);
         break;
       }
     }

@@ -1,5 +1,11 @@
-, in description
-what with words longer than 6 chars? should they be cut or the space for WORD should be as big as for DESCRIPTION?
+- , in description
+- what with words longer than 6 chars? should they be cut or the space for WORD should be as big as for DESCRIPTION?
+- parsing
+- flags for unique and duplicate for list command
+- connect function
+- error handling
+- commiting rules
+- query
 
 
 dict add [OPTION] WORD DESCRIPTION - add a word and the description

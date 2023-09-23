@@ -6,6 +6,7 @@
 #include <string>
 #include <array.hpp>
 #include <dict_commands.hpp>
+#include <iterator.hpp>
 
 
 struct Record
@@ -44,6 +45,8 @@ struct Dict : public Dict_Commands
     Array<Record> data;
     int max_id = 0;
     std::string base_name;
+    iterator<Record> begin_of_data = data.begin();
+    iterator<Record> end_of_data = data.end();
 
     ~Dict() {}
 

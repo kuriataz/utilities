@@ -8,6 +8,7 @@
 #include <uniq.hpp>
 #include <methods.hpp>
 #include <pretty_print.hpp>
+#include <iterator.hpp>
 
 
 void Dict::add(std::string &word, std::string &description)
@@ -160,6 +161,11 @@ void Dict::send_data_to_base(std::fstream &db)
     {
         db << record.id << "," << record.word << "," <<  record.description << '\n';
     }
+    // tried to make flags for unique and duplicate working for list command...
+    // for ( ; begin_of_data != end_of_data; ++begin_of_data)
+    // {
+    //     db << (*begin_of_data).id << "," << (*begin_of_data).word << "," <<  (*begin_of_data).description << '\n';
+    // }
 }
 
 void dict_help()

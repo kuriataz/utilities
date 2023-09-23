@@ -54,9 +54,7 @@ void pretty_print(Record record)
     constexpr int white_after_word = 7;
     Array<std::string> words = wrap(record.word, 6);
     Array<std::string> descriptions = wrap(record.description, 60);
-    // std::cout << whitespaces(white_before_word - 1 - id_length) << record.id << " |  "
-    //           << words[1] << whitespaces(white_after_word - words[1].length()) << "| "
-    //           << descriptions[1] << "\n";
+    
     int i = 1;
     int j = 1;
     int w_size = words.size();
