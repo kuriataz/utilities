@@ -63,6 +63,11 @@ void pretty_print(Record record)
     bool print_id = false;
     std::cout << w_size << " - w_size\n";
     std::cout << d_size << " - d_size\n";
+    if (w_size == i && d_size == j)
+    {
+        std::cout << whitespaces(white_before_word - 1 - id_length) << record.id
+                  << " |  " << whitespaces(white_after_word) << "| \n";
+    }
     while (i < w_size || j < d_size)
     {
         if (print_id)
