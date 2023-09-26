@@ -5,6 +5,7 @@
 - connect function
 - error handling
 - commiting rules
+- history in shell
 - query
 
 
