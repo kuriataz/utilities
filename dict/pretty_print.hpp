@@ -61,8 +61,6 @@ void pretty_print(Record record)
     int w_size = words.size();
     int d_size = descriptions.size();
     bool print_id = false;
-    std::cout << w_size << " - w_size\n";
-    std::cout << d_size << " - d_size\n";
     if (w_size == i && d_size == j)
     {
         std::cout << whitespaces(white_before_word - 1 - id_length) << record.id

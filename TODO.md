@@ -6,6 +6,7 @@
 - error handling
 - commiting rules
 - history in shell
+- a lot of ifs in pretty_print()
 - query
 
 
