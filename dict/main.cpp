@@ -58,8 +58,8 @@ int main(int argc, char **argv)
   Parse_Result result =
       parse_arguments(argc, argv, option_defs, opt_size, command_defs, com_size);
 
-  std::string base_name = "dict/data_base.txt";
 
+  Dict dict;
   if (!(result.options.empty()))
   {
     for (Option const &option : result.options)
@@ -70,9 +70,7 @@ int main(int argc, char **argv)
       }
       else if (option.id == OPTION_CONFIG)
       {
-        std::cout << base_name << "\n";
-        base_name = option.value;
-        std::cout << base_name << "\n";
+        dict.base_name = option.value;
       }
     }
   }
@@ -98,8 +96,7 @@ int main(int argc, char **argv)
     }
   }
 
-  Dict dict;
-  dict.connect(base_name);
+  dict.connect(dict.base_name);
 
   std::string command = argv[1];
 

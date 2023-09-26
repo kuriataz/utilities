@@ -7,6 +7,7 @@
 - commiting rules
 - history in shell
 - a lot of ifs in pretty_print()
+- config option is useless. how to keep base_name?
 - query
 
 

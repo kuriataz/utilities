@@ -44,7 +44,7 @@ struct Dict : public Dict_Commands
 {
     Array<Record> data;
     int max_id = 0;
-    std::string base_name;
+    std::string base_name = "dict/data_base.txt";
     iterator<Record> begin_of_data = data.begin();
     iterator<Record> end_of_data = data.end();
 
