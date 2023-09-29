@@ -60,7 +60,7 @@ T *find_duplicate(T *begin, T *end)
     T *result = begin;
     while (++begin != end)
     {
-        if (*begin == *(begin - 1) && *begin != *(result - 1))
+        if (!(*begin != *(begin - 1)) && *begin != *(result - 1))
         {
             *(result++) = std::move(*begin);
         }
@@ -80,7 +80,7 @@ T find_duplicate(T begin, T end)
     T pre_begin = begin;
     while (++begin != end)
     {
-        if (*begin == *pre_begin)
+        if (!(*begin != *pre_begin))
         {
             *(result) = std::move(*begin);
             ++result;

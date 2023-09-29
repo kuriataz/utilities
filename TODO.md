@@ -1,13 +1,14 @@
 - , in description
 - what with words longer than 6 chars? should they be cut or the space for WORD should be as big as for DESCRIPTION?
 - parsing
-- flags for unique and duplicate for list command
+- flags for unique and duplicate for list command - now not working
 - connect function
 - error handling
 - commiting rules
 - history in shell
 - a lot of ifs in pretty_print()
 - config option is useless. how to keep base_name?
+- testing
 - query
 
 
