@@ -23,7 +23,7 @@ Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[],
       if ((strcmp(argv[i], defs[j].long_name.c_str()) == 0) ||
           (strcmp(argv[i], defs[j].short_name.c_str()) == 0))
       {
-        if (defs[j].mandatory_argument == true)
+        if (defs[j].mandatory_argument == true && argc > i + 1)
         {
           Option new_option = Option(defs[j].id, argv[i + 1]);
           result.options.push_back(new_option);
@@ -64,7 +64,7 @@ Parse_Result parse_arguments(int argc, char **argv, Option_Definition defs[], in
       if ((strcmp(argv[i], defs[j].long_name.c_str()) == 0) ||
           (strcmp(argv[i], defs[j].short_name.c_str()) == 0))
       {
-        if (defs[j].mandatory_argument == true)
+        if (defs[j].mandatory_argument == true && argc > i + 1)
         {
           Option new_option = Option(defs[j].id, argv[i + 1]);
           result.options.push_back(new_option);
@@ -117,7 +117,7 @@ Parse_Result parse_arguments(int argc, Array<std::string> argv, Option_Definitio
       if ((argv[i] == defs[j].long_name.c_str()) ||
           (argv[i] == defs[j].short_name.c_str()))
       {
-        if (defs[j].mandatory_argument == true)
+        if (defs[j].mandatory_argument == true && argc > i + 1)
         {
           Option new_option = Option(defs[j].id, argv[i + 1]);
           result.options.push_back(new_option);

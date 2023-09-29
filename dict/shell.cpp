@@ -4,6 +4,7 @@
 #include <string.h>
 #include <string>
 #include <sstream>
+#include <iomanip>
 
 #include <methods.hpp>
 #include <options.hpp>
@@ -14,16 +15,18 @@
 #include <algorithm>
 #include <list.hpp>
 
-void shell_main(int argc, std::string input, Dict &dict, Node<std::string> *head)
+void shell_main(std::string input, Dict &dict, Node<std::string> *head)
 {
   Array<std::string> argv;
   std::istringstream iss(input);
   std::string token;
 
-    while (iss >> std::quoted(token))
-    {
-        argv.push_back(token);
-    }
+  while (iss >> std::quoted(token))
+  {
+      argv.push_back(token);
+  }
+
+  int argc = argv.size();
   if (argc < 1)
   {
     std::cout << "Dict requires at least one argument\n";
@@ -112,6 +115,7 @@ void shell_main(int argc, std::string input, Dict &dict, Node<std::string> *head
   std::string column;
   std::string new_value;
 
+
   if (result.arguments.size() > 0)
   {
     first_arg = result.arguments[0];
@@ -183,11 +187,8 @@ void shell(Dict &dict)
     {
         return;
     }
-    Array<std::string> argv;
-    argv = tokenize(line, " ");
-    int argc = argv.size();
     Node<std::string> *new_command = new_node(line);
     insert_node(&history_beg, new_command);
-    shell_main(argc, line, dict, history_beg);
+    shell_main(line, dict, history_beg);
   }
 }

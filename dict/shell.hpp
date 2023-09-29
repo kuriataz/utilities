@@ -7,4 +7,4 @@
 
 void shell(Dict&);
 
-void shell_main(int, std::string, Dict&, Node<std::string>*);
+void shell_main(std::string, Dict&, Node<std::string>*);
