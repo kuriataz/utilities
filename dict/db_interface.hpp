@@ -6,9 +6,9 @@
 #include <array.hpp>
 #include <vector>
 
-struct Dict_Commands
+struct DB_Interface
 {
-    virtual ~Dict_Commands() = default;
+    virtual ~DB_Interface() = default;
 
     virtual void add(std::string&, std::string&) = 0;
 
@@ -19,8 +19,4 @@ struct Dict_Commands
     virtual void select(std::string) = 0;
 
     virtual void update(int, std::string&, std::string&) = 0;
-
-    virtual void connect(std::string&) = 0;
-
-    virtual void disconnect() = 0;
 };

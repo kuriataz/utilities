@@ -49,7 +49,7 @@ void Dict::remove(int id)
 
 void Dict::select(std::string word)
 {
-    std::cout << "  ID |" << "  WORD   |" << " DESCRIPTION\n";
+    std::cout << "  ID |" << "  WORD   | DESCRIPTION\n";
     for (Record& record: data)
     {
         if (record.word == word)
@@ -70,7 +70,7 @@ void Dict::list()
 
 void Dict::update(int id, std::string &column, std::string &new_value)
 {
-    std::string white(" \t\f\v\n\r");
+    std::string ws(" \t\f\v\n\r");
     for (Record &record : data)
     {
         if (record.id == id)
@@ -78,7 +78,7 @@ void Dict::update(int id, std::string &column, std::string &new_value)
             if (column == "word" || column == "WORD")
             {
                 record.word = new_value;
-                std::size_t found = record.word.find_last_not_of(white);
+                std::size_t found = record.word.find_last_not_of(ws);
                 if (found != std::string::npos)
                 {
                     record.word.erase(found + 1);
@@ -87,7 +87,7 @@ void Dict::update(int id, std::string &column, std::string &new_value)
             else if (column == "description" || column == "DESCRIPTION")
             {
                 record.description = new_value;
-                std::size_t found = record.description.find_last_not_of(white);
+                std::size_t found = record.description.find_last_not_of(ws);
                 if (found != std::string::npos)
                 {
                     record.description.erase(found + 1);
@@ -97,28 +97,31 @@ void Dict::update(int id, std::string &column, std::string &new_value)
     }
 }
 
-void Dict::connect(std::string &base_name)
+bool Dict::connect(std::string &db_name)
 {
-    this->base_name = base_name;
-    std::fstream base;
-    base.open(base_name, std::ios::in);
-    if (base_name == "")
+    this->db_name = db_name;
+    std::fstream db;
+    db.open(db_name, std::ios::in);
+    if (db_name == "")
     {
         std::cerr << "failed to connect\n";
-        return;
+        return false;
     }
-    get_data_from_base(base);
-    base.close();
+    get_data_from_base(db);
+    db.close();
+    return true;
 }
 
-void Dict:: disconnect()
+void Dict::disconnect()
 {
-    std::fstream base;
-    base.open(base_name, std::ios::out);
-    send_data_to_base(base);
-    base.close();
-    base_name = "";
+    std::fstream db;
+    db.open(db_name, std::ios::out);
+    send_data_to_base(db);
+    db.close();
+    db_name = "";
 }
+
+// bool commit
 
 void Dict::get_data_from_base(std::fstream &db)
 {
@@ -143,7 +146,7 @@ void Dict::get_data_from_base(std::fstream &db)
 
 void Dict::send_data_to_base(std::fstream &db)
 {
-    if (base_name == "")
+    if (db_name == "")
     {
         std::cerr << "not connected to the base\n";
         return;

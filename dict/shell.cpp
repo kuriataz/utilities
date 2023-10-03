@@ -10,7 +10,7 @@
 #include <options.hpp>
 #include <array.hpp>
 #include <dict.hpp>
-#include <dict_commands.hpp>
+#include <db_interface.hpp>
 #include <uniq.hpp>
 #include <algorithm>
 #include <list.hpp>
@@ -70,7 +70,7 @@ void shell_main(std::string input, Dict &dict, Node<std::string> *head)
 
   Parse_Result result =
       parse_arguments(argc, argv, option_defs, opt_size, command_defs, com_size);
-    std::string base_name = "dict/data_base.txt";
+    std::string db_name = "dict/data_base.txt";
 
   Array<std::string> history = list_to_array(head);
   int n_count = history.size();
@@ -85,9 +85,9 @@ void shell_main(std::string input, Dict &dict, Node<std::string> *head)
         dict_help();
         break;
       case OPTION_CONFIG:
-        std::cout << base_name << "\n";
-        base_name = option.value;
-        std::cout << base_name << "\n";
+        std::cout << db_name << "\n";
+        db_name = option.value;
+        std::cout << db_name << "\n";
         break;
       case OPTION_NCOUNT:
         n_count = stoi(option.value);

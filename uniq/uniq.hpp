@@ -4,11 +4,20 @@
 #include <utility>
 #include <iterator.hpp>
 
-// find_uniq is a function that takes only unique elements from given collection
-// example: 1 2 2 3 1 -> 1 2 3 1
-// it returns pointer to one after the last element in modified collection
-// begin is a pointer to the first element from the collection that is modified
-// end is a pointer to the one after the last element from the collection that is modified
+// find_uniq
+// takes only unique elements from given collection
+//
+// Example:
+// Given range
+// 1 2 2 3 1 -> 1 2 3 1
+//
+// Parameters:
+// begin - pointer to the first element from the collection that is modified
+//   end - is a pointer to the one after the last element from the collection that is modified
+//
+// Return:
+// returns pointer to one after the last element in modified collection
+//
 template <typename T>
 T *find_uniq(T *begin, T *end)
 {
@@ -39,7 +48,8 @@ T find_uniq(T begin, T end)
     {
         if (*result != *begin)
         {
-            *(++result) = std::move(*begin);
+            ++result;
+            *result = std::move(*begin);
         }
     }
     return ++result;
@@ -55,15 +65,20 @@ T *find_duplicate(T *begin, T *end)
 {
     if (begin == end)
     {
-        return nullptr;
+        return end;
     }
     T *result = begin;
-    while (++begin != end)
+    T* j = begin;
+    ++begin;
+    while (begin != end)
     {
-        if (!(*begin != *(begin - 1)) && *begin != *(result - 1))
+        if (*begin == *j && *begin != *result)
         {
-            *(result++) = std::move(*begin);
+            ++result;
+            *result = std::move(*begin);
         }
+        ++begin;
+        ++j;
     }
     return result;
 }
@@ -73,20 +88,20 @@ T find_duplicate(T begin, T end)
 {
     if (begin == end)
     {
-        return begin;
+        return end;
     }
-    T origin_beg = begin;
     T result = begin;
-    T pre_begin = begin;
-    while (++begin != end)
+    T j = begin;
+    ++begin;
+    while (begin != end)
     {
-        if (!(*begin != *pre_begin))
+        if (*begin == *j && *begin != *result)
         {
-            *(result) = std::move(*begin);
             ++result;
+            *result = std::move(*begin);
         }
-            pre_begin = begin;
+        ++begin;
+        ++j;
     }
-    result = find_uniq(origin_beg, result);
     return result;
 }

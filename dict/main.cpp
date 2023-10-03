@@ -12,7 +12,7 @@
 #include <methods.hpp>
 #include <array.hpp>
 #include <dict.hpp>
-#include <dict_commands.hpp>
+#include <db_interface.hpp>
 #include <uniq.hpp>
 #include <shell.hpp>
 
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
       }
       else if (option.id == OPTION_CONFIG)
       {
-        dict.base_name = option.value;
+        dict.db_name = option.value;
       }
     }
   }
@@ -96,7 +96,7 @@ int main(int argc, char **argv)
     }
   }
 
-  dict.connect(dict.base_name);
+  dict.connect(dict.db_name);
 
   std::string command = argv[1];
 

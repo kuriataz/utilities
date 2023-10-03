@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include <array.hpp>
-#include <dict_commands.hpp>
+#include <db_interface.hpp>
 #include <iterator.hpp>
 
 
@@ -40,11 +40,11 @@ struct Record
     }
 };
 
-struct Dict : public Dict_Commands
+struct Dict : public DB_Interface
 {
     Array<Record> data;
     int max_id = 0;
-    std::string base_name = "dict/data_base.txt";
+    std::string db_name = "dict/data_base.txt";
     iterator<Record> begin_of_data = data.begin();
     iterator<Record> end_of_data = data.end();
 
@@ -59,11 +59,11 @@ struct Dict : public Dict_Commands
 
     virtual void select(std::string word);
 
-    virtual void update(int, std::string &column, std::string &new_value);
+    virtual void update(int, std::string &column, std::string &new_value) override;
 
-    virtual void connect(std::string &base_name);
+    [[nodiscard]] bool connect(std::string &db_name);
 
-    virtual void disconnect();
+    void disconnect();
 
     void get_data_from_base(std::fstream &db);
     void send_data_to_base(std::fstream &db);

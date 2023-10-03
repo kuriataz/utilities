@@ -50,8 +50,8 @@ Array<std::string> wrap(std::string const &input, size_t width, size_t indent = 
 void pretty_print(Record record)
 {
     int id_length = trunc(log10(record.id));
-    constexpr int white_before_word = 4;
-    constexpr int white_after_word = 7;
+    constexpr int ws_before_word = 4;
+    constexpr int ws_after_word = 7;
     Array<std::string> words = wrap(record.word, 6);
     Array<std::string> descriptions = wrap(record.description, 60);
 
@@ -63,32 +63,32 @@ void pretty_print(Record record)
     bool print_id = false;
     if (w_size == i && d_size == j)
     {
-        std::cout << whitespaces(white_before_word - 1 - id_length) << record.id
-                  << " |  " << whitespaces(white_after_word) << "| \n";
+        std::cout << whitespaces(ws_before_word - 1 - id_length) << record.id
+                  << " |  " << whitespaces(ws_after_word) << "| \n";
     }
     while (i < w_size || j < d_size)
     {
         if (print_id)
         {
-            std::cout << whitespaces(white_before_word);
+            std::cout << whitespaces(ws_before_word);
         }
         else
         {
-            std::cout << whitespaces(white_before_word - 1 - id_length) << record.id;
+            std::cout << whitespaces(ws_before_word - 1 - id_length) << record.id;
             print_id = true;
         }
         if (i < w_size)
         {
-            std::cout << " |  " << words[i] << whitespaces(white_after_word - words[i].length()) << "| ";
+            std::cout << " |  " << words[i] << whitespaces(ws_after_word - words[i].length()) << "| ";
             i++;
         }
         else if (i == w_size)
         {
-            std::cout << " |  " << whitespaces(white_after_word) << "| ";
+            std::cout << " |  " << whitespaces(ws_after_word) << "| ";
         }
         else
         {
-            std::cout << whitespaces(white_before_word) << " |  " << whitespaces(white_after_word) << "| ";
+            std::cout << whitespaces(ws_before_word) << " |  " << whitespaces(ws_after_word) << "| ";
         }
 
         if (j < d_size)
