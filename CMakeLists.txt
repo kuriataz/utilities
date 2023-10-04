@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 set(CMAKE_CXX_STANDARD 17)
-# set(CMAKE_CXX_COMPILER "clang++")
-set(CMAKE_BUILD_TYPE Debug)
+# set(CMAKE_BUILD_TYPE Debug)
 project(utilities CXX)
 
 add_library(core
@@ -11,6 +10,8 @@ add_library(core
     "core/methods.hpp"
     "core/options.hpp"
     "core/options.cpp"
+    "core/list.hpp"
+    "core/iterator.hpp"
 )
 
 target_include_directories(core
@@ -21,7 +22,6 @@ target_include_directories(core
 add_executable(uniq
     "uniq/main.cpp"
     "uniq/uniq.hpp"
-    # "uniq/uniq.cpp"
 )
 target_compile_options(uniq
     PRIVATE
@@ -51,9 +51,10 @@ add_executable(dict
     "dict/main.cpp"
     "dict/dict.hpp"
     "dict/dict.cpp"
-    "dict/dict_commands.hpp"
+    "dict/db_interface.hpp"
     "dict/shell.hpp"
     "dict/shell.cpp"
+    "dict/pretty_print.hpp"
 )
 target_compile_options(dict
     PRIVATE

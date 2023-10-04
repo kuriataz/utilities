@@ -49,22 +49,57 @@ void Dict::remove(int id)
 
 void Dict::select(std::string word)
 {
-    std::cout << "  ID |" << "  WORD   | DESCRIPTION\n";
+    int max_id_length = 2;
+    int max_word_length = longest_word_lenght(word);
+    int max_desc_length = 0;
+    for (Record& record: data)
+    {
+        if (record.word == word && max_id_length < record.id_length)
+        {
+            max_id_length = record.id_length;
+        }
+    }
+
+    //- 1 because before first | must be (max_id_length - "ID" length(2)) whitespaces
+    std::cout << "ID " << whitespaces(max_id_length - 2)
+              //- 3 because before first | must be (max_word_length - "WORD" length(4)) whitespaces
+              << "|WORD " << whitespaces(max_word_length - 4)
+              << "|DESCRIPTION\n";
     for (Record& record: data)
     {
         if (record.word == word)
         {
-            pretty_print(record);
+            pretty_print(record,max_id_length, max_word_length);
         }
     }
 }
 
 void Dict::list()
 {
-    std::cout << "  ID |" << "  WORD   |" << " DESCRIPTION\n";
+    int max_id_length = 2;
+    int max_word_length = 0;
+    int max_desc_length = 0;
     for (Record& record: data)
     {
-        pretty_print(record);
+        if (max_id_length < record.id_length)
+        {
+            max_id_length = record.id_length;
+        }
+
+        if (max_word_length < record.word_length)
+        {
+            max_word_length = record.word_length;
+        }
+    }
+
+    //- 1 because before first | must be (max_id_length - "ID" length(2)) whitespaces
+    std::cout << "ID " << whitespaces(max_id_length - 2)
+    //- 3 because before first | must be (max_word_length - "WORD" length(4)) whitespaces
+              << "|WORD " << whitespaces(max_word_length - 4)
+              << "|DESCRIPTION\n";
+    for (Record& record: data)
+    {
+        pretty_print(record, max_id_length, max_word_length);
     }
 }
 
@@ -181,4 +216,27 @@ void dict_help()
               << "dict select WORD                  - show all entries with given word\n"
               << "dict update ID COLUMN NEW_VALUE   - updates the column of given id's record with the new_value\n"
               << "dict shell                        - interactive mode for the db system, use q to quit\n";
+}
+
+int longest_word_lenght(std::string s)
+{
+    int max_length = 0;
+    int counter = 0;
+    for (char c: s)
+    {
+        if (c == ' ')
+        {
+            counter = 0;
+        }
+        else
+        {
+            ++counter;
+            if (counter > max_length)
+            {
+                max_length = counter;
+            }
+        }
+
+    }
+    return max_length;
 }

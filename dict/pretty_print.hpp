@@ -19,86 +19,48 @@ std::string whitespaces(int length)
     return whitespaces;
 }
 
-Array<std::string> wrap(std::string const &input, size_t width, size_t indent = 0)
+struct Iters
 {
-    std::istringstream in(input);
-    Array<std::string> output;
+    std::string::iterator begin;
+    std::string::iterator end;
 
-    output.push_back(whitespaces(indent));
-    size_t curr = indent;
-    std::string word_to_output;
-    std::string word;
-    while (in >> word)
+    bool finished = false;
+};
+
+void print(Iters &s, int size)
+{
+    int printed = 0;
+    while (s.begin != s.end)
     {
-        if (curr + word.size() > width)
+        std::cout << *s.begin;
+        ++printed;
+        ++s.begin;
+        if (printed == size)
         {
-            output.push_back(word_to_output);
-            word_to_output = "";
-            curr = indent;
+            break;
         }
-        word_to_output += word;
-        word_to_output += " ";
-        curr = curr + word.size() + 1;
     }
-    if (!(word_to_output == ""))
+    if (s.begin == s.end)
     {
-        output.push_back(word_to_output);
+        s.finished = true;
     }
-    return output;
+    std::cout << whitespaces(size - printed);
 }
 
-void pretty_print(Record record)
+void pretty_print(Record record, int max_id_length, int max_word_length)
 {
-    int id_length = trunc(log10(record.id));
-    constexpr int ws_before_word = 4;
-    constexpr int ws_after_word = 7;
-    Array<std::string> words = wrap(record.word, 6);
-    Array<std::string> descriptions = wrap(record.description, 60);
+    std::string id_as_string = std::to_string(record.id);
+    Iters id{id_as_string.begin(), id_as_string.end()};
+    Iters word{record.word.begin(), record.word.end()};
+    Iters desc{record.description.begin(), record.description.end()};
 
-
-    int i = 1;
-    int j = 1;
-    int w_size = words.size();
-    int d_size = descriptions.size();
-    bool print_id = false;
-    if (w_size == i && d_size == j)
+    while (!(id.finished && word.finished && desc.finished))
     {
-        std::cout << whitespaces(ws_before_word - 1 - id_length) << record.id
-                  << " |  " << whitespaces(ws_after_word) << "| \n";
-    }
-    while (i < w_size || j < d_size)
-    {
-        if (print_id)
-        {
-            std::cout << whitespaces(ws_before_word);
-        }
-        else
-        {
-            std::cout << whitespaces(ws_before_word - 1 - id_length) << record.id;
-            print_id = true;
-        }
-        if (i < w_size)
-        {
-            std::cout << " |  " << words[i] << whitespaces(ws_after_word - words[i].length()) << "| ";
-            i++;
-        }
-        else if (i == w_size)
-        {
-            std::cout << " |  " << whitespaces(ws_after_word) << "| ";
-        }
-        else
-        {
-            std::cout << whitespaces(ws_before_word) << " |  " << whitespaces(ws_after_word) << "| ";
-        }
-
-        if (j < d_size)
-        {
-            std::cout << descriptions[j] << "\n";
-            ++j;
-        }
-        else
-        {
-            std::cout << "\n";
-        }
+        print(id, max_id_length + 1);
+        std::cout << "|";
+        print(word, max_word_length + 1);
+        std::cout << "|";
+        print(desc, 60);
+        std::cout << "\n";
     }
 }
