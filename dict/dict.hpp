@@ -8,6 +8,8 @@
 #include <array.hpp>
 #include <db_interface.hpp>
 #include <iterator.hpp>
+#include <pretty_print.hpp>
+
 
 int longest_word_lenght(std::string s);
 
@@ -16,9 +18,9 @@ struct Record
     int id = 0;
     size_t id_length = trunc(log10(id));
     std::string word;
-    size_t word_length = longest_word_lenght(word);
+    size_t word_length = word.length();
     std::string description;
-    size_t desc_length = longest_word_lenght(description);
+    size_t desc_length = description.length();
 
     Record() = default;
 
