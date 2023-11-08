@@ -48,6 +48,10 @@ _start:
     cmp rdi, rax
     jae overflow
 
+    # it works the same without this line
+    mov [integer], rdi
+
+    # write
     mov rax, 1
     mov rdi, 1
     lea rsi, [integer]
