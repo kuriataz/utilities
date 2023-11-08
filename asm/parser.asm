@@ -1,7 +1,7 @@
 .global _start
 
 .bss
-    string: .space 4
+    string: .space 16
     integer: .space 4
 
 .data
@@ -38,7 +38,7 @@ _start:
     mov rax, 0
     mov rdi, 0
     lea rsi, [string]
-    mov rdx, 4
+    mov rdx, 16
     syscall
 
     lea rsi, [string]
@@ -49,7 +49,7 @@ _start:
     jae overflow
 
     # it works the same without this line
-    mov [integer], rdi
+    mov [integer], edi
 
     # write
     mov rax, 1
