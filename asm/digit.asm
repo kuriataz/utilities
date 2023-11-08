@@ -1,7 +1,7 @@
 .global _start
 
 .bss
-input: resb 1
+input: .space 1
 
 .text
 

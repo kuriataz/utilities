@@ -1,8 +1,8 @@
 .global _start
 
 .bss
-    string resb 16
-    integer resd 1
+    string: .space 4
+    integer: .space 4
 
 .data
 overflow_msg:
@@ -19,12 +19,12 @@ parse:
 .next_digit:
     xor rax, rax
 
-    movzx rax, byte[rsi]
+    movzx rax, byte ptr [rsi]
     test rax, rax
     jz .end
 
     sub rax, '0'
-    mul rdi, 10
+    mul rdi
     add rdi, rax
 
     inc rsi
@@ -38,21 +38,20 @@ _start:
     mov rax, 0
     mov rdi, 0
     lea rsi, [string]
-    mov rdx, 16
+    mov rdx, 4
     syscall
 
     lea rsi, [string]
     call parse
 
-    cmp rdi, 4294967295
+    mov rax, 4294967295
+    cmp rdi, rax
     jae overflow
-
-    mov [integer], rdi
 
     mov rax, 1
     mov rdi, 1
     lea rsi, [integer]
-    mov rdx, 1
+    mov rdx, 4
     syscall
     jmp .exit
 
@@ -69,3 +68,4 @@ overflow:
     mov rax, 60
     mov rdi, 0
     syscall
+

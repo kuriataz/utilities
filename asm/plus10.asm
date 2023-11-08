@@ -1,11 +1,11 @@
 .global _start
 
 .bss
-input: resb 1
+input: .space 1
 
 .text
 
-_start
+_start:
 
     # read
     mov rax, 0
@@ -15,7 +15,7 @@ _start
     syscall
 
     # add 10
-    add byte [input], 10
+    add byte ptr [input], 10
 
     # write
     mov rax, 1
