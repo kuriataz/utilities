@@ -12,20 +12,23 @@ overflow_msg:
 
 .text
 
+# Returns value in R8
 parse:
-    xor rdi, rdi
+    xor R8, R8
 
-
+# Stores digit in R9
 .next_digit:
-    xor rax, rax
+    xor R9, R9
 
-    movzx rax, byte ptr [rsi]
-    test rax, rax
+    movzx R9, byte ptr [rsi]
+    # sets ZF when R9 = 0?
+    test R9, R9
     jz .end
 
-    sub rax, '0'
-    mul rdi
-    add rdi, rax
+    sub R9, '0'
+    mov rax, 10
+    mul R8
+    add R8, R9
 
     inc rsi
     jmp .next_digit
@@ -35,6 +38,7 @@ parse:
     ret
 
 _start:
+    # read
     mov rax, 0
     mov rdi, 0
     lea rsi, [string]
@@ -44,17 +48,15 @@ _start:
     lea rsi, [string]
     call parse
 
-    mov rax, 4294967295
-    cmp rdi, rax
+    mov eax, dword ptr [R8]
+    cmp eax, 4294967295
     jae overflow
 
-    # it works the same without this line
-    mov [integer], edi
 
     # write
     mov rax, 1
     mov rdi, 1
-    lea rsi, [integer]
+    lea rsi, [R8] # why not?
     mov rdx, 4
     syscall
     jmp .exit
