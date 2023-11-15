@@ -51,12 +51,13 @@ xor ebx, ebx
     jb .clean
 
 # parses integer stored in eax
+mov ebx, 16
 .next_char:
     xor edx, edx
     div r10 # reminder in edx
     add edx, '0'
+    dec ebx
     mov byte ptr [string + ebx], dl
-    inc ebx
     cmp eax, 0
     jg .next_char
 
