@@ -39,7 +39,8 @@ parse:
     ret
 
 # Returns string value in 'string'
-write_digit:
+write_int:
+    mov r10, 10
 
 # clear string
 xor ebx, ebx
@@ -51,18 +52,19 @@ xor ebx, ebx
 
 # parses integer stored in eax
 .next_char:
-    mov r10, 10
+    xor edx, edx
     div r10 # reminder in edx
     add edx, '0'
-    mov byte ptr [string + ebx], edx
+    mov byte ptr [string + ebx], dl
     inc ebx
-    cmp ebx, 0
+    cmp eax, 0
     jg .next_char
 
+# probably writes zero extended number
 .write:
     mov rax, 1
     mov rdi, 1
-    lea rsi, [string]
+    lea rsi, [string + ebx]
     mov rdx, 16
     syscall
     ret
@@ -79,7 +81,8 @@ _start:
     lea rsi, [string]
     call parse
 
-    call write_digit
+    call write_int
+    jmp .exit
 
 
 overflow:
