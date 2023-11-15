@@ -12,30 +12,61 @@ overflow_msg:
 
 .text
 
-# Returns value in R8
+# Returns value in rax
 parse:
-    xor R8, R8
+    xor rax, rax
+    mov r10, 10
+    mov r11, 4294967295
 
-# Stores digit in R9
+# Stores digit in r9
 .next_digit:
-    xor R9, R9
+    xor r9, r9
 
-    movzx R9, byte ptr [rsi]
-    # sets ZF when R9 = 0?
-    test R9, R9
+    movzx r9, byte ptr [rsi]
+    test r9, r9
     jz .end
 
-    sub R9, '0'
-    mov rax, 10
-    mul R8
-    add R8, R9
+    sub r9, '0'
+    mul r10
+    add rax, r9
+    cmp rax, r11
+    jg overflow
 
     inc rsi
     jmp .next_digit
 
-
 .end:
     ret
+
+# Returns string value in 'string'
+write_digit:
+
+# clear string
+xor ebx, ebx
+.clean:
+    mov byte ptr [string + ebx], 0
+    inc ebx
+    cmp ebx, 16
+    jb .clean
+
+# parses integer stored in eax
+.next_char:
+    mov r10, 10
+    div r10 # reminder in edx
+    add edx, '0'
+    mov byte ptr [string + ebx], edx
+    inc ebx
+    cmp ebx, 0
+    jg .next_char
+
+.write:
+    mov rax, 1
+    mov rdi, 1
+    lea rsi, [string]
+    mov rdx, 16
+    syscall
+    ret
+
 
 _start:
     # read
@@ -48,18 +79,8 @@ _start:
     lea rsi, [string]
     call parse
 
-    mov eax, dword ptr [R8]
-    cmp eax, 4294967295
-    jae overflow
+    call write_digit
 
-
-    # write
-    mov rax, 1
-    mov rdi, 1
-    lea rsi, [R8] # why not?
-    mov rdx, 4
-    syscall
-    jmp .exit
 
 overflow:
     mov rax, 1
