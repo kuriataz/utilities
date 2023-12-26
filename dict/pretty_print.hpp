@@ -5,7 +5,6 @@
 #include <sstream>
 #include <string>
 #include <cmath>
-#include <dict.hpp>
 
 struct Iters
 {
@@ -23,4 +22,4 @@ int distance_to_ws(std::string::iterator current, std::string::iterator end);
 
 void print(Iters &s, int size);
 
-void pretty_print(Record record, int max_id_length, int max_word_length);
+// void pretty_print(Record record, int max_id_length, int max_word_length);

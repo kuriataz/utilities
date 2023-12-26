@@ -1,10 +1,9 @@
 #pragma once
-#include <string.h>
 
+#include <list.hpp>
 #include <array.hpp>
 #include <dict.hpp>
-#include <list.hpp>
 
-void shell(Dict&);
+void shell(Dict &);
 
-void shell_main(std::string, Dict&, Node<std::string>*);
+void shell_main(std::string, Dict &, Node<std::string> *);

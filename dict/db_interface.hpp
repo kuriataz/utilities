@@ -2,9 +2,6 @@
 
 #include <cstdlib>
 #include <string>
-#include <iostream>
-#include <array.hpp>
-#include <vector>
 
 struct DB_Interface
 {

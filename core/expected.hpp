@@ -1,3 +1,4 @@
+#pragma once
 ///
 // expected - An implementation of std::expected with extensions
 // Written in 2017 by Sy Brand (tartanllama@gmail.com, @TartanLlama)

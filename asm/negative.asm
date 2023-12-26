@@ -19,6 +19,7 @@ parse:
     xor rax, rax
     mov r10, 10
     mov r11, 4294967295
+    mov r8, 45 # '-' ASCII value
 
 # Stores digit in r9
 .next_digit:
@@ -27,6 +28,8 @@ parse:
     movzx r9, byte ptr [rsi]
     cmp r9, r10
     je .end
+    cmp r9, r8
+    je .negative
 
     sub r9, '0'
     mul r10
@@ -38,7 +41,19 @@ parse:
     jmp .next_digit
 
 .end:
+    test r12, r12
+    jz .negate
     ret
+
+.negative:
+    mov r12, 0 # sth like a flag
+    inc rsi
+    jmp .next_digit
+
+.negate:
+    neg rax
+    ret
+
 
 # Returns string value in 'string'
 write_int:
@@ -79,7 +94,7 @@ _start:
     mov rdx, 16
     syscall
 
-    ; lea rsi, [string]
+    lea rsi, [string]
     call parse # parsed value in rax(eax)
 
     add rax, r10
@@ -100,4 +115,3 @@ overflow:
     mov rax, 60
     mov rdi, 0
     syscall
-

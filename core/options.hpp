@@ -1,12 +1,7 @@
 #pragma once
 
 #include <cstdio>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <string.h>
-#include <string_view>
-#include <vector>
+#include <string>
 #include <array.hpp>
 
 struct Option_Definition

@@ -1,14 +1,12 @@
 #pragma once
 
 #include <cstdlib>
-#include <iostream>
-#include <vector>
 #include <string>
 #include <cmath>
+
 #include <array.hpp>
 #include <db_interface.hpp>
 #include <iterator.hpp>
-#include <pretty_print.hpp>
 
 
 int longest_word_lenght(std::string s);

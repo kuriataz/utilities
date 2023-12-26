@@ -1,99 +1,99 @@
-#include <iostream>
-#include <cstdlib>
-#include <sstream>
-#include <string>
 #include <cmath>
+#include <cstdlib>
+#include <iostream>
+#include <string>
+
 #include <pretty_print.hpp>
-#include <dict.hpp>
 
 std::string whitespaces(int length)
 {
-    std::string whitespaces;
-    if (length > 0)
+  std::string whitespaces;
+  if (length > 0)
+  {
+    for (int i = 0; i != length; i++)
     {
-        for (int i = 0; i != length; i++)
-        {
-            whitespaces += " ";
-        }
+      whitespaces += " ";
     }
-    return whitespaces;
+  }
+  return whitespaces;
 }
 
-std::string::iterator find_ws(std::string::iterator current, std::string::iterator end, int nth_ws)
+std::string::iterator find_ws(std::string::iterator current,
+                              std::string::iterator end, int nth_ws)
 {
-    int passed_wss = 0;
-    while (current != end)
+  int passed_wss = 0;
+  while (current != end)
+  {
+    if (*current == ' ')
     {
-        if (*current == ' ')
-        {
-            if (passed_wss == nth_ws - 1)
-            {
-                reuturn current;
-            }
-            else
-            {
-                ++passed_wss;
-            }
-        }
-        ++current;
+      if (passed_wss == nth_ws - 1)
+      {
+        return current;
+      }
+      else
+      {
+        ++passed_wss;
+      }
     }
-    return end;
+    ++current;
+  }
+  return end;
 }
 
 int distance_to_ws(std::string::iterator current, std::string::iterator end)
 {
-    int counter = 0;
-    while (current != end)
+  int counter = 0;
+  while (current != end)
+  {
+    if (*current == ' ')
     {
-        if (*current == ' ')
-        {
-            reuturn counter;
-        }
-        ++current;
-        ++counter;
+      return counter;
     }
-    return 0;
+    ++current;
+    ++counter;
+  }
+  return 0;
 }
 
 void print(Iters &s, int size)
 {
-    int printed = 0;
-    int distance_to_ws = distance_to_ws(s.begin, s.end);
-    while (s.begin != s.end)
+  int printed = 0;
+  int dis_to_ws = distance_to_ws(s.begin, s.end);
+  while (s.begin != s.end)
+  {
+    std::cout << *s.begin;
+    ++printed;
+    ++s.begin;
+    if (printed == dis_to_ws)
     {
-        std::cout << *s.begin;
-        ++printed;
-        ++s.begin;
-        if (printed == distance_to_ws)
-        {
-            distance_to_ws = distance_to_ws(s.begin, s.end);
-        }
-        if (printed + distance_to_ws >= 60)
-        {
-            break;
-        }
+      dis_to_ws = distance_to_ws(s.begin, s.end);
     }
-    if (s.begin == s.end)
+    if (printed + dis_to_ws >= 60)
     {
-        s.finished = true;
+      break;
     }
-    std::cout << whitespaces(size - printed);
+  }
+  if (s.begin == s.end)
+  {
+    s.finished = true;
+  }
+  std::cout << whitespaces(size - printed);
 }
 
-void pretty_print(Record record, int max_id_length, int max_word_length)
-{
-    std::string id_as_string = std::to_string(record.id);
-    Iters id{id_as_string.begin(), id_as_string.end()};
-    Iters word{record.word.begin(), record.word.end()};
-    Iters desc{record.description.begin(), record.description.end()};
+// void pretty_print(Record record, int max_id_length, int max_word_length)
+// {
+//   std::string id_as_string = std::to_string(record.id);
+//   Iters id{id_as_string.begin(), id_as_string.end()};
+//   Iters word{record.word.begin(), record.word.end()};
+//   Iters desc{record.description.begin(), record.description.end()};
 
-    while (!(id.finished && word.finished && desc.finished))
-    {
-        print(id, max_id_length + 1);
-        std::cout << "|";
-        print(word, max_word_length + 1);
-        std::cout << "|";
-        print(desc, 60);
-        std::cout << "\n";
-    }
-}
+//   while (!(id.finished && word.finished && desc.finished))
+//   {
+//     print(id, max_id_length + 1);
+//     std::cout << "|";
+//     print(word, max_word_length + 1);
+//     std::cout << "|";
+//     print(desc, 60);
+//     std::cout << "\n";
+//   }
+// }

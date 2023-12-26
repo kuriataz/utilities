@@ -1,5 +1,4 @@
 #include <cstdio>
-#include <fstream>
 #include <iostream>
 #include <string.h>
 #include <string>
@@ -8,12 +7,11 @@
 
 #include <methods.hpp>
 #include <options.hpp>
+#include <list.hpp>
 #include <array.hpp>
 #include <dict.hpp>
 #include <db_interface.hpp>
 #include <uniq.hpp>
-#include <algorithm>
-#include <list.hpp>
 
 void shell_main(std::string input, Dict &dict, Node<std::string> *head)
 {

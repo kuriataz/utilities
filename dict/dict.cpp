@@ -1,14 +1,15 @@
 #include <cstdlib>
-#include <vector>
 #include <string>
-#include <dict.hpp>
 #include <iostream>
 #include <fstream>
-#include <sort.hpp>
-#include <uniq.hpp>
+
 #include <methods.hpp>
+#include <dict.hpp>
+#include <sort.hpp>
+// #include <uniq.hpp>
+#include <array.hpp>
 #include <pretty_print.hpp>
-#include <iterator.hpp>
+// #include <iterator.hpp>
 
 
 void Dict::add(std::string &word, std::string &description)
@@ -69,7 +70,7 @@ void Dict::select(std::string word)
     {
         if (record.word == word)
         {
-            pretty_print(record,max_id_length, max_word_length);
+            // pretty_print(record, max_id_length, max_word_length);
         }
     }
 }
@@ -99,7 +100,7 @@ void Dict::list()
               << "|DESCRIPTION\n";
     for (Record& record: data)
     {
-        pretty_print(record, max_id_length, max_word_length);
+        // pretty_print(record, max_id_length, max_word_length);
     }
 }
 
