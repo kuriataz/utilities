@@ -3,15 +3,14 @@
 #include <string.h>
 #include <string_view>
 
-#include <expected.hpp>
-#include <options.hpp>
-#include <methods.hpp>
 #include <array.hpp>
-#include <dict.hpp>
 #include <db_interface.hpp>
-#include <uniq.hpp>
+#include <dict.hpp>
+#include <expected.hpp>
+#include <methods.hpp>
+#include <options.hpp>
 #include <shell.hpp>
-
+#include <uniq.hpp>
 
 int main(int argc, char **argv)
 {
@@ -25,7 +24,6 @@ int main(int argc, char **argv)
   constexpr int OPTION_DUPLICATE = 2;
   constexpr int OPTION_UNIQ = 3;
   constexpr int OPTION_CONFIG = 4;
-
 
   Option_Definition option_defs[] = {
       Option_Definition{"-h", "--help", OPTION_HELP, false},
@@ -51,9 +49,8 @@ int main(int argc, char **argv)
   size_t opt_size = sizeof(option_defs) / sizeof(option_defs[0]);
   size_t com_size = sizeof(command_defs) / sizeof(command_defs[0]);
 
-  Parse_Result result =
-      parse_arguments(argc, argv, option_defs, opt_size, command_defs, com_size);
-
+  Parse_Result result = parse_arguments(argc, argv, option_defs, opt_size,
+                                        command_defs, com_size);
 
   Dict dict;
   if (!(result.options.empty()))
@@ -121,7 +118,7 @@ int main(int argc, char **argv)
       switch (command.id)
       {
       case COMMAND_SHELL:
-         shell(dict);
+        shell(dict);
         break;
       case COMMAND_LIST:
         dict.list();

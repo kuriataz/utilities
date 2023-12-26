@@ -7,10 +7,10 @@
 
 std::string whitespaces(int length)
 {
-  std::string whitespaces;
+  std::string whitespaces = "";
   if (length > 0)
   {
-    for (int i = 0; i != length; i++)
+    for (int i = 0; i < length; i++)
     {
       whitespaces += " ";
     }
@@ -80,6 +80,7 @@ void print(Iters &s, int size)
   std::cout << whitespaces(size - printed);
 }
 
+// // cant be here because of circular inlucde (record)
 // void pretty_print(Record record, int max_id_length, int max_word_length)
 // {
 //   std::string id_as_string = std::to_string(record.id);

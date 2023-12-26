@@ -55,6 +55,7 @@ add_executable(dict
     "dict/shell.hpp"
     "dict/shell.cpp"
     "dict/pretty_print.hpp"
+    "dict/pretty_print.cpp"
 )
 target_compile_options(dict
     PRIVATE
