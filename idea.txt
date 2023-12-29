@@ -1,0 +1,44 @@
+CREATE DATABASE Zoo;
+
+CREATE TABLE Animals (
+    AnimalID INT PRIMARY KEY,
+    Name VARCHAR(60),
+    SpeciesID INT,
+    CaretakerID INT,
+    FOREIGN KEY (SpeciesID) REFERENCES Species(SpeciesID),
+    FOREIGN KEY (CaretakerID) REFERENCES Caretakers(CaretakerID)
+);
+
+CREATE TABLE Species (
+    SpeciesID INT PRIMARY KEY,
+    SpeciesName VARCHAR(60)
+);
+
+CREATE TABLE Caretakers (
+    CaretakerID INT PRIMARY KEY,
+    FirstName VARCHAR(60),
+    LastName VARCHAR(60)
+);
+
+CREATE TABLE Visits (
+    VisitID INT PRIMARY KEY,
+    AnimalID INT,
+    VisitDate DATE,
+    CaretakerID INT,
+    MedicationID INT,
+    DiseaseID INT,
+    FOREIGN KEY (AnimalID) REFERENCES Animals(AnimalID),
+    FOREIGN KEY (CaretakerID) REFERENCES Caretakers(CaretakerID),
+    FOREIGN KEY (MedicationID) REFERENCES Medications(MedicationID),
+    FOREIGN KEY (DiseaseID) REFERENCES Diseases(DiseaseID)
+);
+
+CREATE TABLE Medications (
+    MedicationID INT PRIMARY KEY,
+    MedicationName VARCHAR(60)
+);
+
+CREATE TABLE Diseases (
+    DiseaseID INT PRIMARY KEY,
+    DiseaseName VARCHAR(60)
+);

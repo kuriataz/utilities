@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 
+// #include <conncpp.hpp>
+
 #include <array.hpp>
 #include <dict.hpp>
 #include <iterator.hpp>
@@ -156,6 +158,19 @@ bool Dict::connect(std::string &db_name)
   db.close();
   return true;
 }
+// bool Dict::new_connect(std::string &db_name)
+// {
+//   // Instantiate Driver
+//   sql::Driver *driver = sql::mariadb::get_driver_instance();
+
+//   // Configure Connection
+//   sql::SQLString url("jdbc:mariadb://localhost:3306/table");
+//   sql::Properties properties(
+//       {{"user", "app_user"}, {"password", "Password123!"}});
+
+//   // Establish Connection
+//   std::unique_ptr<sql::Connection> conn(driver->connect(url, properties));
+// }
 
 void Dict::disconnect()
 {

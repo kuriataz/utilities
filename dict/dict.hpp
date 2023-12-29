@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <string>
 
-
 #include <array.hpp>
 #include <db_interface.hpp>
 #include <iterator.hpp>
@@ -56,6 +55,7 @@ struct Dict : public DB_Interface
                       std::string &new_value) override;
 
   [[nodiscard]] bool connect(std::string &db_name);
+  bool new_connect(std::string &db_name);
 
   void disconnect();
 
