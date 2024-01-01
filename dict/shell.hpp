@@ -1,9 +1,9 @@
 #pragma once
 
-#include <list.hpp>
 #include <array.hpp>
-#include <dict.hpp>
+#include <db_interface.hpp>
+#include <list.hpp>
 
-void shell(Dict &);
+void shell(DB_Interface &);
 
-void shell_main(std::string, Dict &, Node<std::string> *);
+void shell_main(std::string, DB_Interface &, Node<std::string> *);

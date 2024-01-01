@@ -1,19 +1,21 @@
 #include <cstdio>
+#include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <string.h>
 #include <string>
-#include <sstream>
-#include <iomanip>
 
+
+#include <array.hpp>
+#include <db_interface.hpp>
+#include <dict.hpp>
+#include <list.hpp>
 #include <methods.hpp>
 #include <options.hpp>
-#include <list.hpp>
-#include <array.hpp>
-#include <dict.hpp>
-#include <db_interface.hpp>
 #include <uniq.hpp>
 
-void shell_main(std::string input, Dict &dict, Node<std::string> *head)
+
+void shell_main(std::string input, DB_Interface &dict, Node<std::string> *head)
 {
   Array<std::string> argv;
   std::istringstream iss(input);
@@ -21,7 +23,7 @@ void shell_main(std::string input, Dict &dict, Node<std::string> *head)
 
   while (iss >> std::quoted(token))
   {
-      argv.push_back(token);
+    argv.push_back(token);
   }
 
   int argc = argv.size();
@@ -66,9 +68,9 @@ void shell_main(std::string input, Dict &dict, Node<std::string> *head)
   size_t opt_size = sizeof(option_defs) / sizeof(option_defs[0]);
   size_t com_size = sizeof(command_defs) / sizeof(command_defs[0]);
 
-  Parse_Result result =
-      parse_arguments(argc, argv, option_defs, opt_size, command_defs, com_size);
-    std::string db_name = "dict/data_base.txt";
+  Parse_Result result = parse_arguments(argc, argv, option_defs, opt_size,
+                                        command_defs, com_size);
+  std::string db_name = "dict/data_base.txt";
 
   Array<std::string> history = list_to_array(head);
   int n_count = history.size();
@@ -112,7 +114,6 @@ void shell_main(std::string input, Dict &dict, Node<std::string> *head)
   std::string description;
   std::string column;
   std::string new_value;
-
 
   if (result.arguments.size() > 0)
   {
@@ -179,11 +180,11 @@ void shell(Dict &dict)
 {
   std::string line;
   Node<std::string> *history_beg = nullptr;
-  while(getline(std::cin, line))
+  while (getline(std::cin, line))
   {
     if (line == "q")
     {
-        return;
+      return;
     }
     Node<std::string> *new_command = new_node(line);
     insert_node(&history_beg, new_command);

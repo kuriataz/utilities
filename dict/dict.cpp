@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-// #include <conncpp.hpp>
+#include <conncpp.hpp>
 
 #include <array.hpp>
 #include <dict.hpp>

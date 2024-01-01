@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <iostream>
+#include <mariadb_dictionary.hpp>
 #include <string.h>
 #include <string_view>
 
