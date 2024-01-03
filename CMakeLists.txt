@@ -19,6 +19,7 @@ PUBLIC
 )
 
 add_subdirectory(mariadb-connector-cpp)
+export(TARGETS mariadbcpp FILE /home/zosia/utilities/targets.cmake)
 
 
 # set_target_properties(mariadb PROPERTIES LINKER_LANGUAGE CXX)
