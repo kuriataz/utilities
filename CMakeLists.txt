@@ -3,8 +3,6 @@ set(CMAKE_CXX_STANDARD 17)
 # set(CMAKE_BUILD_TYPE Debug)
 project(utilities CXX)
 
-add_subdirectory(include)
-
 add_library(core
     "core/array.hpp"
     "core/expected.hpp"
@@ -19,6 +17,9 @@ target_include_directories(core
 PUBLIC
 "core/"
 )
+
+add_subdirectory(mariadb-connector-cpp)
+
 
 # set_target_properties(mariadb PROPERTIES LINKER_LANGUAGE CXX)
 
@@ -70,9 +71,6 @@ target_include_directories(dict
     "sort/"
     "uniq/"
 )
-# target_include_directories(mariadb PUBLIC "mariadb-connector-cpp-1.0.2-ubuntu-jammy-amd64/include/mariadb/")
-
 target_link_libraries(dict PRIVATE core include)
-# target_link_libraries(dict PRIVATE mariadb)
 
 

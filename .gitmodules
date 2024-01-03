@@ -1,0 +1,3 @@
+[submodule "mariadb-connector-cpp"]
+	path = mariadb-connector-cpp
+	url = git@github.com:kuriataz/mariadb-connector-cpp.git
